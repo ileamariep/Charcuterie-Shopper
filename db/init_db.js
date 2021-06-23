@@ -97,7 +97,7 @@ async function populateInitialUsers() {
     }
 }
 
-async function populateInitialBoards() {
+async function populateInitialOrders() {
     try {
         console.log("starting to create links...");
 
@@ -122,7 +122,7 @@ async function rebuildDB() {
 
         await populateInitialUsers();
 
-        await populateInitialBoards();
+        await populateInitialOrders();
     } catch (error) {
         console.log("Error during rebuildDB");
         throw error;

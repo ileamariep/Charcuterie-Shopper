@@ -6,7 +6,7 @@ const express = require('express');
 const apiRouter = express.Router();
 const usersRouter = require('./users');
 const ingredientsRouter = require('./ingredients');
-const boardsRouter = require('./boards');
+const ordersRouter = require('./orders');
 const reviewsRouter = require('./reviews');
 
 // apiRouter.use(async (req, res, next) => {
@@ -39,7 +39,7 @@ const reviewsRouter = require('./reviews');
 
 apiRouter.use('/users', usersRouter);
 apiRouter.use('/ingredients', ingredientsRouter);
-apiRouter.use('/boards', boardsRouter);
+apiRouter.use('/orders', ordersRouter);
 apiRouter.use('/reviews', reviewsRouter);
 
 apiRouter.use((error, req, res, next) => {
