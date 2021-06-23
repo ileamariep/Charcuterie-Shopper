@@ -42,4 +42,8 @@ apiRouter.use('/ingredients', ingredientsRouter);
 apiRouter.use('/boards', boardsRouter);
 apiRouter.use('/reviews', reviewsRouter);
 
+apiRouter.use((error, req, res, next) => {
+    res.send(error);
+});
+
 module.exports = apiRouter;
