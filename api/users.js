@@ -11,48 +11,15 @@ usersRouter.post("/register", async (req, res, next) => {
   const { username, password } = req.body;
   try {
     const _user = await getUserByUsername(username);
-
-    if (_user) {
-      throw Error("Username already exists.");
-    }
-
-    if (password.length < 8) {
-      throw Error("Password must be at least 8 characters long.");
-    }
-
-    const user = await createUser({ username, password });
-
-    if (!user) {
-      throw Error(`Error creating user.`);
-    } else {
-      const token = jwt.sign(
-        {
-          id: user.id,
-          username,
-        },
-        JWT_SECRET,
-        {
-          expiresIn: "1w",
-        }
-      );
-
-      res.send({
-        message: "You have successfully registered!",
-        user,
-        token,
-      });
-    }
-  } catch (error) {
-    console.error(error);
-    next(error);
-  }
 });
 
-usersRouter.get("/", async (req, res, next) => {
-  try {
-  } catch (error) {
-    next(error);
-  }
-});
+  
+usersRouter.get('/me', requireUser, async (req, res, next) => {
 
+    try {
+        res.send(req.user)
+    } catch (error) {
+        next(error);
+    }
+});
 module.exports = usersRouter;
