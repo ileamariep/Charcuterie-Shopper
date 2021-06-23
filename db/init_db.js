@@ -21,26 +21,39 @@ async function buildTables() {
 
         await client.query(`
   
-      CREATE TABLE links(
+      CREATE TABLE users(
           id SERIAL PRIMARY KEY,
-          name VARCHAR(255) UNIQUE NOT NULL,
-          "mainLink" TEXT NOT NULL,
-          count INTEGER DEFAULT 0,
-          comment VARCHAR(255),
-          share_date varchar(14) default to_char(CURRENT_DATE, 'yyyy / mm / dd')
-          
+          email VARCHAR(255) UNIQUE NOT NULL,
+          username VARCHAR(255) UNIQUE NOT NULL,
+          password VARCHAR(255) NOT NULL,
+          address VARCHAR(255) NOT NULL,
+          city VARCHAR(255) NOT NULL,
+          state VARCHAR(255) NOT NULL,
+          zip VARCHAR(255) NOT NULL,
+          "isAdmin" BOOLEAN DEFAULT false,
+          "isUser" BOOLEAN DEFAULT false,
       );
   
-      CREATE TABLE tags (
+      CREATE TABLE orders(
         id SERIAL PRIMARY KEY,
-        name varchar(25) UNIQUE
+        date_ordered VARCHAR(255) NOT NULL,
+        total_price INTEGER
+        "ingredientId" INTEGER REFERENCES ingredienst(id),
+        "usersId" INTEGER REFERENCES users(id)
+        UNIQUE("ingredientId", "usersId")
+    );
+
+      CREATE TABLE ingredients (
+        id SERIAL PRIMARY KEY,
+        name varchar(30) UNIQUE,
+        description TEXT NOT NULL,
+        price INTEGER,
+        quantity INTEGER,
       );
   
-      CREATE TABLE link_tags(
-        "linkId" INTEGER REFERENCES links(id),
-        "tagId" INTEGER REFERENCES tags(id),
-        UNIQUE("linkId","tagId")
-    );
+      CREATE TABLE reviews (
+        comment VARCHAR(255), 
+      );
   
     `);
 
