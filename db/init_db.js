@@ -1,67 +1,9 @@
 const { client } = require("./client");
 const { createReview } = require("./reviews");
 const { createUser } = require("./users");
+const { createIngredient } = require('./ingredients');
+const { createOrder } = require('./orders');
 
-// async function buildTables() {
-//   try {
-//     // drop tables in correct order
-//     console.log("Starting to drop tables...");
-//     client.query(`
-
-//       DROP TABLE IF EXISTS link_tags;
-//       DROP TABLE IF EXISTS tags;
-//       DROP TABLE IF EXISTS links;
-//     `);
-//     console.log("Finished dropping tables!");
-
-//     // build tables in correct order
-//     console.log("Starting to build tables...");
-
-//     await client.query(`
-
-//       CREATE TABLE users(
-//           id SERIAL PRIMARY KEY,
-//           email VARCHAR(255) UNIQUE NOT NULL,
-//           username VARCHAR(255) UNIQUE NOT NULL,
-//           password VARCHAR(255) NOT NULL,
-//           address VARCHAR(255) NOT NULL,
-//           city VARCHAR(255) NOT NULL,
-//           state VARCHAR(255) NOT NULL,
-//           zip VARCHAR(255) NOT NULL,
-//           "isAdmin" BOOLEAN DEFAULT false,
-//           "isUser" BOOLEAN DEFAULT false,
-//       );
-
-//         CREATE TABLE orders(
-//         id SERIAL PRIMARY KEY,
-//         date_ordered VARCHAR(255) NOT NULL,
-//         total_price INTEGER
-//         "ingredientId" INTEGER REFERENCES ingredienst(id),
-//         "usersId" INTEGER REFERENCES users(id)
-//         UNIQUE("ingredientId", "usersId")
-//     );
-
-//       CREATE TABLE ingredients (
-//         id SERIAL PRIMARY KEY,
-//         name varchar(30) UNIQUE,
-//         description TEXT NOT NULL,
-//         price INTEGER,
-//         quantity INTEGER,
-//       );
-
-//       CREATE TABLE reviews (
-//         id SERIAL PRIMARY KEY,
-//         comment VARCHAR(255),
-//         "usersCommentId" INTEGER REFERENCES users(id),
-//       );
-
-//     `);
-
-//     console.log("Finished building tables!");
-//   } catch (error) {
-//     throw error;
-//   }
-// }
 
 async function buildTables() {
   try {
@@ -90,22 +32,23 @@ async function buildTables() {
             "isAdmin" BOOLEAN DEFAULT false,
             "isUser" BOOLEAN DEFAULT false
         );
-         CREATE TABLE orders(
-         id SERIAL PRIMARY KEY,
-         date_ordered VARCHAR(255) NOT NULL,
-         total_price INTEGER,
-        "ingredientId" INTEGER REFERENCES ingredientId(id),
-         "usersId" INTEGER REFERENCES users(id),
-         UNIQUE("ingredientId", "usersId")
-                 );
-            
         CREATE TABLE ingredients (
-         id SERIAL PRIMARY KEY,
-         name varchar(30) UNIQUE,
-         description TEXT NOT NULL,
-         price INTEGER,
-         quantity INTEGER,
-                   );
+        id SERIAL PRIMARY KEY,
+        name varchar(30) UNIQUE,
+        description TEXT NOT NULL,
+        price INTEGER,
+        quantity INTEGER,
+        category text
+      );
+
+      CREATE TABLE orders(
+        id SERIAL PRIMARY KEY,
+        date_ordered VARCHAR(255) NOT NULL,
+        total_price INTEGER,
+        "ingredientId" INTEGER REFERENCES ingredients(id),
+        "usersId" INTEGER REFERENCES users(id),
+        UNIQUE("ingredientId", "usersId")
+      );
     
         CREATE TABLE reviews (
           id SERIAL PRIMARY KEY,
@@ -121,37 +64,44 @@ async function buildTables() {
   }
 }
 
+
 async function populateInitialIngredients() {
-  try {
-    // console.log("starting to create links...");
-    // const linksToCreate = [
-    //     {
-    //         name: "FullStack Academy",
-    //         mainLink: "https://www.fullstackacademy.com",
-    //         comment: "Love this site.",
-    //         tags: ["school"],
-    //     },
-    //     {
-    //         name: "LinkedIn",
-    //         mainLink: "https://www.linkedin.com/",
-    //         comment: "Great for networking.",
-    //         tags: ["network"],
-    //     },
-    //     {
-    //         name: "DEV",
-    //         mainLink: "https://dev.to/",
-    //         comment: "Fantastic dev community, lots of great info.",
-    //         tags: ["community", "network"],
-    //     },
-    // ];
-    // const links = await Promise.all(
-    //     linksToCreate.map((link) => createLink(link))
-    // );
-    // console.log("Links Created: ", links);
-    // console.log("Finished creating links.");
-  } catch (error) {
-    throw error;
-  }
+    try {
+        console.log("starting to create ingredients...");
+
+        const ingredientsToCreate = [
+            {
+                name: "Grapes",
+                description: "green grapes from napa valley",
+                price: 5,
+                quantity: 2,
+                category: "fruit",
+            },
+            {
+                name: "Salami",
+                description: "Love me some salami",
+                price: 6,
+                quantity: 1,
+                category: "meat",
+            },
+            {
+                name: "Crackers",
+                description: "carbs are yummy",
+                price: 7,
+                quantity: 1,
+                category: "carbs",
+            },
+        ];
+
+        const theIngredients = await Promise.all(
+            ingredientsToCreate.map((ingredient) => createIngredient(ingredient))
+        );
+        console.log("Ingredients Created: ", theIngredients);
+        console.log("Finished creating links.");
+    } catch (error) {
+        throw error;
+    }
+
 }
 
 async function populateInitialUsers() {
@@ -199,13 +149,33 @@ async function populateInitialUsers() {
 }
 
 async function populateInitialOrders() {
-  //   try {
-  //     console.log("starting to create links...");
-  //     console.log("Links Created: ");
-  //     console.log("Finished creating links.");
-  //   } catch (error) {
-  //     throw error;
-  //   }
+    try {
+        console.log("starting to create orders...");
+        const ordersToCreate = [
+            {
+                date_ordered: "01/01/2025",
+                total_price: 50,
+            },
+            {
+                date_ordered: "01/04/2025",
+                total_price: 500,
+            },
+            {
+                date_ordered: "01/03/2025",
+                total_price: 5000,
+            },
+        ];
+
+        const theOrders = await Promise.all(
+            ordersToCreate.map((order) => createOrder(order))
+        );
+
+        console.log("orders Created: ", theOrders);
+        console.log("Finished creating links.");
+    } catch (error) {
+        throw error;
+    }
+
 }
 
 async function populateInitialReviews() {
