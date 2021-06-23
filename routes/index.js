@@ -5,7 +5,7 @@ const { JWT_SECRET } = process.env;
 //Routers
 const apiRouter = express.Router();
 const usersRouter = require('./users');
-const ingredientsRouter = require('.ingredients');
+const ingredientsRouter = require('./ingredients');
 const boardsRouter = require('./boards');
 const reviewsRouter = require('./reviews');
 
