@@ -14,8 +14,15 @@ function requireUser(req, res, next) {
 //We'll aslo need a require admin
 function requireAdmin(req, res, next) {
 
+    if (!req.isAdmin) {
+        next({
+            name: "MissingAdminError",
+            message: "You must be an Admin in to perform this action"
+        });
+    }
 
     next();
+
 }
 
 module.exports = {
