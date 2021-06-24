@@ -8,16 +8,18 @@ const {
   updateUser,
 } = require("./users");
 const { createIngredient } = require("./ingredients");
-const { createOrder } = require("./orders");
+const { createOrder, getOrderById } = require("./orders");
 
 async function buildTables() {
-  try {
-    // drop tables in correct order
-    console.log("Starting to drop tables...");
-    client.query(`
+
+    try {
+        // drop tables in correct order
+        console.log("Starting to drop tables...");
+        client.query(`
+        DROP TABLE IF EXISTS order_ingredients;
         DROP TABLE IF EXISTS reviews;
-        DROP TABLE IF EXISTS orders;
         DROP TABLE IF EXISTS ingredients;
+        DROP TABLE IF EXISTS orders;
         DROP TABLE IF EXISTS users;
       `);
     console.log("Finished dropping tables!");
@@ -63,8 +65,9 @@ async function buildTables() {
         
         CREATE TABLE order_ingredients(
         "ingredientId" INTEGER REFERENCES ingredients(id),
+        "orderId" INTEGER REFERENCES orders(id),
         "usersId" INTEGER REFERENCES users(id),
-        UNIQUE("ingredientId", "usersId")
+        UNIQUE("ingredientId", "orderId", "usersId")
         );
       `);
 
