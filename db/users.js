@@ -10,22 +10,24 @@ async function createUser({
   city,
   state,
   zip,
+  isAdmin = false,
+  isUser = false,
 }) {
   //  make sure to hash the password before storing it to the database
   try {
-    // const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
+    const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
     const {
       rows: [user],
     } = await client.query(
       `
-      INSERT INTO users (email, username, password, address, city, state, zip)
-      VALUES($1, $2, $3, $4, $5, $6, $7) 
+      INSERT INTO users (email, username, password, address, city, state, zip, "isAdmin", "isUser")
+      VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) 
       ON CONFLICT (username) DO NOTHING
       RETURNING *;
-              `,
-      [email, username, password, address, city, state, zip]
+        `,
+      [email, username, password, address, city, state, zip, isAdmin, isUser]
     );
-    // password = hashedPassword;
+    password = hashedPassword;
     delete user.password;
     console.log(user, "my user");
     return user;
@@ -34,7 +36,87 @@ async function createUser({
   }
 }
 
+async function getAllUsers() {
+  try {
+    const { rows } = await client.query(`
+        SELECT id, username, email
+        FROM users;
+      `);
+
+    return rows;
+  } catch (error) {
+    console.error("could not get all users", error);
+    throw error;
+  }
+}
+
+async function getUserById(userId) {
+  try {
+    const {
+      rows: [user],
+    } = await client.query(
+      `
+      SELECT id, username, email
+      FROM users
+      WHERE id=${userId}
+        `
+    );
+    // delete user.password;
+    return user;
+  } catch (error) {
+    console.error("could not get user by id", error);
+    throw error;
+  }
+}
+
+async function getUserByEmail(email) {
+  try {
+    const {
+      rows: [user],
+    } = await client.query(
+      `
+        SELECT *
+        FROM users
+        WHERE email=$1
+      `,
+      [email]
+    );
+    console.log(user, "this is user email");
+
+    return user;
+  } catch (error) {
+    console.error("could not get user email", error);
+    throw error;
+  }
+}
+
+async function updateUser(userId, fields = {}) {
+  const setString = Object.keys(fields)
+    .map((key, index) => `"${key}"=$${index + 1}`)
+    .join(", ");
+  try {
+    if (setString.length > 0) {
+      await client.query(
+        `
+        UPDATE users
+        SET ${setString}
+        WHERE id=${userId}
+        RETURNING *;
+      `,
+        Object.values(fields)
+      );
+    }
+    return await getUserById(userId);
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
   client,
   createUser,
+  getUserByEmail,
+  getAllUsers,
+  getUserById,
+  updateUser,
 };
