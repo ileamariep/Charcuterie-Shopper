@@ -43,72 +43,72 @@ async function createOrder({ date_ordered, total_price }) {
 
 async function getAllOrders() {
     try {
-      const { rows: orderId } = await client.query(`
+        const { rows: orderId } = await client.query(`
         SELECT id
         FROM orders;
       `);
-  
-      const orders = await Promise.all(orderId.map(
-        order => getOrderById( order.id )
-      ));
-  
-      return orders;
+
+        const orders = await Promise.all(orderId.map(
+            order => getOrderById(order.id)
+        ));
+
+        return orders;
     } catch (error) {
-      throw error;
+        throw error;
     }
-  }
+}
 
 
 async function getOrderByUser(userId) {
     try {
-      const { rows: orderId } = await client.query(`
+        const { rows: orderId } = await client.query(`
         SELECT id 
         FROM orders 
-        WHERE "usersId"=${ userId };
+        WHERE "usersId"=${userId};
       `);
-  
-      const orders = await Promise.all(orderId.map(
-        order => getOrderById( order.id )
-      ));
-  
-      return orders;
+
+        const orders = await Promise.all(orderId.map(
+            order => getOrderById(order.id)
+        ));
+
+        return orders;
     } catch (error) {
-      throw error;
+        throw error;
     }
-  }
+}
 
 async function getOrderById(orderId) {
     try {
-      const { rows: [ order ]  } = await client.query(`
+        const { rows: [order] } = await client.query(`
         SELECT *
         FROM orders
         WHERE id=$1;
       `, [orderId]);
-  
-      const { rows: ingredients } = await client.query(`
+
+        const { rows: ingredients } = await client.query(`
       SELECT ingredients.*
       FROM ingredients
       JOIN order_ingredients ON ingredients.id=order_ingredients."ingredientId"
       WHERE order_ingredients."orderId"=$1;
     `, [orderId])
 
-    const { rows: [user] } = await client.query(`
+        const { rows: [user] } = await client.query(`
       SELECT id, username, name, location
       FROM users
       WHERE id=$1;
     `, [order.usersId])
 
-  
-      order.ingredients = ingredients;
-      order.user = user;
-  
-      delete user.usersId;
-  
-      return order;
+
+        order.ingredients = ingredients;
+        order.user = user;
+
+        delete user.usersId;
+
+        return order;
     } catch (error) {
-      throw error;
+        throw error;
     }
-  }
+}
 
 // async function addIngredientToOrder({ routineId, activityId, count, duration }) {
 //     try {
@@ -117,7 +117,7 @@ async function getOrderById(orderId) {
 //         VALUES($1, $2, $3, $4) 
 //         RETURNING *;
 //       `, [routineId, activityId, count, duration]);
-  
+
 //       return routine_activities;
 //     } catch (error) {
 //       throw error;
@@ -127,4 +127,6 @@ async function getOrderById(orderId) {
 module.exports = {
     client,
     createOrder,
+    getAllOrders,
+    getOrderByUser,
 };
