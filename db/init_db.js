@@ -223,7 +223,7 @@ async function rebuildDB() {
 async function testDB() {
 
     try {
-        client.connect();
+
         console.log("starting to build tables in rebuildDB");
         await buildTables();
         console.log("starting to populate initial ingredients in rebuildDB");
