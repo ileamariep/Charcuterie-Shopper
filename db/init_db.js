@@ -2,16 +2,17 @@ const { client } = require("./client");
 const { createReview } = require("./reviews");
 const { createUser } = require("./users");
 const { createIngredient } = require("./ingredients");
-const { createOrder } = require("./orders");
+const { createOrder, getOrderById } = require("./orders");
 
 async function buildTables() {
     try {
         // drop tables in correct order
         console.log("Starting to drop tables...");
         client.query(`
+        DROP TABLE IF EXISTS order_ingredients;
         DROP TABLE IF EXISTS reviews;
-        DROP TABLE IF EXISTS orders;
         DROP TABLE IF EXISTS ingredients;
+        DROP TABLE IF EXISTS orders;
         DROP TABLE IF EXISTS users;
       `);
         console.log("Finished dropping tables!");
@@ -46,7 +47,7 @@ async function buildTables() {
         id SERIAL PRIMARY KEY,
         date_ordered VARCHAR(255) NOT NULL,
         total_price INTEGER,
-        "usersId" INTEGER REFERENCES users(id),
+        "usersId" INTEGER REFERENCES users(id)
       );
     
         CREATE TABLE reviews (
@@ -57,8 +58,9 @@ async function buildTables() {
         
         CREATE TABLE order_ingredients(
         "ingredientId" INTEGER REFERENCES ingredients(id),
+        "orderId" INTEGER REFERENCES orders(id),
         "usersId" INTEGER REFERENCES users(id),
-        UNIQUE("ingredientId", "usersId")
+        UNIQUE("ingredientId", "orderId", "usersId")
         );
       `);
 
@@ -211,10 +213,11 @@ async function rebuildDB() {
         await buildTables();
 
         await populateInitialIngredients();
-
+        
         await populateInitialUsers();
         await populateInitialReviews();
         await populateInitialOrders();
+        await getOrderById(1)
     } catch (error) {
         console.log("Error during rebuildDB");
         throw error;
