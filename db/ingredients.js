@@ -1,5 +1,4 @@
 const { client } = require("./client")
-const { getOrderById } = require("./orders");
 
 async function createIngredient({ name, description, price, quantity, category }) {
 
@@ -82,10 +81,7 @@ async function destroyIngredient(id) {
         if (!ingredientId) {
             throw new Error({ message: "Error this ingredient doesnt exist" })
         };
-        // await client.query(`
-        //   DELETE FROM ingredients
-        //   WHERE "id"=$1;
-        //   `, [id]);
+
         const { rows: [ingredient] } = await client.query(`
           DELETE FROM ingredients
           WHERE id=$1
@@ -97,34 +93,27 @@ async function destroyIngredient(id) {
     }
 }
 
-async function createOrderIngredient(orderId, ingredientId) {
+async function ingredientByCategory(category) {
     try {
-        await client.query(
+        const { rows: ingredients } = await client.query(
             `
-        INSERT INTO order_ingredients("orderId", "ingredientId")
-        VALUES ($1, $2)
-        ON CONFLICT ("orderId", "tagId") DO NOTHING;
+        SELECT id
+        FROM ingredients
+        WHERE ingredients.category=$1;
       `,
-            [orderId, ingredientId]
+            [category]
         );
+
+        return await Promise.all(ingredients.map((ingredient) => getIngredientbyId(ingredient.id)));
     } catch (error) {
         throw error;
     }
 }
 
-async function addIngredientsToOrders(orderId, ingredientList) {
-    try {
-        const createOrderIngredientPromises = ingredientList.map((ingredient) =>
-            createOrderIngredient(orderId, ingredient.id)
-        );
 
-        await Promise.all(createOrderIngredientPromises);
 
-        return await getOrderById(orderId);
-    } catch (error) {
-        throw error;
-    }
-}
+
+
 
 module.exports = {
     client,
@@ -133,6 +122,5 @@ module.exports = {
     getAllIngredients,
     updateIngredient,
     destroyIngredient,
-    createOrderIngredient,
-    addIngredientsToOrders
+    ingredientByCategory
 };

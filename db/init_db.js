@@ -8,7 +8,7 @@ const {
     updateUser,
 } = require("./users");
 const { createOrder } = require("./orders");
-const { createIngredient, getAllIngredients, getIngredientbyId, updateIngredient, destroyIngredient } = require("./ingredients");
+const { createIngredient, getAllIngredients, getIngredientbyId, updateIngredient, destroyIngredient, ingredientByCategory } = require("./ingredients");
 
 async function buildTables() {
 
@@ -47,7 +47,8 @@ async function buildTables() {
             description TEXT NOT NULL,
             price INTEGER,
             quantity INTEGER,
-            category text
+            category text,
+            stock_qty INTEGER DEFAULT 0
       );
 
       CREATE TABLE orders(
@@ -88,6 +89,7 @@ async function populateInitialIngredients() {
                 price: 5,
                 quantity: 2,
                 category: "fruit",
+                stock_qty: 50,
             },
             {
                 name: "Salami",
@@ -95,6 +97,7 @@ async function populateInitialIngredients() {
                 price: 6,
                 quantity: 1,
                 category: "meat",
+                stock_qty: 50,
             },
             {
                 name: "Crackers",
@@ -102,6 +105,15 @@ async function populateInitialIngredients() {
                 price: 7,
                 quantity: 1,
                 category: "carbs",
+                stock_qty: 50,
+            },
+            {
+                name: "Strawberries",
+                description: "berries are yummy",
+                price: 10,
+                quantity: 4,
+                category: "fruit",
+                stock_qty: 50,
             },
         ];
 
@@ -266,6 +278,9 @@ async function testDB() {
         const deleteIngredient = await destroyIngredient(2);
         console.log("deleted ingredient #2", deleteIngredient);
         console.log("Finished database tests!");
+        console.log("Calling getIngredientByCategory with fruit");
+        const ingredientsWithFruit = await ingredientByCategory("fruit");
+        console.log("Result:", ingredientsWithFruit);
 
     } catch (error) {
         console.log("Error during rebuildDB");

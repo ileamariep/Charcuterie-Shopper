@@ -1,7 +1,7 @@
 /* eslint-disable no-sequences */
 const express = require('express');
 const ingredientsRouter = express.Router();
-const { getAllIngredients, createIngredient, updateIngredient, destroyIngredient } = require('../db');
+const { getAllIngredients, createIngredient, updateIngredient, destroyIngredient, ingredientByCategory } = require('../db');
 // const { requireAdmin } = require("./utils");
 
 ingredientsRouter.get('/', async (req, res, next) => {
@@ -33,9 +33,7 @@ ingredientsRouter.patch('/:id', async (req, res, next) => {
 });
 
 ingredientsRouter.post('/', async (req, res, next) => {
-    // POST /activities (*)
-    // Create a new activity
-    //createActivity({ name, description })
+
     const { name, description, price, quantity, category } = req.body
     const newIngredient = {}
     try {
@@ -70,6 +68,19 @@ ingredientsRouter.delete('/:id', async (req, res, next) => {
         next(error);
     }
 
+});
+
+ingredientsRouter.get("/:categoryName", async (req, res, next) => {
+    // read the category from the params
+    const { categoryName } = req.params;
+
+    try {
+        const ingredientsByCategory = await ingredientByCategory(categoryName);
+
+        res.send(ingredientsByCategory);
+    } catch (error) {
+        next(error);
+    }
 });
 
 
