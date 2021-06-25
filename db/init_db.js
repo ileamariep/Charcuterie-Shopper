@@ -1,5 +1,5 @@
 const { client } = require("./client");
-const { createReview } = require("./reviews");
+// const { createReview } = require("./reviews");
 const {
 
     createUser,
@@ -10,7 +10,7 @@ const {
     getUserByUsername,
 } = require("./users");
 
-const { createOrder, getOrderById, getAllOrders } = require("./orders");
+const { createOrder, getOrderById, getAllOrders, getOrderByUser } = require("./orders");
 
 const {
     createIngredient,
@@ -206,22 +206,22 @@ async function populateInitialOrders() {
     }
 }
 
-async function populateInitialReviews() {
-    try {
-        console.log("starting to create reviews...");
-        const reviewToCreate = [
-            { usersCommentId: 1, comment: "omg so good!" },
-            { usersCommentId: 2, comment: "delicious and spicy salami" },
-            { usersCommentId: 3, comment: "best cheese ever!" },
-            { usersCommentId: 2, comment: "yummy olives!" },
-        ];
-        const review = await Promise.all(reviewToCreate.map(createReview));
-        console.log("Review Created:", review);
-        console.log("Finished creating review.");
-    } catch (error) {
-        throw error;
-    }
-}
+// async function populateInitialReviews() {
+//     try {
+//         console.log("starting to create reviews...");
+//         const reviewToCreate = [
+//             { usersCommentId: 1, comment: "omg so good!" },
+//             { usersCommentId: 2, comment: "delicious and spicy salami" },
+//             { usersCommentId: 3, comment: "best cheese ever!" },
+//             { usersCommentId: 2, comment: "yummy olives!" },
+//         ];
+//         const review = await Promise.all(reviewToCreate.map(createReview));
+//         console.log("Review Created:", review);
+//         console.log("Finished creating review.");
+//     } catch (error) {
+//         throw error;
+//     }
+// }
 
 async function rebuildDB() {
     try {
@@ -255,8 +255,8 @@ async function testDB() {
         await populateInitialIngredients();
         console.log("starting to populate initial Users in rebuildDB");
         await populateInitialUsers();
-        console.log("starting to populate initial reviews in rebuildDB");
-        await populateInitialReviews();
+        // console.log("starting to populate initial reviews in rebuildDB");
+        // // await populateInitialReviews();
         console.log("starting to populate initial orders in rebuildDB");
         await populateInitialOrders();
         console.log("Starting to test database...");
@@ -301,6 +301,10 @@ async function testDB() {
 
         const orderId = await getOrderById(2)
         console.log(orderId, "please for the love of god")
+
+        // const usersOrder = await getOrderByUser('christina81')
+        // console.log(usersOrder, "This is christinas order")
+
         console.log("Finished database tests!");
 
     } catch (error) {

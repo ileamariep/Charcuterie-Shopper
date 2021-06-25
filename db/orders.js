@@ -27,7 +27,7 @@ async function createOrder({
       VALUES($1, $2)
       RETURNING *;
     `, [date_ordered, total_price]);
-    console.log(order.userId, 'order data')
+    console.log(order, 'order data')
     return order
   } catch (error) {
     throw error;
@@ -70,26 +70,26 @@ async function getOrderByUser(userId) {
     }
 }
 
-// async function getAllRoutinesByUser({ username }) {
+// async function getOrderByUser({ username }) {
 //   try {
-//       const {rows: routines} = await client.query(`
+//       const {rows: orders} = await client.query(`
 //       SELECT *, users.username AS "creatorName"
-//       FROM routines
-//       JOIN users ON routines."creatorId"=users.id
+//       FROM orders
+//       JOIN users ON orders."usersId"=users.id
 //       WHERE username=$1
 //       `,[username])
 
-//       const {rows:activities} = await client.query(`
+//       const {rows:ingredients} = await client.query(`
 //       SELECT *
-//       FROM activities
-//       JOIN routine_activities ON activities.id = routine_activities."activityId"
+//       FROM ingredients
+//       JOIN cart ON ingredients.id = cart."ingredientId"
 //     `)
 
-//     routines.forEach((e) => {
-//         e.activities = activities.filter(a => e.id === a.routineId)
+//     orders.forEach((e) => {
+//         e.ingredients = ingredients.filter(a => e.id === a.orderId)
 //     });
 
-//     return routines
+//     return orders
 //   } catch(error) {
 //       throw error
 //   }
@@ -97,35 +97,49 @@ async function getOrderByUser(userId) {
 
 
 
-async function getOrderById(orderId) {
-    try {
-        const { rows: [order] } = await client.query(`
-        SELECT *
-        FROM orders
-        WHERE id=$1;
-      `, [orderId]);
+// async function getOrderById(orderId) {
+//     try {
+//         const { rows: [order] } = await client.query(`
+//         SELECT *
+//         FROM orders
+//         WHERE id=$1;
+//       `, [orderId]);
 
-        const { rows: ingredients } = await client.query(`
-      SELECT *
-      FROM ingredients
-      JOIN cart ON ingredients.id=cart."ingredientId"
-      WHERE cart."orderId"=$1;
-    `, [orderId])
+//         const { rows: ingredients } = await client.query(`
+//       SELECT *
+//       FROM ingredients
+//       JOIN cart ON ingredients.id=cart."ingredientId"
+//       WHERE cart."orderId"=$1;
+//     `, [orderId])
 
-        const { rows: user } = await client.query(`
-      SELECT *
-      FROM users
-      WHERE id=$1;
-    `, [orderId])
+//         const { rows: [user] } = await client.query(`
+//       SELECT *
+//       FROM users
+//       WHERE id=$1;
+//     `, [order.usersId])
 
 
-        order.ingredients = ingredients;
-        order.user = user;
-      console.log(user, "these are users")
-        return order;
-    } catch (error) {
-        throw error;
-    }
+//         order.ingredients = ingredients;
+//         order.user = user;
+
+//         delete order.usersId
+//       console.log(user, "these are users")
+//         return order;
+//     } catch (error) {
+//         throw error;
+//     }
+// }
+
+async function getOrderById(id) {
+  try {
+      const {rows: [order]} = await client.query(`
+      SELECT * FROM orders
+      WHERE id=$1
+      `, [id])
+      return order
+  } catch(error) {
+      throw error
+  }
 }
 
 async function createCart(orderId, ingredientId) {
