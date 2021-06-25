@@ -2,7 +2,7 @@ const express = require('express');
 const { createOrder, destroyOrder, getAllOrders, addIngredientsToOrder} = require('../db');
 const { requireUser } = require('./utils');
 const ordersRouter = express.Router();
-
+const { getAllOrders } = require('../db');
 
 ordersRouter.get('/', async (req, res, next) => {
 
@@ -39,7 +39,7 @@ ordersRouter.post('/', requireUser, async (req, res, next) => {
 });
 
 ordersRouter.patch('/', async (req, res, next) => {
-    
+
 })
 
 ordersRouter.delete('/:orderId', requireUser, async (req, res, next) => {

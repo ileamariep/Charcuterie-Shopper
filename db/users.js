@@ -16,6 +16,7 @@ async function createUser({
   //  make sure to hash the password before storing it to the database
   try {
     const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
+    password = hashedPassword;
     const {
       rows: [user],
     } = await client.query(
@@ -27,7 +28,7 @@ async function createUser({
         `,
       [email, username, password, address, city, state, zip, isAdmin, isUser]
     );
-    password = hashedPassword;
+
     delete user.password;
     console.log(user, "my user");
     return user;
@@ -96,6 +97,10 @@ async function updateUser(userId, fields = {}) {
     .join(", ");
   try {
     if (setString.length > 0) {
+      if ("password" in fields) {
+        fields.password = await bcrypt.hash(fields.password, SALT_COUNT);
+      }
+
       await client.query(
         `
         UPDATE users
@@ -108,6 +113,27 @@ async function updateUser(userId, fields = {}) {
     }
     return await getUserById(userId);
   } catch (error) {
+    console.error("could not update user", error);
+    throw error;
+  }
+}
+
+async function getUserByUsername(username) {
+  //  select a user using the user's username
+  try {
+    const {
+      rows: [user],
+    } = await client.query(
+      `
+      SELECT *
+      FROM users
+      WHERE username=$1
+        `,
+      [username]
+    );
+    return user;
+  } catch (error) {
+    console.error("could not get user by username", error);
     throw error;
   }
 }
@@ -119,4 +145,5 @@ module.exports = {
   getAllUsers,
   getUserById,
   updateUser,
+  getUserByUsername,
 };

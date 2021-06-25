@@ -6,16 +6,25 @@ const {
   getUserByEmail,
   getUserById,
   updateUser,
+  getUserByUsername,
 } = require("./users");
-const { createIngredient } = require("./ingredients");
+
 const { createOrder, getOrderById, getAllOrders } = require("./orders");
 
-async function buildTables() {
+const {
+  createIngredient,
+  getAllIngredients,
+  getIngredientbyId,
+  updateIngredient,
+  destroyIngredient,
+  ingredientByCategory,
+} = require("./ingredients");
 
-    try {
-        // drop tables in correct order
-        console.log("Starting to drop tables...");
-        client.query(`
+async function buildTables() {
+  try {
+    // drop tables in correct order
+    console.log("Starting to drop tables...");
+    client.query(`
         DROP TABLE IF EXISTS cart;
         DROP TABLE IF EXISTS ingredients;
         DROP TABLE IF EXISTS orders;
@@ -52,7 +61,8 @@ async function buildTables() {
             description VARCHAR(255),
             price INTEGER,
             quantity INTEGER,
-            category text
+            category text,
+            stock_qty INTEGER DEFAULT 0
       );
         CREATE TABLE cart(
           id SERIAL PRIMARY KEY,
@@ -81,6 +91,7 @@ async function populateInitialIngredients() {
         price: 5,
         quantity: 2,
         category: "fruit",
+        stock_qty: 50,
       },
       {
         id: 2,
@@ -89,6 +100,7 @@ async function populateInitialIngredients() {
         price: 6,
         quantity: 1,
         category: "meat",
+        stock_qty: 50,
       },
       {
         id: 3,
@@ -97,6 +109,15 @@ async function populateInitialIngredients() {
         price: 7,
         quantity: 1,
         category: "carbs",
+        stock_qty: 50,
+      },
+      {
+        name: "Strawberries",
+        description: "berries are yummy",
+        price: 10,
+        quantity: 4,
+        category: "fruit",
+        stock_qty: 50,
       },
     ];
 
@@ -223,32 +244,58 @@ async function rebuildDB() {
 
 async function testDB() {
   try {
+    console.log("starting to build tables in rebuildDB");
+    await buildTables();
+    console.log("starting to populate initial ingredients in rebuildDB");
+    await populateInitialIngredients();
+    console.log("starting to populate initial Users in rebuildDB");
+    await populateInitialUsers();
+    console.log("starting to populate initial reviews in rebuildDB");
+    await populateInitialReviews();
+    console.log("starting to populate initial orders in rebuildDB");
+    await populateInitialOrders();
     console.log("Starting to test database...");
     console.log("Calling getAllUsers");
     const users = await getAllUsers();
     console.log("666 Get All users Result:", users);
     console.log("Calling getUserByEmail with 1");
     const singleEmail = await getUserByEmail(users[1].email);
-    console.log("555 Result:", singleEmail);
+    console.log("555 user by email Result:", singleEmail);
     console.log("Calling getUserById with 1");
     const singleUser = await getUserById(1);
-    console.log("444 Result:", singleUser);
+    console.log("444 user by id Result:", singleUser);
     console.log("Calling update user");
     const updatedUserData = await updateUser(users[0].id, {
       username: "stmstm",
     });
     console.log("333 Result:", updatedUserData);
+
     const orderId = await getOrderById(2)
     console.log(orderId, "please for the love of god")
-    //     console.log("Calling getLinkByTagName with network");
-    //     const linksWithIlea = await getLinkByTagName("network");
-    //     console.log("Result:", linksWithIlea);
-    //     console.log("Testing click count update");
-    //     const clickedLink = await changeCount(2);
-    //     console.log("Clicked Link", clickedLink);
-    //     console.log("Finished database tests!");
+    console.log("Starting to test ingredients...");
+    console.log("Calling getAllIngredients");
+    const ingredients = await getAllIngredients();
+    console.log("Get All Ingredients Result:", ingredients);
+    console.log("Calling getIngredientById with 1");
+    const singleIngredient = await getIngredientbyId(1);
+    console.log("Result:", singleIngredient);
+    console.log("Calling updateIngredient on ingredient[0]");
+    const updatedIngredient = await updateIngredient(ingredients[0].id, {
+      name: "New grape name Name",
+      description: "Updated grape description",
+    });
+
+    console.log("Result:", updatedIngredient);
+    console.log("Testing delete ingredient");
+    const deleteIngredient = await destroyIngredient(2);
+    console.log("deleted ingredient #2", deleteIngredient);
+    console.log("Finished database tests!");
+    console.log("Calling getIngredientByCategory with fruit");
+    const ingredientsWithFruit = await ingredientByCategory("fruit");
+    console.log("Result:", ingredientsWithFruit);
+
   } catch (error) {
-    console.log("Error during testDB");
+    console.log("Error during rebuildDB");
     throw error;
   }
 }

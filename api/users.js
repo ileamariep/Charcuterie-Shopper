@@ -5,16 +5,18 @@ const {
   getAllUsers,
   getUserByEmail,
   getUserById,
+  getUserByUsername,
+  updateUser,
 } = require("../db");
 
 const jwt = require("jsonwebtoken");
 const { requireUser, requireAdmin } = require("./utils");
 const { JWT_SECRET } = process.env;
+const bcrypt = require("bcrypt");
+const SALT_COUNT = 10;
 
 usersRouter.post("/register", async (req, res, next) => {
-  //  Create a new user. Require username and password, and hash password before saving user to DB. Require all passwords to be at least 8 characters long.
-  //  Throw errors for duplicate username, or password-too-short.
-  const { username, password } = req.body;
+  const { email, username, password, address, city, state, zip } = req.body;
   try {
     const _user = await getUserByUsername(username);
     if (_user) {
@@ -23,7 +25,15 @@ usersRouter.post("/register", async (req, res, next) => {
     if (password.length < 8) {
       throw Error("Password must be at least 8 characters long.");
     }
-    const user = await createUser({ username, password });
+    const user = await createUser({
+      email,
+      username,
+      password,
+      address,
+      city,
+      state,
+      zip,
+    });
     if (!user) {
       throw Error(`Error creating user.`);
     } else {
@@ -51,7 +61,7 @@ usersRouter.post("/register", async (req, res, next) => {
 
 usersRouter.post("/login", async (req, res, next) => {
   const { username, password } = req.body;
-  // request must have both
+
   if (!username || !password) {
     next({
       name: "MissingCredentialsError",
@@ -60,7 +70,9 @@ usersRouter.post("/login", async (req, res, next) => {
   }
   try {
     const user = await getUserByUsername(username);
-    if (user && user.password == password) {
+    const isPasswordMatch = await bcrypt.compare(password, user.password);
+
+    if (isPasswordMatch) {
       // create token & return to user
       const token = jwt.sign(
         {
@@ -85,7 +97,59 @@ usersRouter.post("/login", async (req, res, next) => {
   }
 });
 
-usersRouter.get("/", requireAdmin, async (req, res) => {
+
+usersRouter.patch("/user/:id", requireUser, async (req, res, next) => {
+  const { id } = req.params;
+  const { email, username, password, address, city, state, zip } = req.body;
+
+  const updateFields = {};
+
+  if (email) {
+    updateFields.email = email;
+  }
+  if (username) {
+    updateFields.username = username;
+  }
+  if (password) {
+    updateFields.password = password;
+  }
+  if (address) {
+    updateFields.address = address;
+  }
+  if (city) {
+    updateFields.city = city;
+  }
+  if (state) {
+    updateFields.state = state;
+  }
+  if (zip) {
+    updateFields.zip = zip;
+  }
+
+  try {
+    const _user = await getUserById(id);
+    if (!_user) {
+      throw Error("User not found.");
+    }
+    const updatedUser = await updateUser(id, updateFields);
+    res.send(updatedUser);
+  } catch (error) {
+    next(error);
+  }
+});
+
+usersRouter.get("/me", requireUser, async (req, res, next) => {
+  //  Send back the logged-in user's data if a valid token is supplied in the header.
+  try {
+    res.send(req.user);
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
+usersRouter.get("/", async (req, res) => {
+  // re-add requireAdmin
   const users = await getAllUsers();
   res.send({
     users,
