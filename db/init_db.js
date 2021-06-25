@@ -87,7 +87,7 @@ async function populateInitialIngredients() {
 
         const ingredientsToCreate = [
             {
-                id: 1,
+
                 name: "Grapes",
                 description: "green grapes from napa valley",
                 price: 5,
@@ -96,7 +96,7 @@ async function populateInitialIngredients() {
                 stock_qty: 50,
             },
             {
-                id: 2,
+
                 name: "Salami",
                 description: "Love me some salami",
                 price: 6,
@@ -105,7 +105,7 @@ async function populateInitialIngredients() {
                 stock_qty: 50,
             },
             {
-                id: 3,
+
                 name: "Crackers",
                 description: "carbs are yummy",
                 price: 7,
