@@ -97,6 +97,7 @@ usersRouter.post("/login", async (req, res, next) => {
   }
 });
 
+
 usersRouter.patch("/user/:id", requireUser, async (req, res, next) => {
   const { id } = req.params;
   const { email, username, password, address, city, state, zip } = req.body;

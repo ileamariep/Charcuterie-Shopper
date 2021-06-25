@@ -1,6 +1,6 @@
 const express = require('express');
 const ordersRouter = express.Router();
-
+const { getAllOrders } = require('../db');
 
 ordersRouter.get('/', async (req, res, next) => {
 
@@ -14,7 +14,7 @@ ordersRouter.get('/', async (req, res, next) => {
 });
 
 ordersRouter.patch('/', async (req, res, next) => {
-    
+
 })
 
 module.exports = ordersRouter;
