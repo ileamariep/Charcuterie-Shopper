@@ -6,16 +6,16 @@ const {
   getUserByEmail,
   getUserById,
   updateUser,
+  getUserByUsername,
 } = require("./users");
 const { createIngredient } = require("./ingredients");
 const { createOrder, getOrderById } = require("./orders");
 
 async function buildTables() {
-
-    try {
-        // drop tables in correct order
-        console.log("Starting to drop tables...");
-        client.query(`
+  try {
+    // drop tables in correct order
+    console.log("Starting to drop tables...");
+    client.query(`
         DROP TABLE IF EXISTS order_ingredients;
         DROP TABLE IF EXISTS reviews;
         DROP TABLE IF EXISTS ingredients;
@@ -228,15 +228,18 @@ async function testDB() {
     console.log("666 Get All users Result:", users);
     console.log("Calling getUserByEmail with 1");
     const singleEmail = await getUserByEmail(users[1].email);
-    console.log("555 Result:", singleEmail);
+    console.log("555 user by email Result:", singleEmail);
     console.log("Calling getUserById with 1");
     const singleUser = await getUserById(1);
-    console.log("444 Result:", singleUser);
+    console.log("444 user by id Result:", singleUser);
     console.log("Calling update user");
     const updatedUserData = await updateUser(users[0].id, {
       username: "stmstm",
     });
     console.log("333 Result:", updatedUserData);
+    const username = await getUserByUsername(users[1].username);
+    console.log("222 user by username Result:", username);
+    console.log("Calling getUserByUsername with 1");
     //     console.log("Calling getLinkByTagName with network");
     //     const linksWithIlea = await getLinkByTagName("network");
     //     console.log("Result:", linksWithIlea);
