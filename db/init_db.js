@@ -6,12 +6,12 @@ const {
     getUserByEmail,
     getUserById,
     updateUser,
+    getUserByUsername,
 } = require("./users");
 const { createOrder } = require("./orders");
 const { createIngredient, getAllIngredients, getIngredientbyId, updateIngredient, destroyIngredient, ingredientByCategory } = require("./ingredients");
 
 async function buildTables() {
-
     try {
         // drop tables in correct order
         console.log("Starting to drop tables...");
@@ -246,20 +246,24 @@ async function testDB() {
         await populateInitialReviews();
         console.log("starting to populate initial orders in rebuildDB");
         await populateInitialOrders();
+        console.log("Starting to test database...");
         console.log("Calling getAllUsers");
         const users = await getAllUsers();
         console.log("666 Get All users Result:", users);
         console.log("Calling getUserByEmail with 1");
         const singleEmail = await getUserByEmail(users[1].email);
-        console.log("555 Result:", singleEmail);
+        console.log("555 user by email Result:", singleEmail);
         console.log("Calling getUserById with 1");
         const singleUser = await getUserById(1);
-        console.log("444 Result:", singleUser);
+        console.log("444 user by id Result:", singleUser);
         console.log("Calling update user");
         const updatedUserData = await updateUser(users[0].id, {
             username: "stmstm",
         });
         console.log("333 Result:", updatedUserData);
+        const username = await getUserByUsername(users[1].username);
+        console.log("222 user by username Result:", username);
+        console.log("Calling getUserByUsername with 1");
         console.log("Starting to test ingredients...");
         console.log("Calling getAllIngredients");
         const ingredients = await getAllIngredients();
@@ -284,6 +288,19 @@ async function testDB() {
 
     } catch (error) {
         console.log("Error during rebuildDB");
+        throw error;
+    }
+    try {
+
+        //     console.log("Calling getLinkByTagName with network");
+        //     const linksWithIlea = await getLinkByTagName("network");
+        //     console.log("Result:", linksWithIlea);
+        //     console.log("Testing click count update");
+        //     const clickedLink = await changeCount(2);
+        //     console.log("Clicked Link", clickedLink);
+        //     console.log("Finished database tests!");
+    } catch (error) {
+        console.log("Error during testDB");
         throw error;
     }
 }
