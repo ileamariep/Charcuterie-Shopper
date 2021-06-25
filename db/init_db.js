@@ -8,7 +8,7 @@ const {
   updateUser,
 } = require("./users");
 const { createIngredient } = require("./ingredients");
-const { createOrder, getOrderById } = require("./orders");
+const { createOrder, getOrderById, getAllOrders } = require("./orders");
 
 async function buildTables() {
 
@@ -16,8 +16,7 @@ async function buildTables() {
         // drop tables in correct order
         console.log("Starting to drop tables...");
         client.query(`
-        DROP TABLE IF EXISTS order_ingredients;
-        DROP TABLE IF EXISTS reviews;
+        DROP TABLE IF EXISTS cart;
         DROP TABLE IF EXISTS ingredients;
         DROP TABLE IF EXISTS orders;
         DROP TABLE IF EXISTS users;
@@ -41,33 +40,26 @@ async function buildTables() {
             "isAdmin" BOOLEAN DEFAULT false,
             "isUser" BOOLEAN DEFAULT false
         );
+        CREATE TABLE orders(
+          id SERIAL PRIMARY KEY,
+          date_ordered VARCHAR(255) NOT NULL,
+          total_price INTEGER,
+          "usersId" INTEGER REFERENCES users(id)
+        );
         CREATE TABLE ingredients (
             id SERIAL PRIMARY KEY,
             name varchar(30) UNIQUE,
-            description TEXT NOT NULL,
+            description VARCHAR(255),
             price INTEGER,
             quantity INTEGER,
             category text
       );
-
-      CREATE TABLE orders(
-        id SERIAL PRIMARY KEY,
-        date_ordered VARCHAR(255) NOT NULL,
-        total_price INTEGER,
-        "usersId" INTEGER REFERENCES users(id)
-      );
-    
-        CREATE TABLE reviews (
+        CREATE TABLE cart(
           id SERIAL PRIMARY KEY,
-          comment VARCHAR(255), 
-          "usersCommentId" INTEGER REFERENCES users(id)
-        );
-        
-        CREATE TABLE order_ingredients(
-        "ingredientId" INTEGER REFERENCES ingredients(id),
-        "orderId" INTEGER REFERENCES orders(id),
-        "usersId" INTEGER REFERENCES users(id),
-        UNIQUE("ingredientId", "orderId", "usersId")
+          "ingredientId" INTEGER REFERENCES ingredients(id),
+          "orderId" INTEGER REFERENCES orders(id),
+          "usersId" INTEGER REFERENCES users(id),
+          UNIQUE("ingredientId", "orderId", "usersId")
         );
       `);
 
@@ -83,6 +75,7 @@ async function populateInitialIngredients() {
 
     const ingredientsToCreate = [
       {
+        id: 1,
         name: "Grapes",
         description: "green grapes from napa valley",
         price: 5,
@@ -90,6 +83,7 @@ async function populateInitialIngredients() {
         category: "fruit",
       },
       {
+        id: 2,
         name: "Salami",
         description: "Love me some salami",
         price: 6,
@@ -97,6 +91,7 @@ async function populateInitialIngredients() {
         category: "meat",
       },
       {
+        id: 3,
         name: "Crackers",
         description: "carbs are yummy",
         price: 7,
@@ -109,7 +104,7 @@ async function populateInitialIngredients() {
       ingredientsToCreate.map((ingredient) => createIngredient(ingredient))
     );
     console.log("Ingredients Created: ", theIngredients);
-    console.log("Finished creating links.");
+    console.log("Finished creating ingredients.");
   } catch (error) {
     throw error;
   }
@@ -210,10 +205,16 @@ async function rebuildDB() {
     client.connect();
 
     await buildTables();
+    console.log('before?4')
     await populateInitialIngredients();
+    console.log('before?3')
     await populateInitialUsers();
-    await populateInitialReviews();
+    console.log('before?2')
+    // await populateInitialReviews();
+    console.log('before 1?')
     await populateInitialOrders();
+    console.log('before?')
+    await getAllOrders()
   } catch (error) {
     console.log("Error during rebuildDB");
     throw error;
@@ -237,6 +238,8 @@ async function testDB() {
       username: "stmstm",
     });
     console.log("333 Result:", updatedUserData);
+    const orderId = await getOrderById(2)
+    console.log(orderId, "please for the love of god")
     //     console.log("Calling getLinkByTagName with network");
     //     const linksWithIlea = await getLinkByTagName("network");
     //     console.log("Result:", linksWithIlea);
