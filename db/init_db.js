@@ -1,21 +1,23 @@
 const { client } = require("./client");
 const { createReview } = require("./reviews");
 const {
-    createUser,
-    getAllUsers,
-    getUserByEmail,
-    getUserById,
-    updateUser,
-    getUserByUsername,
+
+  createUser,
+  getAllUsers,
+  getUserByEmail,
+  getUserById,
+  updateUser,
+  getUserByUsername,
 } = require("./users");
 const { createOrder } = require("./orders");
 const { createIngredient, getAllIngredients, getIngredientbyId, updateIngredient, destroyIngredient, ingredientByCategory } = require("./ingredients");
 
 async function buildTables() {
-    try {
-        // drop tables in correct order
-        console.log("Starting to drop tables...");
-        client.query(`
+
+  try {
+    // drop tables in correct order
+    console.log("Starting to drop tables...");
+    client.query(`
         DROP TABLE IF EXISTS order_ingredients;
         DROP TABLE IF EXISTS reviews;
         DROP TABLE IF EXISTS ingredients;
@@ -234,6 +236,7 @@ async function rebuildDB() {
 
 async function testDB() {
 
+
     try {
 
         console.log("starting to build tables in rebuildDB");
@@ -289,20 +292,8 @@ async function testDB() {
     } catch (error) {
         console.log("Error during rebuildDB");
         throw error;
-    }
-    try {
 
-        //     console.log("Calling getLinkByTagName with network");
-        //     const linksWithIlea = await getLinkByTagName("network");
-        //     console.log("Result:", linksWithIlea);
-        //     console.log("Testing click count update");
-        //     const clickedLink = await changeCount(2);
-        //     console.log("Clicked Link", clickedLink);
-        //     console.log("Finished database tests!");
-    } catch (error) {
-        console.log("Error during testDB");
-        throw error;
-    }
+
 }
 
 
