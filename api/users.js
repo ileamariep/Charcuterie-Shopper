@@ -97,7 +97,6 @@ usersRouter.post("/login", async (req, res, next) => {
   }
 });
 
-
 usersRouter.patch("/user/:id", requireUser, async (req, res, next) => {
   const { id } = req.params;
   const { email, username, password, address, city, state, zip } = req.body;
@@ -148,8 +147,7 @@ usersRouter.get("/me", requireUser, async (req, res, next) => {
   }
 });
 
-usersRouter.get("/", async (req, res) => {
-  // re-add requireAdmin
+usersRouter.get("/", requireAdmin, async (req, res) => {
   const users = await getAllUsers();
   res.send({
     users,
