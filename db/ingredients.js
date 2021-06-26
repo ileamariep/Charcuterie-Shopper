@@ -18,7 +18,7 @@ async function createIngredient({ name, description, price, quantity, category, 
 async function getIngredientbyId(id) {
     // return the ingredient
     try {
-        const { rows: [ingredient], } = await client.query(`
+        const { rows: [ingredient] } = await client.query(`
             SELECT *
             FROM ingredients
             WHERE id=${id};
@@ -114,11 +114,11 @@ async function decreaseStock(id, qty) {
         } = await client.query(
             `
              UPDATE ingredients 
-             SET stock_qty = stock_qty - ${qty}
+             SET stock_qty = stock_qty - $2
              WHERE id = $1
              RETURNING *;
           `,
-            [id]
+            [id, qty]
         );
         console.log("ingredient Information", ingredient);
 

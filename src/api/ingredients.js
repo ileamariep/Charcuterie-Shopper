@@ -1,6 +1,4 @@
 import axios from "axios";
-
-
 export async function allIngredients() {
     try {
         const { data } = await axios.get("/api/ingredients");
@@ -34,8 +32,3 @@ export async function getSingleIngredient(ingredientId) {
         throw error;
     }
 }
-
-
-
-
-

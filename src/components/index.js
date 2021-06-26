@@ -8,4 +8,4 @@ export { default as Header } from "./Header";
 // export { default as Pages } from "./Pages";
 // export { default as Register } from "./Register";
 // export { default as Search } from "./Search";
-// export { default as Shop } from "./Shop";
+export { default as Shop } from "./Shop";
