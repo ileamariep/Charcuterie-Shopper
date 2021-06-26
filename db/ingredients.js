@@ -1,13 +1,13 @@
 const { client } = require("./client")
 
-async function createIngredient({ name, description, price, quantity, category, stock_qty }) {
+async function createIngredient({ name, description, price, quantity, category, stockQty }) {
 
     try {
         const { rows: [ingredient] } = await client.query(`
-        INSERT INTO ingredients (name, description, price, quantity, category, stock_qty)
+        INSERT INTO ingredients (name, description, price, quantity, category, "stockQty")
         VALUES($1, $2, $3, $4, $5, $6)
         RETURNING *;
-      `, [name, description, price, quantity, category, stock_qty])
+      `, [name, description, price, quantity, category, stockQty])
 
         return ingredient
     } catch (error) {
@@ -114,7 +114,7 @@ async function decreaseStock(id, qty) {
         } = await client.query(
             `
              UPDATE ingredients 
-             SET stock_qty = stock_qty - $2
+             SET "stockQty" = "stockQty" - $2
              WHERE id = $1
              RETURNING *;
           `,
@@ -135,7 +135,7 @@ async function increaseStock(id, qty) {
         } = await client.query(
             `
              UPDATE ingredients 
-             SET stock_qty = stock_qty + ${qty}
+             SET "stock_qty" = "stock_qty" + ${qty}
              WHERE id = $1
              RETURNING *;
           `,

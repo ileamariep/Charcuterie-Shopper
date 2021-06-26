@@ -1,10 +1,9 @@
 import "./App.css";
-import React, { useState, useEffect } from "react";
-import { Header, Shop } from "./components";
+import React, { useEffect, useState } from "react";
+import { Header, Register, Login, Shop } from "./components";
 import { allIngredients } from "./api";
 
-function App() {
-
+const App = () => {
   const [grabbedIngredients, setIngredients] = useState([]);
 
   const retrieveIngredients = () => {
@@ -23,21 +22,18 @@ function App() {
     retrieveIngredients()
 
   }, []);
-
-
-
   return (
     <div className="App">
       <Header />
-
+      <Register />
+      <Login />
       <Shop
         grabbedIngredients={grabbedIngredients}
         setIngredients={setIngredients}
         reset={retrieveIngredients}
       />
-
     </div>
   );
-}
+};
 
 export default App;

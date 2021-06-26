@@ -26,8 +26,8 @@ async function buildTables() {
         console.log("Starting to drop tables...");
         client.query(`
         DROP TABLE IF EXISTS cart;
-        DROP TABLE IF EXISTS ingredients;
         DROP TABLE IF EXISTS orders;
+        DROP TABLE IF EXISTS ingredients;
         DROP TABLE IF EXISTS users;
         
       `);
@@ -62,6 +62,12 @@ async function buildTables() {
           img TEXT,
           "imgAlt" TEXT
         );
+        CREATE TABLE orders(
+            id SERIAL PRIMARY KEY,
+            date_ordered VARCHAR(255) NOT NULL,
+            total_price INTEGER
+          );
+
         CREATE TABLE cart(
           id SERIAL PRIMARY KEY,
           quantity INTEGER,
@@ -71,11 +77,7 @@ async function buildTables() {
           UNIQUE("ingredientId", "orderId", "usersId")
         );
 
-        CREATE TABLE orders(
-          id SERIAL PRIMARY KEY,
-          date_ordered VARCHAR(255) NOT NULL,
-          total_price INTEGER
-        );
+      
 
       `);
 
