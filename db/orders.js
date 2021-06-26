@@ -1,38 +1,50 @@
 const { client } = require("./client");
 
-// async function createOrder({ date_ordered, total_price }) {
-//     // create and return the new routine
-//     try {
-//         const { rows: [order] } = await client.query(`
-//         INSERT INTO orders(date_ordered, total_price)
-//         VALUES($1, $2)
-//         RETURNING *;
-//       `, [date_ordered, total_price])
+async function createOrder({ date_ordered, total_price }) {
+    // create and return the new routine
+    try {
+        const { rows: [order] } = await client.query(`
+        INSERT INTO orders(date_ordered, total_price)
+      INSERT INTO orders(date_ordered, total_price) 
+        INSERT INTO orders(date_ordered, total_price)
+        VALUES($1, $2)
+        RETURNING *;
+      `, [date_ordered, total_price])
 
-//         return order
-//     } catch (error) {
-//         throw (error)
-//     }
+        return order
+    } catch (error) {
+        throw (error)
+    }
 
+}
+
+// async function createOrder({
+//   date_ordered, 
+//   total_price,
+//   cart = []
+// }) {
+//   try {
+    
+//     const {
+//       rows: [orders],
+//     } = await client.query(
+//       `
+//       INSERT INTO orders(date_ordered, total_price)
+//       VALUES ($1, $2)
+//       RETURNING *
+//       `,
+//       [date_ordered, total_price]
+//     );
+//     console.log(orders, "$$$$$$$$$$$$$$$$$$$$$$$")
+//     const cartLink = await createCart(cart)
+//     console.log(cart, "%%%%%%%%%%%%%%%%%%%%%%%%")
+//     return await addCartToOrder(orders.id, cartLink);
+//   } catch (error) {
+//     throw error;
+//   }
 // }
 
 
-async function createOrder({
-  date_ordered,
-  total_price,
-}) {
-  try {
-    const { rows: [ order ] } = await client.query(`
-      INSERT INTO orders(date_ordered, total_price) 
-      VALUES($1, $2)
-      RETURNING *;
-    `, [date_ordered, total_price]);
-    console.log(order, 'order data')
-    return order
-  } catch (error) {
-    throw error;
-  }
-}
 
 async function getAllOrders() {
     try {
@@ -52,44 +64,95 @@ async function getAllOrders() {
 }
 
 
-async function getOrderByUser(userId) {
-    try {
-        const { rows: orderId } = await client.query(`
-        SELECT id 
+// async function getOrderByUser(userId) {
+//     try {
+//         const { rows: orderId } = await client.query(`
+//         SELECT id 
+//         FROM orders 
+//         JOIN users
+//         WHERE "usersId"=${userId};
+//       `);
+
+//         const orders = await Promise.all(orderId.map(
+//             order => getOrderById(order.id)
+//         ));
+//         console.log(orders, )
+//         return orders;
+//     } catch (error) {
+//         throw error;
+//     }
+// }
+
+async function getOrderByUser({ username }) {
+  try {
+      const {rows: orders} = await client.query(`
+      SELECT *, users.username
+      FROM orders
         FROM orders 
-        WHERE "usersId"=${userId};
-      `);
+      FROM orders
+      JOIN users 
+      ON orders."usersId"=users.id
 
-        const orders = await Promise.all(orderId.map(
-            order => getOrderById(order.id)
-        ));
+      WHERE username=$1
+      `,[username])
 
-        return orders;
+    //   const {rows:ingredients} = await client.query(`
+    //   SELECT *
+    //   FROM ingredients
+    //   JOIN cart ON ingredients.id = cart."ingredientId"
+    // `)
+
+    // orders.forEach((e) => {
+    //     e.ingredients = ingredients.filter(a => e.id === a.orderId)
+    // });
+
+    return orders
+  } catch(error) {
+      throw error
+  }
+}
+
+
+
+async function getOrderById(orderId) {
+    try {
+        const { rows: [order] } = await client.query(`
+        SELECT *
+        FROM orders
+        WHERE id=$1;
+      `, [orderId]);
+
+        const { rows: ingredients } = await client.query(`
+      SELECT *
+      FROM ingredients
+      JOIN cart ON ingredients.id=cart."ingredientId"
+      WHERE cart."orderId"=$1;
+    `, [orderId])
+
+        const { rows: [user] } = await client.query(`
+      SELECT *
+      FROM users
+      WHERE id=$1;
+    `, [orderId])
+
+
+        order.ingredients = ingredients;
+        order.user = user;
+
+      console.log(user, "these are users")
+        return order;
     } catch (error) {
         throw error;
     }
 }
 
-// async function getOrderByUser({ username }) {
+// async function getOrderById(id) {
 //   try {
-//       const {rows: orders} = await client.query(`
-//       SELECT *, users.username AS "creatorName"
-//       FROM orders
-//       JOIN users ON orders."usersId"=users.id
-//       WHERE username=$1
-//       `,[username])
-
-//       const {rows:ingredients} = await client.query(`
-//       SELECT *
-//       FROM ingredients
-//       JOIN cart ON ingredients.id = cart."ingredientId"
-//     `)
-
-//     orders.forEach((e) => {
-//         e.ingredients = ingredients.filter(a => e.id === a.orderId)
-//     });
-
-//     return orders
+//       const {rows: [order]} = await client.query(`
+//       SELECT * FROM orders
+//       WHERE id=$1
+//       `, [id])
+//       return order
 //   } catch(error) {
 //       throw error
 //   }
@@ -97,92 +160,41 @@ async function getOrderByUser(userId) {
 
 
 
-// async function getOrderById(orderId) {
-//     try {
-//         const { rows: [order] } = await client.query(`
-//         SELECT *
-//         FROM orders
-//         WHERE id=$1;
-//       `, [orderId]);
-
-//         const { rows: ingredients } = await client.query(`
-//       SELECT *
-//       FROM ingredients
-//       JOIN cart ON ingredients.id=cart."ingredientId"
-//       WHERE cart."orderId"=$1;
-//     `, [orderId])
-
-//         const { rows: [user] } = await client.query(`
-//       SELECT *
-//       FROM users
-//       WHERE id=$1;
-//     `, [order.usersId])
 
 
-//         order.ingredients = ingredients;
-//         order.user = user;
-
-//         delete order.usersId
-//       console.log(user, "these are users")
-//         return order;
-//     } catch (error) {
-//         throw error;
-//     }
-// }
-
-async function getOrderById(id) {
-  try {
-      const {rows: [order]} = await client.query(`
-      SELECT * FROM orders
-      WHERE id=$1
-      `, [id])
-      return order
-  } catch(error) {
-      throw error
-  }
-}
-
-async function createCart(orderId, ingredientId) {
-  try {
-    await client.query(`
-      INSERT INTO cart("orderId", "ingredientId")
-      VALUES ($1, $2)
-      RETURNING *
-    `, [orderId, ingredientId]);
-  } catch (error) {
-    throw error;
-  }
-}
 
 
-// async function addIngredientsToOrder(orderId, ingredientList) {
+// async function addCartToOrder({ orderId, ingredientId }) {
 //   try {
-//     console.log(ingredientList, "*****************")
-//     const createOrderIngredientPromises = ingredientList.map(
-//       ingredient => createOrderIngredient(orderId, ingredient.Id)
-//     );
+//     const { rows : [cart] } = await client.query(`
+//       INSERT INTO cart("orderId", "ingredientId") 
+//       VALUES($1, $2) 
+//       RETURNING *;
+//     `, [orderId, ingredientId]);
 
-//     await Promise.all(createOrderIngredientPromises);
-
-//     return await getOrderById(orderId);
+//     return cart;
 //   } catch (error) {
 //     throw error;
 //   }
 // }
 
-async function addCartIngredientsToOrder({ orderId, ingredientId }) {
-  try {
-    const { rows : [cart] } = await client.query(`
-      INSERT INTO cart("orderId", "ingredientId") 
-      VALUES($1, $2) 
-      RETURNING *;
-    `, [orderId, ingredientId]);
 
-    return cart;
-  } catch (error) {
-    throw error;
-  }
-}
+
+
+
+
+// async function addIngredientsToOrder(orderId, ingredientList) {
+//   try {
+//     const createLinkTagPromises = ingredientList.map((ing) =>
+//       createCart(cartId, ing.id)
+//     );
+//     await Promise.all(createLinkTagPromises);
+//     return await getCartById(cartId);
+//   } catch (error) {
+//     throw error;
+//   }
+// }
+
 
 const destroyOrder = async (id) => {
   try {
@@ -210,7 +222,5 @@ module.exports = {
     getOrderByUser,
     getOrderById,
     destroyOrder,
-    addCartIngredientsToOrder,
-    createCart
 
 };

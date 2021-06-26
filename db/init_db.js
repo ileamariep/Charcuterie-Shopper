@@ -10,7 +10,7 @@ const {
     getUserByUsername,
 } = require("./users");
 
-const { createOrder, getOrderById, getAllOrders, getOrderByUser } = require("./orders");
+const { createOrder, getOrderById, getAllOrders } = require("./orders");
 
 const {
     createIngredient,
@@ -40,39 +40,42 @@ async function buildTables() {
         await client.query(`
     
         CREATE TABLE users(
-            id SERIAL PRIMARY KEY,
-            email VARCHAR(255) UNIQUE,
-            username VARCHAR(255) UNIQUE,
-            password VARCHAR(255),
-            address VARCHAR(255) NOT NULL,
-            city VARCHAR(255) NOT NULL,
-            state VARCHAR(255) NOT NULL,
-            zip VARCHAR(255) NOT NULL,
-            "isAdmin" BOOLEAN DEFAULT false,
-            "isUser" BOOLEAN DEFAULT false
-        );
-        CREATE TABLE orders(
           id SERIAL PRIMARY KEY,
-          date_ordered VARCHAR(255) NOT NULL,
-          total_price INTEGER,
-          "usersId" INTEGER REFERENCES users(id)
+          email VARCHAR(255) UNIQUE,
+          username VARCHAR(255) UNIQUE,
+          password VARCHAR(255),
+          address VARCHAR(255) NOT NULL,
+          city VARCHAR(255) NOT NULL,
+          state VARCHAR(255) NOT NULL,
+          zip VARCHAR(255) NOT NULL,
+          "isAdmin" BOOLEAN DEFAULT false,
+          "isUser" BOOLEAN DEFAULT false
         );
+
         CREATE TABLE ingredients (
-            id SERIAL PRIMARY KEY,
-            name varchar(30) UNIQUE,
-            description VARCHAR(255),
-            price INTEGER,
-            quantity INTEGER,
-            category text,
-            stock_qty INTEGER DEFAULT 0
-      );
+          id SERIAL PRIMARY KEY,
+          name varchar(30) UNIQUE,
+          description VARCHAR(255),
+          price MONEY,
+          quantity INTEGER,
+          category text,
+          "stockQty" INTEGER DEFAULT 0
+        );
         CREATE TABLE cart(
           id SERIAL PRIMARY KEY,
+          qty INTEGER,
           "ingredientId" INTEGER REFERENCES ingredients(id),
           "orderId" INTEGER REFERENCES orders(id),
           "usersId" INTEGER REFERENCES users(id),
           UNIQUE("ingredientId", "orderId", "usersId")
         );
+
+        CREATE TABLE orders(
+          id SERIAL PRIMARY KEY,
+          date_ordered VARCHAR(255) NOT NULL,
+          total_price INTEGER
+        );
+
       `);
 
         console.log("Finished building tables!");
@@ -302,8 +305,8 @@ async function testDB() {
         const orderId = await getOrderById(2)
         console.log(orderId, "please for the love of god")
 
-        // const usersOrder = await getOrderByUser('christina81')
-        // console.log(usersOrder, "This is christinas order")
+        // const usersOrder = await getOrderByUser()
+        // console.log(usersOrder, "This is smashleys order")
 
         console.log("Finished database tests!");
 
