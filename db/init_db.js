@@ -59,11 +59,13 @@ async function buildTables() {
           price MONEY,
           quantity INTEGER,
           category text,
-          "stockQty" INTEGER DEFAULT 0
+          "stockQty" INTEGER DEFAULT 0,
+          img TEXT,
+          "imgAlt" TEXT
         );
         CREATE TABLE cart(
           id SERIAL PRIMARY KEY,
-          qty INTEGER,
+          quantity INTEGER,
           "ingredientId" INTEGER REFERENCES ingredients(id),
           "orderId" INTEGER REFERENCES orders(id),
           "usersId" INTEGER REFERENCES users(id),
