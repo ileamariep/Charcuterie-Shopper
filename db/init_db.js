@@ -1,7 +1,6 @@
 const { client } = require("./client");
 // const { createReview } = require("./reviews");
 const {
-
     createUser,
     getAllUsers,
     getUserByEmail,
@@ -227,19 +226,19 @@ async function populateInitialOrders() {
 
 async function rebuildDB() {
     try {
-        client.connect();
 
+        client.connect();
+        console.log("starting to build tables in rebuildDB");
         await buildTables();
-        console.log('before?4')
+        console.log("starting to populate initial ingredients in rebuildDB");
         await populateInitialIngredients();
-        console.log('before?3')
+        console.log("starting to populate initial Users in rebuildDB");
         await populateInitialUsers();
-        console.log('before?2')
+        // console.log("starting to populate initial reviews in rebuildDB");
         // await populateInitialReviews();
-        console.log('before 1?')
+        console.log("starting to populate initial orders in rebuildDB");
         await populateInitialOrders();
-        console.log('before?')
-        await getAllOrders()
+
     } catch (error) {
         console.log("Error during rebuildDB");
         throw error;
@@ -248,19 +247,8 @@ async function rebuildDB() {
 
 async function testDB() {
 
-
     try {
 
-        console.log("starting to build tables in rebuildDB");
-        await buildTables();
-        console.log("starting to populate initial ingredients in rebuildDB");
-        await populateInitialIngredients();
-        console.log("starting to populate initial Users in rebuildDB");
-        await populateInitialUsers();
-        // console.log("starting to populate initial reviews in rebuildDB");
-        // // await populateInitialReviews();
-        console.log("starting to populate initial orders in rebuildDB");
-        await populateInitialOrders();
         console.log("Starting to test database...");
         console.log("Calling getAllUsers");
         const users = await getAllUsers();
@@ -301,6 +289,9 @@ async function testDB() {
         const ingredientsWithFruit = await ingredientByCategory("fruit");
         console.log("Result:", ingredientsWithFruit);
 
+        console.log("Calling getAllorders");
+        const theOrders = await getAllOrders()
+        console.log(theOrders, "please for the love of god")
         const orderId = await getOrderById(2)
         console.log(orderId, "please for the love of god")
 
@@ -310,7 +301,7 @@ async function testDB() {
         console.log("Finished database tests!");
 
     } catch (error) {
-        console.log("Error during rebuildDB");
+        console.log("Error during TestDB");
         throw error;
 
     }
