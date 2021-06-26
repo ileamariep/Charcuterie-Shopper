@@ -98,7 +98,7 @@ async function populateInitialIngredients() {
                 price: 5,
                 quantity: 2,
                 category: "fruit",
-                stock_qty: 50,
+                stockQty: 50,
             },
             {
                 name: "Salami",
@@ -106,7 +106,7 @@ async function populateInitialIngredients() {
                 price: 6,
                 quantity: 1,
                 category: "meat",
-                stock_qty: 50,
+                stockQty: 50,
             },
             {
                 name: "Crackers",
@@ -114,7 +114,7 @@ async function populateInitialIngredients() {
                 price: 7,
                 quantity: 1,
                 category: "carbs",
-                stock_qty: 50,
+                stockQty: 50,
             },
             {
                 name: "Strawberries",
@@ -122,7 +122,7 @@ async function populateInitialIngredients() {
                 price: 10,
                 quantity: 4,
                 category: "fruit",
-                stock_qty: 50,
+                stockQty: 50,
             },
         ];
 
