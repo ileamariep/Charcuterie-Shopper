@@ -1,15 +1,13 @@
 const { client } = require("./client")
 
-async function createIngredient({ name, description, price, quantity, category }) {
+async function createIngredient({ name, description, price, quantity, category, stockQty }) {
 
     try {
         const { rows: [ingredient] } = await client.query(`
-        INSERT INTO ingredients (name, description, price, quantity, category)
-        VALUES($1, $2, $3, $4, $5)
+        INSERT INTO ingredients (name, description, price, quantity, category, "stockQty")
+        VALUES($1, $2, $3, $4, $5, $6)
         RETURNING *;
-      `, [name, description, price, quantity, category])
-
-        console.log(ingredient, 'this is the ingredient')
+      `, [name, description, price, quantity, category, stockQty])
 
         return ingredient
     } catch (error) {
@@ -20,7 +18,7 @@ async function createIngredient({ name, description, price, quantity, category }
 async function getIngredientbyId(id) {
     // return the ingredient
     try {
-        const { rows: [ingredient], } = await client.query(`
+        const { rows: [ingredient] } = await client.query(`
             SELECT *
             FROM ingredients
             WHERE id=${id};
@@ -68,7 +66,6 @@ async function updateIngredient(ingredientId, fields = {}) {
             );
         }
 
-
         return await getIngredientbyId(ingredientId);
     } catch (error) {
         throw error;
@@ -110,6 +107,47 @@ async function ingredientByCategory(category) {
     }
 }
 
+async function decreaseStock(id, qty) {
+    try {
+        const {
+            rows: [ingredient],
+        } = await client.query(
+            `
+             UPDATE ingredients 
+             SET "stockQty" = "stockQty" - $2
+             WHERE id = $1
+             RETURNING *;
+          `,
+            [id, qty]
+        );
+        console.log("ingredient Information", ingredient);
+
+        return ingredient;
+    } catch (error) {
+        throw error;
+    }
+}
+
+async function increaseStock(id, qty) {
+    try {
+        const {
+            rows: [ingredient],
+        } = await client.query(
+            `
+             UPDATE ingredients 
+             SET "stock_qty" = "stock_qty" + ${qty}
+             WHERE id = $1
+             RETURNING *;
+          `,
+            [id]
+        );
+        console.log("ingredient Information", ingredient);
+
+        return ingredient;
+    } catch (error) {
+        throw error;
+    }
+}
 
 
 
@@ -122,5 +160,7 @@ module.exports = {
     getAllIngredients,
     updateIngredient,
     destroyIngredient,
-    ingredientByCategory
+    ingredientByCategory,
+    decreaseStock,
+    increaseStock
 };

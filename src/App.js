@@ -1,21 +1,37 @@
 import "./App.css";
 import React, { useEffect, useState } from "react";
-import { Header, Register, Login } from "./components";
+import { Header, Register, Login, Shop } from "./components";
+import { allIngredients } from "./api";
 
 const App = () => {
-  const [auth, setAuth] = useState(false);
+  const [grabbedIngredients, setIngredients] = useState([]);
+
+  const retrieveIngredients = () => {
+
+    allIngredients()
+      .then(ingredient => {
+        setIngredients(ingredient);
+      })
+      .catch(error => {
+        // something something errors
+      });
+  }
+
   useEffect(() => {
-    if (JSON.parse(localStorage.getItem("token"))) {
-      setAuth(true);
-    } else {
-      setAuth(false);
-    }
-  });
+
+    retrieveIngredients()
+
+  }, []);
   return (
     <div className="App">
       <Header />
       <Register />
       <Login />
+      <Shop
+        grabbedIngredients={grabbedIngredients}
+        setIngredients={setIngredients}
+        reset={retrieveIngredients}
+      />
     </div>
   );
 };

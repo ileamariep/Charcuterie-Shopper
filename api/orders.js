@@ -43,7 +43,7 @@ ordersRouter.post("/:orderId/ingredients", async (req, res, next) => {
   }
 });
 
-ordersRouter.patch("/", async (req, res, next) => {});
+ordersRouter.patch("/", async (req, res, next) => { });
 
 ordersRouter.delete("/:orderId", requireUser, async (req, res, next) => {
   const { orderId } = req.params;
