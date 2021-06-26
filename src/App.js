@@ -1,7 +1,7 @@
 import "./App.css";
 import React, { useEffect, useState } from "react";
 import { Header, Register, Login, Shop } from "./components";
-import { allIngredients } from "./api";
+import { allIngredients } from "./api/ingredients";
 
 const App = () => {
   const [grabbedIngredients, setIngredients] = useState([]);
@@ -22,6 +22,7 @@ const App = () => {
     retrieveIngredients()
 
   }, []);
+
   return (
     <div className="App">
       <Header />

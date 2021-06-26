@@ -53,7 +53,7 @@ const Shop = ({ grabbedIngredients, setIngredients, reset }) => {
               {!showCartButton ? <button
                 type="button"
                 className="view-btn"
-                onClick={() => handleViewClick(id)}
+                onClick={handleViewClick(id)}
               >
                 View Product
               </button>
