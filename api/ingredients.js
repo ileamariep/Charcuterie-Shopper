@@ -45,7 +45,7 @@ ingredientsRouter.patch('/:id', async (req, res, next) => {
 
 ingredientsRouter.post('/', async (req, res, next) => {
 
-    const { name, description, price, quantity, category, stock_qty } = req.body
+    const { name, description, price, quantity, category, stockQty } = req.body
     const newIngredient = {}
     try {
 
@@ -55,7 +55,7 @@ ingredientsRouter.post('/', async (req, res, next) => {
             (newIngredient.price = price),
             (newIngredient.quantity = quantity),
             (newIngredient.category = category),
-            (newIngredient.stock_qty = stock_qty)
+            (newIngredient.stockQty = stockQty)
 
 
         const theNewIngredient = await createIngredient(newIngredient)

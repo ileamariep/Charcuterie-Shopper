@@ -1,13 +1,25 @@
-body {
+@import url("https://fonts.googleapis.com/css2?family=Fjalla+One&family=Quicksand:wght@300;400;600&display=swap");
+
+/* :root {
+  --cardContainerBackground: #313135;
+  --cardBackground: #0f0f11;
+  --topRowBackground: black;
+  --tagBubbles: #0f0f11;
+  --clickCount: #c3073f;
+  --headerBackground: black;
+  --createLinkBackground: #950740;
+} */
+
+* {
+  box-sizing: border-box;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  font-family: "Quicksand", sans-serif;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+#root {
+  display: flex;
+  height: 100vh;
+  background-color: black;
+  color: white;
 }
