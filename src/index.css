@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Fjalla+One&family=Quicksand:wght@300;400;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Smythe&display=swap");
 
 /* :root {
   --cardContainerBackground: #313135;
@@ -14,7 +14,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: "Quicksand", sans-serif;
+  font-family: "Smythe", cursive;
 }
 
 #root {

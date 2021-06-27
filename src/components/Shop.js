@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-
+import Button from "react-bootstrap/Button";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./Shop.css";
 import { getSingleIngredient } from "../api"
 
@@ -49,43 +50,48 @@ const Shop = ({ grabbedIngredients, setIngredients, resetIngredients, setResetIn
               {img ? (<img src={img} alt={imgAlt} height="200" width="100" />) :
                 (<img src="images/default.png" alt="defualt" height="200" width="100" />)}
             </div>
-            <div className="product-info">
-              <h1 className='product-name'>{name}</h1>
-              <h2 className='product-category'>{category}</h2>
+            <div className='product-info'>
+              <div className='product-title'>
+                <h1 className='product-name'>{name}</h1>
+                <h2 className='product-category'>{category}</h2>
+              </div>
               <p className='product-description'>{description}</p>
-            </div>
-            <div className='product-price-butn'>
+
+              {showCartButton ? <p className='quantity-select'>Select Quatity</p> :
+                null}
               <div className='product-price'>{price}</div>
-              {!showCartButton ? <button
-                type="button"
-                className="view-btn"
-                onClick={() => handleViewClick(id)}
-              >
-                View Product
-              </button>
-                :
-                <>
-                  <button
-                    type="button"
-                    className="edit-btn"
-                  // onClick={() => handleViewClick(id)}
-                  >
-                    Add to Cart
-                  </button>
+              <div className="product-buttons">
+                {!showCartButton ? <Button
+                  type="submit"
+                  className="view"
+                  onClick={() => handleViewClick(id)}
+                >
+                  View
+                </Button>
+                  :
+                  <>
+                    <Button
+                      type="submit"
+                      className="addcart"
+                    // onClick={() => handleViewClick(id)}
+                    >
+                      Add to Cart
+                    </Button>
 
-                  <button
-                    type="button"
-                    className="keep-shopping-btn"
-                    onClick={() => handleKeepShopping()}
-                  >
-                    Keep Shopping
-                  </button>
-                </>
-              }
+                    <Button
+                      type="button"
+                      className="keep-shopping"
+                      onClick={() => handleKeepShopping()}
+                    >
+                      Keep Shopping
+                    </Button>
+                  </>
+                }
+              </div>
             </div>
-
           </div>
         ))}
+
       </div>
 
     </>
