@@ -19,6 +19,7 @@ const {
     destroyIngredient,
     ingredientByCategory,
 } = require("./ingredients");
+const { logDOM } = require("@testing-library/react");
 
 async function buildTables() {
     try {
@@ -93,35 +94,38 @@ async function populateInitialIngredients() {
 
         const ingredientsToCreate = [
             {
-                name: "Grapes",
-                description: "green grapes from napa valley",
+                name: "Elixir Cure All",
+                description: "This elixir will cure everything",
                 price: 5,
                 quantity: 2,
-                category: "fruit",
+                category: "general",
                 stockQty: 50,
             },
             {
-                name: "Salami",
-                description: "Love me some salami",
+                name: "Elixir Weight",
+                description: "Lose weight with this elixr",
                 price: 6,
                 quantity: 1,
-                category: "meat",
+                category: "weight",
                 stockQty: 50,
             },
             {
-                name: "Crackers",
-                description: "carbs are yummy",
+                name: "Pet Mange Elixir",
+                description: "This will get rid of all the mange!",
                 price: 7,
                 quantity: 1,
-                category: "carbs",
+                category: "pets",
                 stockQty: 50,
+                img: "images/elixir1Test.png",
+                imgAlt: "dog mange elixir"
+
             },
             {
-                name: "Strawberries",
-                description: "berries are yummy",
+                name: "Hair Loss Elixir",
+                description: "Get a head full of new hair in 10 days",
                 price: 10,
                 quantity: 4,
-                category: "fruit",
+                category: "hair loss",
                 stockQty: 50,
             },
         ];
@@ -236,8 +240,7 @@ async function rebuildDB() {
         await populateInitialIngredients();
         console.log("starting to populate initial Users in rebuildDB");
         await populateInitialUsers();
-        // console.log("starting to populate initial reviews in rebuildDB");
-        // await populateInitialReviews();
+
         console.log("starting to populate initial orders in rebuildDB");
         await populateInitialOrders();
 
@@ -278,8 +281,8 @@ async function testDB() {
         console.log("Result:", singleIngredient);
         console.log("Calling updateIngredient on ingredient[0]");
         const updatedIngredient = await updateIngredient(ingredients[0].id, {
-            name: "New grape name Name",
-            description: "Updated grape description"
+            name: "New Elixir",
+            description: "Updated elixir"
         });
 
         console.log("Result:", updatedIngredient);

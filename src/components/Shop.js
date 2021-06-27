@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import "./Shop.css";
 import { getSingleIngredient } from "../api"
 
-const Shop = ({ grabbedIngredients, setIngredients, reset }) => {
+const Shop = ({ grabbedIngredients, setIngredients, resetIngredients, setResetIngredients }) => {
 
   const [showCartButton, setCartButton] = useState(false)
 
@@ -26,30 +26,36 @@ const Shop = ({ grabbedIngredients, setIngredients, reset }) => {
 
   const handleKeepShopping = () => {
     setCartButton(false)
-    reset();
+    setIngredients(resetIngredients)
   }
 
   return (
     <>
-      <div className='page-head'><h1>Ingredients</h1></div>
-      <div id="ingredient-container">
+
+      <div id="product-container">
 
         {grabbedIngredients.map(({ id,
           name,
           description,
           price,
           category,
-          quantity
+          quantity,
+          img,
+          imgAlt
         }) => (
-          <div key={id} className="routine-cards">
-            <div className="card">
-              <div className='card-name'>Name: {name}</div>
-              <div className='card-goal'>Description:{description}</div>
-              <div className='card-goal'>Price: {price}</div>
-              <div className='card-goal'>Category: {category}</div>
-              <div>Qty:{quantity}</div>
-              <div>Ing Id:{id}</div>
+          <div key={id} className="product-card">
 
+            <div className="image-container">
+              {img ? (<img src={img} alt={imgAlt} height="200" width="100" />) :
+                (<img src="images/default.png" alt="defualt" height="200" width="100" />)}
+            </div>
+            <div className="product-info">
+              <h1 className='product-name'>{name}</h1>
+              <h2 className='product-category'>{category}</h2>
+              <p className='product-description'>{description}</p>
+            </div>
+            <div className='product-price-butn'>
+              <div className='product-price'>{price}</div>
               {!showCartButton ? <button
                 type="button"
                 className="view-btn"
@@ -77,6 +83,7 @@ const Shop = ({ grabbedIngredients, setIngredients, reset }) => {
                 </>
               }
             </div>
+
           </div>
         ))}
       </div>

@@ -20,6 +20,7 @@ const App = () => {
       });
   }
 
+
   useEffect(() => {
 
     retrieveIngredients()
@@ -35,7 +36,8 @@ const App = () => {
         <Pages
           grabbedIngredients={grabbedIngredients}
           setIngredients={setIngredients}
-          reset={resetIngredients}
+          resetIngredients={resetIngredients}
+          setResetIngredients={setResetIngredients}
         />
       </main>
     </div>

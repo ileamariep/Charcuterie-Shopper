@@ -1,0 +1,4 @@
+.pages-container {
+  grid-area: main;
+  width: 100vw;
+}

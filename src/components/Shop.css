@@ -1,0 +1,17 @@
+/* {
+  display: grid;
+} */
+#product-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+  padding: 10px;
+  background-color: black;
+}
+
+.product-card {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  background-color: grey;
+  margin: 7px;
+}
