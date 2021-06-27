@@ -2,22 +2,33 @@ import React, { useState } from 'react'
 import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Shop.css";
-import { getSingleIngredient } from "../api"
+import { getSingleIngredient, updateCount } from "../api"
+import Dropdown from "./Dropdown"
+
+const items = [
+  {
+    id: 4,
+    qty: 1,
+  },
+  {
+    id: 5,
+    qty: 2,
+  },
+  {
+    id: 6,
+    qty: 3,
+  },
+];
 
 const Shop = ({ grabbedIngredients, setIngredients, resetIngredients, setResetIngredients }) => {
 
   const [showCartButton, setCartButton] = useState(false)
+  const [selection, setSelection] = useState([]);
 
   const handleViewClick = async (id) => {
-    console.log(id, 'this is the Id');
     try {
       let ingredientResult = await getSingleIngredient(id);
-      console.log(ingredientResult, "this is the returned ingredient but it's an object, so it can't be mapped");
-
       const ingredientArray = [ingredientResult].flat()
-
-      console.log(ingredientArray, 'the ingredient array in click handler - it works, this can be mapped')
-
       setIngredients(ingredientArray);
       setCartButton(true)
     } catch (error) {
@@ -28,6 +39,19 @@ const Shop = ({ grabbedIngredients, setIngredients, resetIngredients, setResetIn
   const handleKeepShopping = () => {
     setCartButton(false)
     setIngredients(resetIngredients)
+    window.location.reload();
+  }
+
+  const handleAddToCart = async (id, qytSelection) => {
+
+    try {
+      const qtyToString = qytSelection.toString()
+      const qtyStringToNum = Number(qtyToString)
+      await updateCount(id, qtyStringToNum)
+    } catch (error) {
+      throw error
+    }
+
   }
 
   return (
@@ -40,7 +64,6 @@ const Shop = ({ grabbedIngredients, setIngredients, resetIngredients, setResetIn
           description,
           price,
           category,
-          quantity,
           img,
           imgAlt
         }) => (
@@ -57,7 +80,10 @@ const Shop = ({ grabbedIngredients, setIngredients, resetIngredients, setResetIn
               </div>
               <p className='product-description'>{description}</p>
 
-              {showCartButton ? <p className='quantity-select'>Select Quatity</p> :
+              {showCartButton ? <Dropdown title="Select movie"
+                selection={selection}
+                setSelection={setSelection}
+                items={items} multiSelect /> :
                 null}
               <div className='product-price'>{price}</div>
               <div className="product-buttons">
@@ -73,7 +99,7 @@ const Shop = ({ grabbedIngredients, setIngredients, resetIngredients, setResetIn
                     <Button
                       type="submit"
                       className="addcart"
-                    // onClick={() => handleViewClick(id)}
+                      onClick={() => handleAddToCart(id, selection)}
                     >
                       Add to Cart
                     </Button>
