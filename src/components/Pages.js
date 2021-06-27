@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
+import "./pages.css";
 import { SHOP_ROUTE, LOGIN_ROUTE, REGISTER_ROUTE } from "../constants"
 
 import Register from "./Register";
@@ -11,25 +12,23 @@ import Login from "./Login";
 
 const Pages = (props) => {
 
-  const { grabbedIngredients, setIngredients, resetIngredients } = props
+  const { grabbedIngredients, setIngredients, resetIngredients, setResetIngredients } = props
 
   return (
     <div className="pages-container">
       <Switch>
         <Route exact path={SHOP_ROUTE}>
-          <h1>SHOP ROUTE</h1>
           <Shop
             grabbedIngredients={grabbedIngredients}
             setIngredients={setIngredients}
-            reset={resetIngredients}
+            resetIngredients={resetIngredients}
+            setResetIngredients={setResetIngredients}
           />
         </Route>
         <Route path={LOGIN_ROUTE}>
-          <h1>LOGIN ROUTE</h1>
           <Login />
         </Route>
         <Route path={REGISTER_ROUTE}>
-          <h1>REGISTER ROUTE</h1>
           <Register />
         </Route>
       </Switch>

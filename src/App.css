@@ -18,6 +18,6 @@ header {
 
 main {
   grid-area: main;
-  background-color: black;
+  background-color: #fdf1ec;
   overflow: auto;
 }

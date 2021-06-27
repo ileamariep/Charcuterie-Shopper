@@ -24,8 +24,6 @@ export async function getSingleIngredient(ingredientId) {
 
         const data = await response.json();
         console.log(data, 'the ingredient object in API')
-
-
         return data
 
     } catch (error) {
