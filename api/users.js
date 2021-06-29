@@ -155,12 +155,8 @@ usersRouter.patch("/:id", requireAdmin, async (req, res, next) => {
   }
 });
 
-<<<<<<< HEAD
-usersRouter.get("/", async (req, res) => {
-=======
 // get all users for admin
 usersRouter.get("/", requireAdmin, async (req, res) => {
->>>>>>> a5e1d697b5a9e222899f16bd6b67e8cb84af964e
   const users = await getAllUsers();
   res.send({
     users,

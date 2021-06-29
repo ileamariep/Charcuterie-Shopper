@@ -80,21 +80,7 @@ export async function getAllUsersAdmin() {
   }
 }
 
-<<<<<<< HEAD
-
-
-// export async function createNewUser(
-//   username,
-//   email,
-//   password,
-//   address,
-//   city,
-//   state,
-//   zip
-// ) {
-=======
 // export async function updateUserAdmin(id, updatedUser) {
->>>>>>> a5e1d697b5a9e222899f16bd6b67e8cb84af964e
 //   try {
 //     const { data } = await axios.patch(`/api/users/user/${id}`, updatedUser);
 //     return data;
