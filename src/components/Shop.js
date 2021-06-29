@@ -40,12 +40,7 @@ const Shop = ({
     }
   };
   const handleKeepShopping = () => {
-<<<<<<< HEAD
     setCartButton(false)
-=======
-    setCartButton(false);
-    setIngredients(resetIngredients);
->>>>>>> a5e1d697b5a9e222899f16bd6b67e8cb84af964e
     window.location.reload();
   };
 
