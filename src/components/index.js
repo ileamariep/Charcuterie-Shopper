@@ -1,4 +1,4 @@
-// export { default as Admin } from "./Admin";
+export { default as Admin } from "./Admin";
 export { default as Cart } from "./Cart";
 // export { default as Category } from "./Category";
 export { default as Header } from "./Header";

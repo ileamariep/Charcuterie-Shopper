@@ -1,13 +1,14 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import "./pages.css";
-import { SHOP_ROUTE, LOGIN_ROUTE, REGISTER_ROUTE, HOME_ROUTE, CART_ROUTE } from "../constants"
+import { SHOP_ROUTE, LOGIN_ROUTE, REGISTER_ROUTE, HOME_ROUTE, CART_ROUTE, ADMIN_ROUTE } from "../constants"
 
 import Register from "./Register";
 import Shop from "./Shop";
 import Login from "./Login";
 import Home from "./Home";
 import Cart from "./Cart";
+import Admin from "./Admin";
 
 
 // import { getSomething } from "../api";
@@ -38,6 +39,9 @@ const Pages = (props) => {
         </Route>
         <Route path={CART_ROUTE}>
           <Cart />
+        </Route>
+        <Route path={ADMIN_ROUTE}>
+          <Admin />
         </Route>
       </Switch>
     </div>
