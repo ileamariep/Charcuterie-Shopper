@@ -1,0 +1,56 @@
+.home-container {
+  grid-area: main;
+  display: grid;
+  padding: 60px;
+}
+
+.home-card {
+  display: grid;
+  grid-template-columns: auto auto;
+
+  max-height: 500px;
+  max-width: 672px;
+  justify-self: center;
+}
+.home-image {
+  display: flex;
+  max-height: 500px;
+  max-width: 336px;
+}
+img {
+  object-fit: cover;
+  width: auto;
+  height: 500px;
+}
+
+.home-info-right {
+  padding-top: 20px;
+  padding-left: 20px;
+}
+
+.home-info-right p {
+  font-family: "Lato", sans-serif;
+}
+
+.home-info-right h1 {
+  font-size: 70px;
+}
+.guest-head {
+  font-size: 40px;
+}
+
+label {
+  padding-right: 10px;
+}
+
+input {
+  padding-left: 20px;
+}
+
+.guest-container p {
+  font-size: smaller;
+}
+
+.log-or-reg {
+  margin-top: 15px;
+}

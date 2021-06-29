@@ -147,7 +147,7 @@ usersRouter.get("/me", requireUser, async (req, res, next) => {
   }
 });
 
-usersRouter.get("/", requireAdmin, async (req, res) => {
+usersRouter.get("/", async (req, res) => {
   const users = await getAllUsers();
   res.send({
     users,

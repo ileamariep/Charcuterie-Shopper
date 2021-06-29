@@ -38,7 +38,6 @@ const Shop = ({ grabbedIngredients, setIngredients, resetIngredients, setResetIn
 
   const handleKeepShopping = () => {
     setCartButton(false)
-    setIngredients(resetIngredients)
     window.location.reload();
   }
 

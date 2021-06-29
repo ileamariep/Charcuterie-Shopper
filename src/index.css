@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Smythe&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Smythe&display=swap");
 
 /* :root {
   --cardContainerBackground: #313135;
@@ -18,6 +18,7 @@
 }
 
 #root {
+  grid-area: header / main;
   display: flex;
   height: 100vh;
   background-color: black;
