@@ -8,6 +8,7 @@ const apiRouter = express.Router();
 const usersRouter = require("./users");
 const ingredientsRouter = require("./ingredients");
 const ordersRouter = require("./orders");
+const cartItemsRouter = require("./cartItems")
 const reviewsRouter = require("./reviews");
 
 apiRouter.use(async (req, res, next) => {
@@ -40,6 +41,7 @@ apiRouter.use(async (req, res, next) => {
 apiRouter.use("/users", usersRouter);
 apiRouter.use("/ingredients", ingredientsRouter);
 apiRouter.use("/orders", ordersRouter);
+apiRouter.use("./cartItems.js", cartItemsRouter)
 apiRouter.use("/reviews", reviewsRouter);
 
 apiRouter.use((error, req, res, next) => {

@@ -1,43 +1,53 @@
 const { client } = require("./client");
 // const { createReview } = require("./reviews");
 const {
-    createUser,
-    getAllUsers,
-    getUserByEmail,
-    getUserById,
-    updateUser,
-    getUserByUsername,
+  createUser,
+  getAllUsers,
+  getUserByEmail,
+  getUserById,
+  updateUser,
+  getUserByUsername,
 } = require("./users");
 
-const { createOrder, getOrderById, getAllOrders } = require("./orders");
+const {
+  createOrder,
+  getOrderById,
+  getAllOrders,
+  getOrderByUser,
+} = require("./orders");
 
 const {
-    createIngredient,
-    getAllIngredients,
-    getIngredientbyId,
-    updateIngredient,
-    destroyIngredient,
-    ingredientByCategory,
+  createIngredient,
+  getAllIngredients,
+  getIngredientbyId,
+  updateIngredient,
+  destroyIngredient,
+  ingredientByCategory,
 } = require("./ingredients");
 const { logDOM } = require("@testing-library/react");
 
+const {
+    createCartItem
+} = require("./cartItems")
+
 async function buildTables() {
-    try {
-        // drop tables in correct order
-        console.log("Starting to drop tables...");
-        client.query(`
-        DROP TABLE IF EXISTS cart;
+  try {
+    // drop tables in correct order
+    console.log("Starting to drop tables...");
+    client.query(`
+        DROP TABLE IF EXISTS cart_items;
         DROP TABLE IF EXISTS orders;
         DROP TABLE IF EXISTS ingredients;
         DROP TABLE IF EXISTS users;
+
         
       `);
-        console.log("Finished dropping tables!");
+    console.log("Finished dropping tables!");
 
-        // build tables in correct order
-        console.log("Starting to build tables...");
+    // build tables in correct order
+    console.log("Starting to build tables...");
 
-        await client.query(`
+    await client.query(`
     
         CREATE TABLE users(
           id SERIAL PRIMARY KEY,
@@ -68,24 +78,19 @@ async function buildTables() {
             date_ordered VARCHAR(255) NOT NULL,
             total_price INTEGER
           );
-
-        CREATE TABLE cart(
+        CREATE TABLE cart_items(
           id SERIAL PRIMARY KEY,
           quantity INTEGER,
           "ingredientId" INTEGER REFERENCES ingredients(id),
           "orderId" INTEGER REFERENCES orders(id),
-          "usersId" INTEGER REFERENCES users(id),
-          UNIQUE("ingredientId", "orderId", "usersId")
+          "usersId" INTEGER REFERENCES users(id)
         );
-
-      
-
       `);
 
-        console.log("Finished building tables!");
-    } catch (error) {
-        throw error;
-    }
+    console.log("Finished building tables!");
+  } catch (error) {
+    throw error;
+  }
 }
 
 async function populateInitialIngredients() {
@@ -186,32 +191,47 @@ async function populateInitialUsers() {
 }
 
 async function populateInitialOrders() {
-    try {
-        console.log("starting to create orders...");
-        const ordersToCreate = [
-            {
-                date_ordered: "01/01/2025",
-                total_price: 50,
-            },
-            {
-                date_ordered: "01/04/2025",
-                total_price: 500,
-            },
-            {
-                date_ordered: "01/03/2025",
-                total_price: 5000,
-            },
-        ];
+  try {
+    console.log("starting to create orders...");
+    const ordersToCreate = [
+      {
+        date_ordered: "01/01/2025",
+        total_price: 50,
+      },
+      {
+        date_ordered: "01/04/2025",
+        total_price: 500,
+      },
+      {
+        date_ordered: "01/03/2025",
+        total_price: 5000,
+      },
+    ];
 
-        const theOrders = await Promise.all(
-            ordersToCreate.map((order) => createOrder(order))
-        );
+    const theOrders = await Promise.all(
+      ordersToCreate.map((order) => createOrder(order))
+    );
 
-        console.log("orders Created: ", theOrders);
-        console.log("Finished creating links.");
-    } catch (error) {
-        throw error;
-    }
+    console.log("orders Created: ", theOrders);
+    console.log("Finished creating links.");
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function populateInitialCart() {
+  try {
+    console.log("starting to create cart");
+    const cartToCreate = [{ id: 1, ingredientId: 1, usersId:1 }];
+    const theOrders = await Promise.all(
+      cartToCreate.map((cart) => createCartItem(cart.id, cart.ingredientId, cart.usersId))
+    );
+
+    console.log("orders Created: ", theOrders);
+    console.log("Finished creating links.");
+  } catch (error) {
+    throw error;
+  }
 }
 
 // async function populateInitialReviews() {
@@ -314,6 +334,6 @@ async function testDB() {
 }
 
 rebuildDB()
-    .then(testDB)
-    .catch(console.error)
-    .finally(() => client.end());
+  .then(testDB)
+  .catch(console.error)
+  .finally(() => client.end());
