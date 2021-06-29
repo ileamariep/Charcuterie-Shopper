@@ -3,7 +3,7 @@ const usersRouter = express.Router();
 const {
   createUser,
   getAllUsers,
-  getUserByEmail,
+  // getUserByEmail,
   getUserById,
   getUserByUsername,
   updateUser,
@@ -13,8 +13,9 @@ const jwt = require("jsonwebtoken");
 const { requireUser, requireAdmin } = require("./utils");
 const { JWT_SECRET } = process.env;
 const bcrypt = require("bcrypt");
-const SALT_COUNT = 10;
+// const SALT_COUNT = 10;
 
+// create/register user
 usersRouter.post("/register", async (req, res, next) => {
   const { email, username, password, address, city, state, zip } = req.body;
   try {
@@ -59,6 +60,7 @@ usersRouter.post("/register", async (req, res, next) => {
   }
 });
 
+// login user
 usersRouter.post("/login", async (req, res, next) => {
   const { username, password } = req.body;
 
@@ -97,6 +99,7 @@ usersRouter.post("/login", async (req, res, next) => {
   }
 });
 
+// update user info - user
 usersRouter.patch("/user/:id", requireUser, async (req, res, next) => {
   const { id } = req.params;
   const { email, username, password, address, city, state, zip } = req.body;
@@ -137,7 +140,31 @@ usersRouter.patch("/user/:id", requireUser, async (req, res, next) => {
   }
 });
 
-usersRouter.get("/me", requireUser, async (req, res, next) => {
+// update user info admin status - admin
+usersRouter.patch("/:id", requireAdmin, async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { isAdmin } = req.body;
+    const updateFields = {
+      isAdmin,
+    };
+    const updatedUser = await updateUser(id, updateFields);
+    res.send(updatedUser);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// get all users for admin
+usersRouter.get("/", requireAdmin, async (req, res) => {
+  const users = await getAllUsers();
+  res.send({
+    users,
+  });
+});
+
+// get user info for myaccount
+usersRouter.get("/me", async (req, res, next) => {
   //  Send back the logged-in user's data if a valid token is supplied in the header.
   try {
     res.send(req.user);
@@ -147,11 +174,24 @@ usersRouter.get("/me", requireUser, async (req, res, next) => {
   }
 });
 
-usersRouter.get("/", requireAdmin, async (req, res) => {
-  const users = await getAllUsers();
-  res.send({
-    users,
-  });
+usersRouter.get("/:userId/users", async (req, res, next) => {
+  const { userId } = req.params;
+  try {
+    const user = await getUserById(userId);
+    res.send(user);
+  } catch (error) {
+    next(error);
+  }
 });
+
+// usersRouter.get("/", requireAdmin, async (req, res) => {
+//   const users = await getAllUsers();
+//   if (req.role !== "isAdmin") {
+//     return res.status(403).send("Unauthorized");
+//   }
+//   res.send({
+//     users,
+//   });
+// });
 
 module.exports = usersRouter;

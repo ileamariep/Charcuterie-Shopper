@@ -1,19 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import { Route, Switch } from "react-router-dom";
 import "./pages.css";
-import { SHOP_ROUTE, LOGIN_ROUTE, REGISTER_ROUTE } from "../constants"
-
+import {
+  SHOP_ROUTE,
+  LOGIN_ROUTE,
+  REGISTER_ROUTE,
+  MYACCOUNT_ROUTE,
+  CART_ROUTE,
+  ADMIN_ROUTE,
+} from "../constants";
+import Admin from "./Admin";
+import Cart from "./Cart";
+import MyAccount from "./MyAccount";
 import Register from "./Register";
 import Shop from "./Shop";
 import Login from "./Login";
 
-
 // import { getSomething } from "../api";
 
 const Pages = (props) => {
-
-  const { grabbedIngredients, setIngredients, resetIngredients, setResetIngredients } = props
-
+  const {
+    grabbedIngredients,
+    setIngredients,
+    resetIngredients,
+    setResetIngredients,
+    currentUser,
+    setCurrentUser,
+  } = props;
+  const [isAdmin, setIsAdmin] = useState(true);
   return (
     <div className="pages-container">
       <Switch>
@@ -25,11 +39,20 @@ const Pages = (props) => {
             setResetIngredients={setResetIngredients}
           />
         </Route>
+        <Route path={MYACCOUNT_ROUTE}>
+          <MyAccount />
+        </Route>
+        <Route path={ADMIN_ROUTE}>
+          <Admin isAdmin={isAdmin} setIsAdmin={setIsAdmin} />
+        </Route>
+        <Route path={CART_ROUTE}>
+          <Cart />
+        </Route>
         <Route path={LOGIN_ROUTE}>
-          <Login />
+          <Login currentUser={currentUser} setCurrentUser={setCurrentUser} />
         </Route>
         <Route path={REGISTER_ROUTE}>
-          <Register />
+          <Register currentUser={currentUser} setCurrentUser={setCurrentUser} />
         </Route>
       </Switch>
     </div>
