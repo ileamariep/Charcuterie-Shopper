@@ -40,8 +40,7 @@ const Shop = ({
     }
   };
   const handleKeepShopping = () => {
-    setCartButton(false);
-    setIngredients(resetIngredients);
+    setCartButton(false)
     window.location.reload();
   };
 

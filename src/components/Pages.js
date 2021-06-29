@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Route, Switch } from "react-router-dom";
 import "./pages.css";
+
+
 import {
   SHOP_ROUTE,
   LOGIN_ROUTE,
@@ -8,6 +10,7 @@ import {
   MYACCOUNT_ROUTE,
   CART_ROUTE,
   ADMIN_ROUTE,
+  HOME_ROUTE,
 } from "../constants";
 import Admin from "./Admin";
 import Cart from "./Cart";
@@ -15,6 +18,8 @@ import MyAccount from "./MyAccount";
 import Register from "./Register";
 import Shop from "./Shop";
 import Login from "./Login";
+import Home from "./Home";
+
 
 // import { getSomething } from "../api";
 
@@ -31,7 +36,10 @@ const Pages = (props) => {
   return (
     <div className="pages-container">
       <Switch>
-        <Route exact path={SHOP_ROUTE}>
+        <Route exact path={HOME_ROUTE}>
+          <Home />
+        </Route>
+        <Route path={SHOP_ROUTE}>
           <Shop
             grabbedIngredients={grabbedIngredients}
             setIngredients={setIngredients}
@@ -53,6 +61,12 @@ const Pages = (props) => {
         </Route>
         <Route path={REGISTER_ROUTE}>
           <Register currentUser={currentUser} setCurrentUser={setCurrentUser} />
+        </Route>
+        <Route path={CART_ROUTE}>
+          <Cart />
+        </Route>
+        <Route path={ADMIN_ROUTE}>
+          <Admin />
         </Route>
       </Switch>
     </div>

@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import "./dropdown.css";
 
+//https://stackoverflow.com/questions/29108779/how-to-get-selected-value-of-a-dropdown-menu-in-reactjs
+
 
 function Dropdown({ qty, items, selection, setSelection, multiSelect = false }) {
     const [open, setOpen] = useState(false);

@@ -1,0 +1,13 @@
+.cart-container {
+  grid-area: main;
+  display: grid;
+  padding: 60px;
+}
+
+.cart-card {
+  display: grid;
+  grid-template-columns: auto auto;
+  max-height: 500px;
+  max-width: 672px;
+  justify-self: center;
+}

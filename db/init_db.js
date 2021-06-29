@@ -164,6 +164,7 @@ async function populateInitialUsers() {
                 city: "Atlantic Beach",
                 state: "FL",
                 zip: "32233",
+                isUser: false,
             },
             {
                 email: "christina.mcmanis@gmail.com",
