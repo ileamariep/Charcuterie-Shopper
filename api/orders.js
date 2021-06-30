@@ -31,8 +31,8 @@ ordersRouter.post("/", requireUser, async (req, res, next) => {
   }
 });
 
-ordersRouter.patch("/", async (req, res, next) => { 
-  
+ordersRouter.patch("/", async (req, res, next) => {
+
 });
 
 ordersRouter.delete("/:orderId", requireUser, async (req, res, next) => {

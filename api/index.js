@@ -41,7 +41,7 @@ apiRouter.use(async (req, res, next) => {
 apiRouter.use("/users", usersRouter);
 apiRouter.use("/ingredients", ingredientsRouter);
 apiRouter.use("/orders", ordersRouter);
-apiRouter.use("./cartItems.js", cartItemsRouter)
+apiRouter.use("/cartItems", cartItemsRouter)
 apiRouter.use("/reviews", reviewsRouter);
 
 apiRouter.use((error, req, res, next) => {

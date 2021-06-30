@@ -1,13 +1,13 @@
 const { client } = require("./client")
 
-async function createIngredient({ name, description, price, quantity, category, stockQty, img, imgAlt }) {
+async function createIngredient({ name, description, price, category, stockQty, img, imgAlt }) {
 
     try {
         const { rows: [ingredient] } = await client.query(`
-        INSERT INTO ingredients (name, description, price, quantity, category, "stockQty", img, "imgAlt")
-        VALUES($1, $2, $3, $4, $5, $6, $7, $8)
+        INSERT INTO ingredients (name, description, price, category, "stockQty", img, "imgAlt")
+        VALUES($1, $2, $3, $4, $5, $6, $7)
         RETURNING *;
-      `, [name, description, price, quantity, category, stockQty, img, imgAlt])
+      `, [name, description, price, category, stockQty, img, imgAlt])
 
         return ingredient
     } catch (error) {
