@@ -4,13 +4,14 @@ import Button from "react-bootstrap/Button";
 import { SHOP_ROUTE } from "../constants";
 import axios from "axios";
 import "./Login.css";
+// import { getUserById } from "../../db";
 // import bottlesill from "..public/images/bottlesill";
 // import "bootstrap/dist/css/bootstrap.min.css";
 
-const Login = () => {
+const Login = ({ setIsAdmin, isAdmin }) => {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
-  const [setErrorMessage] = useState();
+  const [errorMessage, setErrorMessage] = useState();
 
   const loginUser = async () => {
     return await axios
@@ -21,9 +22,10 @@ const Login = () => {
       .then(({ data: { token } }) => {
         if (token) {
           localStorage.setItem("token", JSON.stringify(token));
+
           window.location.href = `${SHOP_ROUTE}`;
         } else {
-          setErrorMessage("Invalid Username or Password");
+          errorMessage("Invalid Username or Password");
         }
       })
       .catch(() => {
@@ -31,9 +33,9 @@ const Login = () => {
       });
   };
 
-  const onFormSubmit = (event) => {
+  const onFormSubmit = async (event) => {
     event.preventDefault();
-    loginUser();
+    await loginUser();
   };
   return (
     <>

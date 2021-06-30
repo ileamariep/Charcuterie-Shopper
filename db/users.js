@@ -30,7 +30,7 @@ async function createUser({
     );
 
     delete user.password;
-    console.log(user, "my user");
+
     return user;
   } catch (error) {
     throw error;
@@ -40,7 +40,7 @@ async function createUser({
 async function getAllUsers() {
   try {
     const { rows } = await client.query(`
-        SELECT id, username, email
+        SELECT *
         FROM users;
       `);
 
@@ -138,6 +138,32 @@ async function getUserByUsername(username) {
   }
 }
 
+async function createGuestUser({
+  zip,
+  isAdmin = false,
+  isUser = false,
+}) {
+  try {
+
+    const {
+      rows: [user],
+    } = await client.query(
+      `
+      INSERT INTO users (zip, "isAdmin", "isUser", )
+      VALUES($1, $2, $3) 
+      RETURNING *;
+        `,
+      [zip, isAdmin, isUser]
+    );
+
+
+    console.log(user, "guest user");
+    return user;
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
   client,
   createUser,
@@ -146,4 +172,5 @@ module.exports = {
   getUserById,
   updateUser,
   getUserByUsername,
+  createGuestUser,
 };
