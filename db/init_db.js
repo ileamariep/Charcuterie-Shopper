@@ -54,10 +54,10 @@ async function buildTables() {
           email VARCHAR(255) UNIQUE,
           username VARCHAR(255) UNIQUE,
           password VARCHAR(255),
-          address VARCHAR(255) NOT NULL,
-          city VARCHAR(255) NOT NULL,
-          state VARCHAR(255) NOT NULL,
-          zip VARCHAR(255) NOT NULL,
+          address VARCHAR(255),
+          city VARCHAR(255),
+          state VARCHAR(255),
+          zip VARCHAR(255),
           "isAdmin" BOOLEAN DEFAULT false,
           "isUser" BOOLEAN DEFAULT false
         );

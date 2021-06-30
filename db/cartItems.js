@@ -57,7 +57,6 @@ async function updateCartItems({ id, quantity }){
           WHERE id=$1
           RETURNING *;
           `, [id, quantity]);
-      if (quantity) cartItems.quantity = quantity;
       return cartItems;
   } catch (error) {
       throw error; 
