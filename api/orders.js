@@ -3,7 +3,6 @@ const {
   createOrder,
   destroyOrder,
   getAllOrders,
-  addIngredientsToOrder,
 } = require("../db");
 const { requireUser } = require("./utils");
 const ordersRouter = express.Router();
@@ -32,18 +31,9 @@ ordersRouter.post("/", requireUser, async (req, res, next) => {
   }
 });
 
-ordersRouter.post("/:orderId/ingredients", async (req, res, next) => {
-  const { orderId } = req.params;
-  const { ingredientId } = req.body;
-  try {
-    const orders = await addIngredientsToOrder({ orderId, ingredientId });
-    res.send(orders);
-  } catch ({ name, message }) {
-    next({ name, message });
-  }
+ordersRouter.patch("/", async (req, res, next) => { 
+  
 });
-
-ordersRouter.patch("/", async (req, res, next) => { });
 
 ordersRouter.delete("/:orderId", requireUser, async (req, res, next) => {
   const { orderId } = req.params;
