@@ -11,7 +11,7 @@ async function createUser({
   state,
   zip,
   isAdmin = false,
-  isUser = false,
+  isUser = true,
 }) {
   //  make sure to hash the password before storing it to the database
   try {

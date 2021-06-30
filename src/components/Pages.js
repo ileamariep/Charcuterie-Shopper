@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Route, Switch } from "react-router-dom";
 import "./pages.css";
 import {
@@ -28,8 +28,14 @@ const Pages = (props) => {
     setResetIngredients,
     currentUser,
     setCurrentUser,
+    currentUserId,
+    setCurrentUserId,
+    isAdmin,
+    setIsAdmin,
+    currentUserGuest,
+    setCurrentUserGuest
   } = props;
-  const [isAdmin, setIsAdmin] = useState(false);
+
   return (
     <div className="pages-container">
       <Switch>
@@ -42,6 +48,10 @@ const Pages = (props) => {
             setIngredients={setIngredients}
             resetIngredients={resetIngredients}
             setResetIngredients={setResetIngredients}
+            currentUserId={currentUserId}
+            setCurrentUserId={setCurrentUserId}
+            currentUserGuest={currentUserGuest}
+            setCurrentUserGuest={setCurrentUserGuest}
           />
         </Route>
         <Route path={MYACCOUNT_ROUTE}>
