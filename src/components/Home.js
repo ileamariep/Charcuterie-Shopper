@@ -1,12 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Home.css";
 import { Link } from "react-router-dom";
 import { LOGIN_ROUTE, REGISTER_ROUTE } from "../constants";
 import Button from "react-bootstrap/Button";
+import { getGuestUser } from "../api";
 // import linkBackground from "./img/homeimage.jpg"
 // import { getSomething } from "../api";
 
 const Home = () => {
+
+    const [guestZip, setGuestZip] = useState("")
+
+    const handleGuestSubmit = () => {
+        const zipTostring = guestZip.toString()
+        getGuestUser(zipTostring)
+
+    }
     return (
         <div className="home-container">
             <div className='home-card'>
@@ -23,16 +32,16 @@ const Home = () => {
                                 <div className="email-label">Zip Code</div>
                                 <input
                                     name="zip"
-                                    // value={email}
-                                    // onInput={(event) => {
-                                    //     setEmail(event.target.value)
-                                    // }}
+                                    value={guestZip}
+                                    onInput={(event) => {
+                                        setGuestZip(event.target.value)
+                                    }}
                                     required />
                             </label>
                             <Button
                                 type="submit"
                                 className="guest-submit"
-                            //   onClick={() => handleAddToCart(id, selection)}
+                                onClick={() => handleGuestSubmit(guestZip)}
                             >
                                 Continue As Guest
                             </Button>

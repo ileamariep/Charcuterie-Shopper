@@ -32,7 +32,7 @@ const Pages = (props) => {
     currentUser,
     setCurrentUser,
   } = props;
-  const [isAdmin, setIsAdmin] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
   return (
     <div className="pages-container">
       <Switch>

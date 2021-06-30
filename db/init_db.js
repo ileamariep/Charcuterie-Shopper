@@ -180,6 +180,7 @@ async function populateInitialUsers() {
                 city: "Mayport",
                 state: "FL",
                 zip: "32205",
+                isUser: true,
             },
         ];
         const users = await Promise.all(usersToCreate.map(createUser));

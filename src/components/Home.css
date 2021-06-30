@@ -12,15 +12,10 @@
   max-width: 672px;
   justify-self: center;
 }
-.home-image {
+.home-image img {
   display: flex;
   max-height: 500px;
   max-width: 336px;
-}
-img {
-  object-fit: cover;
-  width: auto;
-  height: 500px;
 }
 
 .home-info-right {

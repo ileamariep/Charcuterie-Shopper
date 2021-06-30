@@ -20,16 +20,15 @@ const Navigation = ({
 }) => {
   const myToken = JSON.parse(localStorage.getItem("token"));
   const logOut = () => {
-    if (!myToken) {
-      window.location.href = `${SHOP_ROUTE}`;
-    } else {
-      window.location.href = `${SHOP_ROUTE}`;
-    }
+    localStorage.clear("token")
+    setIsAdmin(false)
+    window.location.href = `${SHOP_ROUTE}`;
+
   };
 
-  // (myToken && !isAdmin && isUser)
 
-  if (myToken) {
+
+  if (myToken && !isAdmin && isUser) {
     //user
     return (
       <nav>
@@ -42,7 +41,6 @@ const Navigation = ({
             to={SHOP_ROUTE}
             id="logout-button"
             onClick={() => {
-              localStorage.clear("token");
               logOut();
             }}
           >
