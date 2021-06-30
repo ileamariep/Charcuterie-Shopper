@@ -33,7 +33,6 @@ async function getAllOrders() {
     throw error;
   }
 }
-
 async function getOrderByUser(id) {
   try {
     const { rows: orderId } = await client.query(
@@ -45,7 +44,6 @@ async function getOrderByUser(id) {
     `,
       [id]
     );
-
     const orders = await Promise.all(
       orderId.map((order) => getOrderById(order.id))
     );
@@ -54,48 +52,57 @@ async function getOrderByUser(id) {
     throw error;
   }
 }
-
+// double join ingridients to cart items to orders
 async function getOrderById(orderId) {
   try {
-    const {
-      rows: [order],
-    } = await client.query(
+    // const {
+    //   rows: [order],
+    // } = await client.query(
+    //   `
+    //     SELECT *
+    //     FROM orders
+    //     WHERE id=$1;
+    //   `,
+    //   [orderId]
+    // );
+    const { rows: order } = await client.query(
       `
-        SELECT *
-        FROM orders
-        WHERE id=$1;
-      `,
-      [orderId]
-    );
-    const { rows: cart } = await client.query(
-      `
-      SELECT *
-      FROM orders
-      JOIN cart_items ON orders.id=cart_items."orderId"
+      SELECT 
+        ingredients.name, 
+        ingredients.description, 
+        ingredients.price, 
+        ingredients.img, 
+        cart_items.id,
+        cart_items.quantity, 
+        orders.total_price,
+        orders.date_ordered
+      FROM ingredients
+      JOIN cart_items
+      ON ingredients.id=cart_items."ingredientId"
+      JOIN orders
+      ON orders.id=cart_items."orderId"
       WHERE cart_items."orderId"=$1;
     `,
       [orderId]
     );
+    // const {
+    //   rows: [user],
+    // } = await client.query(
+    //   `
+    //   SELECT *
+    //   FROM users
+    //   WHERE id=$1;
+    // `,
+    //   [orderId] // <- need to use user ID, not order ID
+    // );
+    // order.cart = cart;
+    // order.user = user;
 
-    const {
-      rows: [user],
-    } = await client.query(
-      `
-      SELECT *
-      FROM users
-      WHERE id=$1;
-    `,
-      [orderId]
-    );
-    order.cart = cart;
-    order.user = user;
-    console.log(user, "these are users");
     return order;
   } catch (error) {
     throw error;
   }
 }
-
 // async function getOrderById(id) {
 //   try {
 //       const {rows: [order]} = await client.query(`
@@ -107,7 +114,6 @@ async function getOrderById(orderId) {
 //       throw error
 //   }
 // }
-
 const destroyOrder = async (id) => {
   try {
     const {
@@ -132,14 +138,13 @@ const destroyOrder = async (id) => {
     throw error;
   }
 };
-
 // async function demo() {
 //   try {
 //     const { test } = await client.query(
 //       `
 //       SELECT ingredients.name, ingredients.description, ingredients.price, ingredients.img, cart_items.quantity, orders.id, orders.total_price, orders.date_ordered
 //       FROM ingredients
-//       JOIN cart_items 
+//       JOIN cart_items
 //       ON ingredients.id=cart_items."ingredientsId"
 //       JOIN orders
 //       ON cart_items."orderId"=orders.id
@@ -150,7 +155,6 @@ const destroyOrder = async (id) => {
 //     throw err;
 //   }
 // }
-
 module.exports = {
   client,
   createOrder,
@@ -159,3 +163,6 @@ module.exports = {
   getOrderById,
   destroyOrder,
 };
+
+
+

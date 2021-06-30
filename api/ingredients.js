@@ -45,7 +45,7 @@ ingredientsRouter.patch('/:id', async (req, res, next) => {
 
 ingredientsRouter.post('/', async (req, res, next) => {
 
-    const { name, description, price, quantity, category, stockQty } = req.body
+    const { name, description, price, category, stockQty } = req.body
     const newIngredient = {}
     try {
 
@@ -53,7 +53,6 @@ ingredientsRouter.post('/', async (req, res, next) => {
         (newIngredient.name = name),
             (newIngredient.description = description),
             (newIngredient.price = price),
-            (newIngredient.quantity = quantity),
             (newIngredient.category = category),
             (newIngredient.stockQty = stockQty)
 

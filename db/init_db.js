@@ -27,7 +27,7 @@ const {
 const { logDOM } = require("@testing-library/react");
 
 const {
-    createCartItem
+  createCartItem
 } = require("./cartItems")
 
 async function buildTables() {
@@ -94,101 +94,97 @@ async function buildTables() {
 }
 
 async function populateInitialIngredients() {
-    try {
-        console.log("starting to create ingredients...");
+  try {
+    console.log("starting to create ingredients...");
 
-        const ingredientsToCreate = [
-            {
-                name: "Elixir Cure All",
-                description: "This elixir will cure everything",
-                price: 5,
-                quantity: 2,
-                category: "general",
-                stockQty: 50,
-            },
-            {
-                name: "Elixir Weight",
-                description: "Lose weight with this elixr",
-                price: 6,
-                quantity: 1,
-                category: "weight",
-                stockQty: 50,
-            },
-            {
-                name: "Pet Mange Elixir",
-                description: "This will get rid of all the mange!",
-                price: 7,
-                quantity: 1,
-                category: "pets",
-                stockQty: 50,
-                img: "images/elixir1Test.png",
-                imgAlt: "dog mange elixir"
+    const ingredientsToCreate = [
+      {
+        name: "Elixir Cure All",
+        description: "This elixir will cure everything",
+        price: 5,
+        category: "general",
+        stockQty: 50,
+      },
+      {
+        name: "Elixir Weight",
+        description: "Lose weight with this elixr",
+        price: 6,
+        category: "weight",
+        stockQty: 50,
+      },
+      {
+        name: "Pet Mange Elixir",
+        description: "This will get rid of all the mange!",
+        price: 7,
+        category: "pets",
+        stockQty: 50,
+        img: "images/elixir1Test.png",
+        imgAlt: "dog mange elixir"
 
-            },
-            {
-                name: "Hair Loss Elixir",
-                description: "Get a head full of new hair in 10 days",
-                price: 10,
-                quantity: 4,
-                category: "hair loss",
-                stockQty: 50,
-            },
-        ];
+      },
+      {
+        name: "Hair Loss Elixir",
+        description: "Get a head full of new hair in 10 days",
+        price: 10,
+        category: "hair loss",
+        stockQty: 50,
+      },
+    ];
 
-        const theIngredients = await Promise.all(
-            ingredientsToCreate.map((ingredient) => createIngredient(ingredient))
-        );
-        console.log("Ingredients Created: ", theIngredients);
-        console.log("Finished creating ingredients.");
-    } catch (error) {
-        throw error;
-    }
+    const theIngredients = await Promise.all(
+      ingredientsToCreate.map((ingredient) => createIngredient(ingredient))
+    );
+    console.log("Ingredients Created: ", theIngredients);
+    console.log("Finished creating ingredients.");
+  } catch (error) {
+    throw error;
+  }
 }
 
 async function populateInitialUsers() {
-    try {
-        console.log("starting to create users...");
-        const usersToCreate = [
-            {
-                email: "sharon.mcmanis@gmail.com",
-                name: "Sharon McManis",
-                password: "123456789",
-                username: "sharon82",
-                address: "123 Florida Ave",
-                city: "Chicago",
-                state: "IL",
-                zip: "60618",
-                isAdmin: true,
-            },
-            {
-                email: "ashley.mcmanis@gmail.com",
-                name: "Ashley Roland",
-                password: "123456789",
-                username: "smashley",
-                address: "230 Seminole Ave",
-                city: "Atlantic Beach",
-                state: "FL",
-                zip: "32233",
-                isUser: false,
-            },
-            {
-                email: "christina.mcmanis@gmail.com",
-                name: "Christina Massey",
-                password: "123456789",
-                username: "christina81",
-                address: "4789 Atlantic Blvd",
-                city: "Mayport",
-                state: "FL",
-                zip: "32205",
-                isUser: true,
-            },
-        ];
-        const users = await Promise.all(usersToCreate.map(createUser));
-        console.log("User Created: ", users);
-        console.log("Finished creating users.");
-    } catch (error) {
-        throw error;
-    }
+  try {
+    console.log("starting to create users...");
+    const usersToCreate = [
+      {
+        email: "sharon.mcmanis@gmail.com",
+        name: "Sharon McManis",
+        password: "123456789",
+        username: "sharon82",
+        address: "123 Florida Ave",
+        city: "Chicago",
+        state: "IL",
+        zip: "60618",
+        isAdmin: true,
+      },
+      {
+        email: "ashley.mcmanis@gmail.com",
+        name: "Ashley Roland",
+        password: "123456789",
+        username: "smashley",
+        address: "230 Seminole Ave",
+        city: "Atlantic Beach",
+        state: "FL",
+        zip: "32233",
+        isUser: false,
+      },
+      {
+        email: "christina.mcmanis@gmail.com",
+        name: "Christina Massey",
+        password: "123456789",
+        username: "christina81",
+        address: "4789 Atlantic Blvd",
+        city: "Mayport",
+        state: "FL",
+        zip: "32205",
+        isUser: true,
+      },
+    ];
+    const users = await Promise.all(usersToCreate.map(createUser));
+    console.log("User Created: ", users);
+    console.log("Finished creating users.");
+  } catch (error) {
+    throw error;
+  }
 }
 
 async function populateInitialOrders() {
@@ -223,7 +219,7 @@ async function populateInitialOrders() {
 async function populateInitialCart() {
   try {
     console.log("starting to create cart");
-    const cartToCreate = [{ id: 1, ingredientId: 1, usersId:1 }];
+    const cartToCreate = [{ id: 1, ingredientId: 1, usersId: 1 }];
     const theOrders = await Promise.all(
       cartToCreate.map((cart) => createCartItem(cart.id, cart.ingredientId, cart.usersId))
     );
@@ -253,85 +249,85 @@ async function populateInitialCart() {
 // }
 
 async function rebuildDB() {
-    try {
+  try {
 
-        client.connect();
-        console.log("starting to build tables in rebuildDB");
-        await buildTables();
-        console.log("starting to populate initial ingredients in rebuildDB");
-        await populateInitialIngredients();
-        console.log("starting to populate initial Users in rebuildDB");
-        await populateInitialUsers();
+    client.connect();
+    console.log("starting to build tables in rebuildDB");
+    await buildTables();
+    console.log("starting to populate initial ingredients in rebuildDB");
+    await populateInitialIngredients();
+    console.log("starting to populate initial Users in rebuildDB");
+    await populateInitialUsers();
 
-        console.log("starting to populate initial orders in rebuildDB");
-        await populateInitialOrders();
+    console.log("starting to populate initial orders in rebuildDB");
+    await populateInitialOrders();
 
-    } catch (error) {
-        console.log("Error during rebuildDB");
-        throw error;
-    }
+  } catch (error) {
+    console.log("Error during rebuildDB");
+    throw error;
+  }
 }
 
 async function testDB() {
 
-    try {
+  try {
 
-        console.log("Starting to test database...");
-        console.log("Calling getAllUsers");
-        const users = await getAllUsers();
-        console.log("666 Get All users Result:", users);
-        console.log("Calling getUserByEmail with 1");
-        const singleEmail = await getUserByEmail(users[1].email);
-        console.log("555 user by email Result:", singleEmail);
-        console.log("Calling getUserById with 1");
-        const singleUser = await getUserById(1);
-        console.log("444 user by id Result:", singleUser);
-        console.log("Calling update user");
-        const updatedUserData = await updateUser(users[0].id, {
-            username: "stmstm",
-        });
-        console.log("333 Result:", updatedUserData);
-        const username = await getUserByUsername(users[1].username);
-        console.log("222 user by username Result:", username);
-        console.log("Calling getUserByUsername with 1");
-        console.log("Starting to test ingredients...");
-        console.log("Calling getAllIngredients");
-        const ingredients = await getAllIngredients();
-        console.log("Get All Ingredients Result:", ingredients);
-        console.log("Calling getIngredientById with 1");
-        const singleIngredient = await getIngredientbyId(1);
-        console.log("Result:", singleIngredient);
-        console.log("Calling updateIngredient on ingredient[0]");
-        const updatedIngredient = await updateIngredient(ingredients[0].id, {
-            name: "New Elixir",
-            description: "Updated elixir"
-        });
+    console.log("Starting to test database...");
+    console.log("Calling getAllUsers");
+    const users = await getAllUsers();
+    console.log("666 Get All users Result:", users);
+    console.log("Calling getUserByEmail with 1");
+    const singleEmail = await getUserByEmail(users[1].email);
+    console.log("555 user by email Result:", singleEmail);
+    console.log("Calling getUserById with 1");
+    const singleUser = await getUserById(1);
+    console.log("444 user by id Result:", singleUser);
+    console.log("Calling update user");
+    const updatedUserData = await updateUser(users[0].id, {
+      username: "stmstm",
+    });
+    console.log("333 Result:", updatedUserData);
+    const username = await getUserByUsername(users[1].username);
+    console.log("222 user by username Result:", username);
+    console.log("Calling getUserByUsername with 1");
+    console.log("Starting to test ingredients...");
+    console.log("Calling getAllIngredients");
+    const ingredients = await getAllIngredients();
+    console.log("Get All Ingredients Result:", ingredients);
+    console.log("Calling getIngredientById with 1");
+    const singleIngredient = await getIngredientbyId(1);
+    console.log("Result:", singleIngredient);
+    console.log("Calling updateIngredient on ingredient[0]");
+    const updatedIngredient = await updateIngredient(ingredients[0].id, {
+      name: "New Elixir",
+      description: "Updated elixir"
+    });
 
-        console.log("Result:", updatedIngredient);
-        console.log("Testing delete ingredient");
-        const deleteIngredient = await destroyIngredient(2);
-        console.log("deleted ingredient #2", deleteIngredient);
+    console.log("Result:", updatedIngredient);
+    console.log("Testing delete ingredient");
+    const deleteIngredient = await destroyIngredient(2);
+    console.log("deleted ingredient #2", deleteIngredient);
 
-        console.log("Calling getIngredientByCategory with fruit");
-        const ingredientsWithFruit = await ingredientByCategory("fruit");
-        console.log("Result:", ingredientsWithFruit);
+    console.log("Calling getIngredientByCategory with fruit");
+    const ingredientsWithFruit = await ingredientByCategory("fruit");
+    console.log("Result:", ingredientsWithFruit);
 
-        console.log("Calling getAllorders");
-        const theOrders = await getAllOrders()
-        console.log(theOrders, "please for the love of god")
-        const orderId = await getOrderById(2)
-        console.log(orderId, "please for the love of god")
+    console.log("Calling getAllorders");
+    const theOrders = await getAllOrders()
+    console.log(theOrders, "please for the love of god")
+    const orderId = await getOrderById(2)
+    console.log(orderId, "please for the love of god")
 
-        // const usersOrder = await getOrderByUser()
-        // console.log(usersOrder, "This is smashleys order")
+    // const usersOrder = await getOrderByUser()
+    // console.log(usersOrder, "This is smashleys order")
 
-        console.log("Finished database tests!");
+    console.log("Finished database tests!");
 
-    } catch (error) {
-        console.log("Error during TestDB");
-        throw error;
+  } catch (error) {
+    console.log("Error during TestDB");
+    throw error;
 
-    }
+  }
 }
 
 rebuildDB()

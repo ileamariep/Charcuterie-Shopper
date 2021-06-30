@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Shop.css";
 import { getSingleIngredient, updateCount } from "../api";
+import { addCartItem } from "../api/cartItem"
 import Dropdown from "./Dropdown";
 
 const items = [
@@ -25,6 +26,7 @@ const Shop = ({
   setIngredients,
   resetIngredients,
   setResetIngredients,
+  currentUserId,
 }) => {
   const [showCartButton, setCartButton] = useState(false);
   const [selection, setSelection] = useState([]);
@@ -44,11 +46,13 @@ const Shop = ({
     window.location.reload();
   };
 
-  const handleAddToCart = async (id, qytSelection) => {
+  const handleAddToCart = async (qtySelect, ingredientId, currentUserId) => {
+
+    // const qtyStringToNum = Number(qtyToString);
+
     try {
-      const qtyToString = qytSelection.toString();
-      const qtyStringToNum = Number(qtyToString);
-      await updateCount(id, qtyStringToNum);
+      await addCartItem(qtySelect, ingredientId, currentUserId)
+
     } catch (error) {
       throw error;
     }
@@ -103,7 +107,7 @@ const Shop = ({
                       <Button
                         type="submit"
                         className="addcart"
-                        onClick={() => handleAddToCart(id, selection)}
+                        onClick={() => handleAddToCart(selection, id, currentUserId)}
                       >
                         Add to Cart
                       </Button>
