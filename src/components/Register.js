@@ -14,8 +14,8 @@ const Register = () => {
   const [city, setCity] = useState();
   const [state, setState] = useState();
   const [zip, setZip] = useState();
-  // const [isAdmin, setIsAdmin] = useState(true);
-  const [setErrorMessage] = useState();
+
+  const [errorMessage, setErrorMessage] = useState();
 
   const registerUser = async () => {
     return await axios
@@ -33,11 +33,16 @@ const Register = () => {
           localStorage.setItem("token", JSON.stringify(token));
           window.location.href = `${SHOP_ROUTE}`;
         } else {
-          setErrorMessage("Invalid Username or Password");
+          let errM = setErrorMessage("Invalid Username or Password");
+          errorMessage(errM)
+
         }
       })
       .catch(() => {
-        setErrorMessage("Invalid Username or Password");
+        let lastErr = setErrorMessage("Invalid Username or Password");
+        errorMessage(lastErr)
+
+
       });
   };
 
