@@ -20,15 +20,12 @@ const Navigation = ({
 }) => {
   const myToken = JSON.parse(localStorage.getItem("token"));
   const logOut = () => {
-    localStorage.clear("token")
-    setIsAdmin(false)
+    localStorage.clear("token");
+    setIsAdmin(false);
     window.location.href = `${SHOP_ROUTE}`;
-
   };
 
-
-
-  if (myToken && !isAdmin && isUser) {
+  if (myToken && !isAdmin) {
     //user
     return (
       <nav>

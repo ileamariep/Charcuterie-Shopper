@@ -26,31 +26,27 @@ const App = () => {
     myAccountFetch(myToken)
       .then((user) => {
         setIsAdmin(user.isAdmin);
+        console.log(user);
       })
       .catch((error) => {
         // something something errors
       });
-  }
-
+  };
+  retrieveUser();
 
   useEffect(() => {
-
     const fetchProducts = async () => {
       await retrieveIngredients();
       let myUsername = await myAccountFetch(myToken);
-      const userArray = [myUsername.isAdmin].flat()
+      const userArray = [myUsername.isAdmin].flat();
       setIsAdmin(userArray);
-
-    }
-    fetchProducts()
-
+    };
+    fetchProducts();
   }, []);
   return (
     <div className="App">
       <header>
-        <Header
-          isAdmin={isAdmin}
-          setIsAdmin={setIsAdmin} />
+        <Header isAdmin={isAdmin} setIsAdmin={setIsAdmin} />
       </header>
       <main>
         <Pages

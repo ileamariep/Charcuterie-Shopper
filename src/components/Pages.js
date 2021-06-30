@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { Route, Switch } from "react-router-dom";
 import "./pages.css";
-
-
 import {
   SHOP_ROUTE,
   LOGIN_ROUTE,
@@ -19,7 +17,6 @@ import Register from "./Register";
 import Shop from "./Shop";
 import Login from "./Login";
 import Home from "./Home";
-
 
 // import { getSomething } from "../api";
 
