@@ -7,9 +7,15 @@ const { requireUser } = require("./utils")
 
 cartItemsRouter.get('/:usersId', async (req, res, next) => {
   const { usersId } = req.params;
+  const {orderId} = req.body
   try {
-    const allCartItems = await getCartByUser({ usersId });
-    res.send(allCartItems)
+    if(orderId === null) {
+      const allCartItemsByUser = await getCartByUser({ usersId });
+    res.send(allCartItemsByUser)
+    } else {
+      res.send()
+    }
+    
   } catch (error) {
     next(error)
   }
@@ -30,8 +36,8 @@ cartItemsRouter.post('/cartPost', async (req, res, next) => {
 
 
   try {
-    const createdCartItem = await createCartItem({ quantity, ingredientId, usersId });
-    res.send(createdCartItem);
+    const createdCartItem = await createCartItem({quantity, ingredientId, usersId});
+    res.json(createdCartItem);
   } catch (error) {
     next(error);
   }

@@ -26,7 +26,10 @@ const {
 } = require("./ingredients");
 const { logDOM } = require("@testing-library/react");
 
-const { createCartItem } = require("./cartItems");
+const {
+  createCartItem
+} = require("./cartItems");
+
 
 async function buildTables() {
   try {
@@ -65,7 +68,6 @@ async function buildTables() {
           name varchar(30) UNIQUE,
           description VARCHAR(255),
           price MONEY,
-          quantity INTEGER,
           category text,
           "stockQty" INTEGER DEFAULT 0,
           img TEXT,
@@ -212,35 +214,40 @@ async function populateInitialOrders() {
   }
 }
 
-async function populateInitialCart() {
+async function createInitialCartItems() {
   try {
-    console.log("starting to create cart");
-    const cartToCreate = [
-      {
-        ingredientId: 1,
-        usersId: 1,
-        quantity: 5,
-      },
-      {
-        ingredientId: 3,
-        usersId: 1,
-        quantity: 5,
-      },
-      {
-        ingredientId: 1,
-        usersId: 2,
-        quantity: 5,
-      },
-    ];
+    console.log('starting to create cartItems...');
+    const [user1, user2, user3] = await getAllUsers();
+    const [ing1, ing2, ing3] = await getAllIngredients();
 
-    const cart = await Promise.all(cartToCreate.map(createCartItem));
-    console.log("cart items created: ", cart);
-    console.log("Finished creating cart.");
+    const cartItemsToCreate = [
+      {
+        usersId: user1.id,
+        ingredientId:ing1.id,
+        quantity: 1,
+        orderId: null
+      },
+      {
+        usersId: user2.id,
+        ingredientId:ing2.id,
+        quantity: 6,
+        orderId: null
+      },
+      {
+        usersId: user3.id,
+        ingredientId:ing3.id,
+        quantity: 3,
+        orderId: null
+      },
+      
+    ]
+    const cartItems = await Promise.all(cartItemsToCreate.map(createCartItem));
+    console.log('cart items created: ', cartItems)
+    console.log('Finished creating cartItems!')
   } catch (error) {
     throw error;
   }
 }
-
 // async function populateInitialReviews() {
 //     try {
 //         console.log("starting to create reviews...");
@@ -267,10 +274,12 @@ async function rebuildDB() {
     await populateInitialIngredients();
     console.log("starting to populate initial Users in rebuildDB");
     await populateInitialUsers();
+    console.log("starting to populate initial cartitems in rebuildDB");
+    await createInitialCartItems();
     console.log("starting to populate initial orders in rebuildDB");
     await populateInitialOrders();
     console.log("starting to populate initial cart items in rebuildDB");
-    await populateInitialCart();
+    // await populateInitialCart();
   } catch (error) {
     console.log("Error during rebuildDB");
     throw error;
@@ -319,11 +328,11 @@ async function testDB() {
     const ingredientsWithFruit = await ingredientByCategory("fruit");
     console.log("Result:", ingredientsWithFruit);
 
-    console.log("Calling getAllorders");
-    const theOrders = await getAllOrders();
-    console.log(theOrders, "please for the love of god");
-    const orderId = await getOrderById(2);
-    console.log(orderId, "please for the love of god");
+    // console.log("Calling getAllorders");
+    // const theOrders = await getAllOrders()
+    // console.log(theOrders, "please for the love of god")
+    // const orderId = await getOrderById(2)
+    // console.log(orderId, "please for the love of god")
 
     // const usersOrder = await getOrderByUser()
     // console.log(usersOrder, "This is smashleys order")
