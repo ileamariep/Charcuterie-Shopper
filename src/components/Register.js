@@ -34,15 +34,12 @@ const Register = () => {
           window.location.href = `${SHOP_ROUTE}`;
         } else {
           let errM = setErrorMessage("Invalid Username or Password");
-          errorMessage(errM)
-
+          errorMessage(errM);
         }
       })
       .catch(() => {
         let lastErr = setErrorMessage("Invalid Username or Password");
-        errorMessage(lastErr)
-
-
+        errorMessage(lastErr);
       });
   };
 
@@ -53,83 +50,91 @@ const Register = () => {
 
   return (
     <>
-      <div className="form-container">
-        <Form id="register-form" onSubmit={onFormSubmit}>
-          <Form.Group controlId="formBasicUsername">
-            <Form.Label>Username</Form.Label>
-            <Form.Control
-              type="username"
-              placeholder="Enter username"
-              onInput={(event) => {
-                setUsername(event.target.value);
-              }}
-            />
-          </Form.Group>
-          <Form.Group controlId="formBasicEmail">
-            <Form.Label>Email</Form.Label>
-            <Form.Control
-              type="email"
-              placeholder="Enter email"
-              onInput={(event) => {
-                setEmail(event.target.value);
-              }}
-            />
-          </Form.Group>
-          <Form.Group controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="Password"
-              onInput={(event) => {
-                setPassword(event.target.value);
-              }}
-            />
-          </Form.Group>
+      <div className="register-form-container">
+        <div className="register-card">
+          <div className="register-image">
+            <img src="images/oldad.jpg" alt="salesman" />
+          </div>
+          <div className="register-container">
+            <h1>REGISTER</h1>
+            <Form id="register-form" onSubmit={onFormSubmit}>
+              <Form.Group controlId="formBasicUsername">
+                <Form.Label>Username</Form.Label>
+                <Form.Control
+                  type="username"
+                  placeholder="Enter username"
+                  onInput={(event) => {
+                    setUsername(event.target.value);
+                  }}
+                />
+              </Form.Group>
+              <Form.Group controlId="formBasicEmail">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  type="email"
+                  placeholder="Enter email"
+                  onInput={(event) => {
+                    setEmail(event.target.value);
+                  }}
+                />
+              </Form.Group>
+              <Form.Group controlId="formBasicPassword">
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  placeholder="Password"
+                  onInput={(event) => {
+                    setPassword(event.target.value);
+                  }}
+                />
+              </Form.Group>
 
-          <Form.Group controlId="formBasicAddress">
-            <Form.Label>Address</Form.Label>
-            <Form.Control
-              type="address"
-              placeholder="Address"
-              onInput={(event) => {
-                setAddress(event.target.value);
-              }}
-            />
-          </Form.Group>
-          <Form.Group controlId="formBasicCity">
-            <Form.Label>City</Form.Label>
-            <Form.Control
-              type="city"
-              placeholder="City"
-              onInput={(event) => {
-                setCity(event.target.value);
-              }}
-            />
-          </Form.Group>
-          <Form.Group controlId="formBasicState">
-            <Form.Label>State</Form.Label>
-            <Form.Control
-              type="state"
-              placeholder="State"
-              onInput={(event) => {
-                setState(event.target.value);
-              }}
-            />
-          </Form.Group>
-          <Form.Group controlId="formBasicZip">
-            <Form.Label>Zipcode</Form.Label>
-            <Form.Control
-              type="zip"
-              placeholder="Zipcode"
-              onInput={(event) => {
-                setZip(event.target.value);
-              }}
-            />
-          </Form.Group>
-          <Button variant="primary" type="submit">
-            Submit
-          </Button>
-        </Form>
+              <Form.Group controlId="formBasicAddress">
+                <Form.Label>Address</Form.Label>
+                <Form.Control
+                  type="address"
+                  placeholder="Address"
+                  onInput={(event) => {
+                    setAddress(event.target.value);
+                  }}
+                />
+              </Form.Group>
+              <Form.Group controlId="formBasicCity">
+                <Form.Label>City</Form.Label>
+                <Form.Control
+                  type="city"
+                  placeholder="City"
+                  onInput={(event) => {
+                    setCity(event.target.value);
+                  }}
+                />
+              </Form.Group>
+              <Form.Group controlId="formBasicState">
+                <Form.Label>State</Form.Label>
+                <Form.Control
+                  type="state"
+                  placeholder="State"
+                  onInput={(event) => {
+                    setState(event.target.value);
+                  }}
+                />
+              </Form.Group>
+              <Form.Group controlId="formBasicZip">
+                <Form.Label>Zipcode</Form.Label>
+                <Form.Control
+                  type="zip"
+                  placeholder="Zipcode"
+                  onInput={(event) => {
+                    setZip(event.target.value);
+                  }}
+                />
+              </Form.Group>
+              <Button variant="primary" type="submit">
+                Submit
+              </Button>
+            </Form>
+          </div>
+        </div>
       </div>
     </>
   );

@@ -138,24 +138,18 @@ async function getUserByUsername(username) {
   }
 }
 
-async function createGuestUser({
-  zip,
-  isAdmin = false,
-  isUser = false,
-}) {
+async function createGuestUser({ zip, isAdmin = false, isUser = false }) {
   try {
-
     const {
       rows: [user],
     } = await client.query(
       `
-      INSERT INTO users (zip, "isAdmin", "isUser", )
+      INSERT INTO users (zip, "isAdmin", "isUser")
       VALUES($1, $2, $3) 
       RETURNING *;
         `,
       [zip, isAdmin, isUser]
     );
-
 
     console.log(user, "guest user");
     return user;
