@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Shop.css";
-import { getSingleIngredient, updateCount } from "../api";
+import { getSingleIngredient } from "../api";
 import { addCartItem } from "../api/cartItem"
 import Dropdown from "./Dropdown";
 
@@ -30,6 +30,7 @@ const Shop = ({
 }) => {
   const [showCartButton, setCartButton] = useState(false);
   const [selection, setSelection] = useState([]);
+  const [addedToCart, setAddedToCart] = useState(false)
 
   const handleViewClick = async (id) => {
     try {
@@ -43,15 +44,23 @@ const Shop = ({
   };
   const handleKeepShopping = () => {
     setCartButton(false)
+    setSelection([])
     window.location.reload();
   };
 
   const handleAddToCart = async (qtySelect, ingredientId, currentUserId) => {
 
-    // const qtyStringToNum = Number(qtyToString);
+
+    const numOutOfArray = qtySelect.toString()
+    const qtyStringToNum = Number(numOutOfArray);
+
+    setCartButton(false)
+    setAddedToCart(true)
+
+    console.log(qtySelect, "this should be qty", qtyStringToNum, "num out of array", ingredientId, "this should be the ingredient id", currentUserId, "this userId")
 
     try {
-      await addCartItem(qtySelect, ingredientId, currentUserId)
+      await addCartItem(qtyStringToNum, ingredientId, currentUserId)
 
     } catch (error) {
       throw error;
@@ -83,18 +92,16 @@ const Shop = ({
                 </div>
                 <p className="product-description">{description}</p>
 
-                {showCartButton ? (
-                  <Dropdown
-                    title="Select movie"
-                    selection={selection}
-                    setSelection={setSelection}
-                    items={items}
-                    multiSelect
-                  />
-                ) : null}
+
                 <div className="product-price">{price}</div>
                 <div className="product-buttons">
-                  {!showCartButton ? (
+                  {!addedToCart ? (
+                    <div></div>) : (
+                    <div></div>
+                  )
+
+                  }
+                  {!showCartButton && !addedToCart ? (
                     <Button
                       type="submit"
                       className="view"
@@ -102,8 +109,15 @@ const Shop = ({
                     >
                       View
                     </Button>
-                  ) : (
+                  ) : showCartButton && !addedToCart ? (
                     <>
+                      <Dropdown
+                        title="Select movie"
+                        selection={selection}
+                        setSelection={setSelection}
+                        items={items}
+                        multiSelect
+                      />
                       <Button
                         type="submit"
                         className="addcart"
@@ -120,7 +134,19 @@ const Shop = ({
                         Keep Shopping
                       </Button>
                     </>
-                  )}
+                  ) : (
+                    <>
+                      <div>YOUR ITEMS HAVE BEEN ADDED TO YOUR CART</div>
+                      <Button
+                        type="button"
+                        className="keep-shopping"
+                        onClick={() => handleKeepShopping()}
+                      >
+                        Keep Shopping
+                      </Button>
+                    </>
+                  )
+                  }
                 </div>
               </div>
             </div>

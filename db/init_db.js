@@ -116,8 +116,9 @@ async function populateInitialIngredients() {
         price: 7,
         category: "pets",
         stockQty: 50,
-        img: "images/elixir1Test.png",
-        imgAlt: "dog mange elixir",
+        img: "/images/elixir1Test.png",
+        imgAlt: "dog mange elixir"
+
       },
       {
         name: "Hair Loss Elixir",

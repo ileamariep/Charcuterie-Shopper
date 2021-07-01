@@ -14,8 +14,10 @@ function Dropdown({ qty, items, selection, setSelection, multiSelect = false }) 
         if (!selection.some(current => current.id === item.id)) {
             if (!multiSelect) {
                 setSelection([item.qty]);
+                setOpen(false)
             } else if (multiSelect) {
                 setSelection([...selection, item.qty]);
+                setOpen(false)
             }
         } else {
             let selectionAfterRemoval = selection;
@@ -23,6 +25,7 @@ function Dropdown({ qty, items, selection, setSelection, multiSelect = false }) 
                 current => current.id !== item.id
             );
             setSelection([...selectionAfterRemoval]);
+            setOpen(false)
         }
     }
 
@@ -48,7 +51,7 @@ function Dropdown({ qty, items, selection, setSelection, multiSelect = false }) 
                     <p className="dd-header__title--bold">{qty}</p>
                 </div>
                 <div className="dd-header__action">
-                    <p>{open ? 'Close' : 'Open'}</p>
+                    <p>{open ? 'Close' : `SELECT QTY`}</p>
                 </div>
             </div>
             {open && (

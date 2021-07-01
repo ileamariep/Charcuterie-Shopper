@@ -58,7 +58,12 @@ const Pages = (props) => {
           <MyAccount />
         </Route>
         <Route path={ADMIN_ROUTE}>
-          <Admin isAdmin={isAdmin} setIsAdmin={setIsAdmin} />
+          <Admin isAdmin={isAdmin}
+            setIsAdmin={setIsAdmin}
+            grabbedIngredients={grabbedIngredients}
+            setIngredients={setIngredients}
+            resetIngredients={resetIngredients}
+            setResetIngredients={setResetIngredients} />
         </Route>
         <Route path={CART_ROUTE}>
           <Cart />
