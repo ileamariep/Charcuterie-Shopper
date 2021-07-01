@@ -1,9 +1,10 @@
 const { client } = require("./client");
 
-
 async function createCartItem({ quantity, ingredientId, usersId }) {
   try {
-    const { rows: [cart_item] } = await client.query(
+    const {
+      rows: [cart_item],
+    } = await client.query(
       `
         INSERT INTO cart_items("quantity", "ingredientId", "usersId")
         VALUES ($1, $2, $3)
@@ -11,7 +12,6 @@ async function createCartItem({ quantity, ingredientId, usersId }) {
       `,
       [quantity, ingredientId, usersId]
     );
-
     return cart_item;
   } catch (error) {
     throw error;
@@ -20,14 +20,19 @@ async function createCartItem({ quantity, ingredientId, usersId }) {
 
 async function getCartItemsById({ id }) {
   try {
-    const { rows: [cartItems] } = await client.query(`
+    const {
+      rows: [cartItems],
+    } = await client.query(
+      `
           SELECT * 
           FROM cart_items
           WHERE id=$1;
-     `, [id]);
+     `,
+      [id]
+    );
     return cartItems;
   } catch (error) {
-    throw error
+    throw error;
   }
 }
 
@@ -51,12 +56,17 @@ async function getCartByUser({ id }) {
 
 async function updateCartItems({ id, quantity }) {
   try {
-    const { rows: [cartItems] } = await client.query(`
+    const {
+      rows: [cartItems],
+    } = await client.query(
+      `
           UPDATE cart_items
           SET quantity=$2
           WHERE id=$1
           RETURNING *;
-          `, [id, quantity]);
+          `,
+      [id, quantity]
+    );
     return cartItems;
   } catch (error) {
     throw error;
@@ -70,11 +80,13 @@ async function destroyCartItems(id) {
   DELETE * 
   FROM cart_items
   WHERE id=$1
-  `, [id])
+  `,
+      [id]
+    );
 
-    return cartItems
+    return cartItems;
   } catch (err) {
-    throw err
+    throw err;
   }
 }
 
@@ -84,5 +96,5 @@ module.exports = {
   getCartItemsById,
   getCartByUser,
   updateCartItems,
-  destroyCartItems
+  destroyCartItems,
 };

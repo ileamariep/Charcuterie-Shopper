@@ -56,7 +56,7 @@ export async function getUsers() {
 
 export async function getGuestUser(zip) {
   try {
-    const { data } = await axios.patch(`/api/users/guest/${zip}`);
+    const { data } = await axios.post(`/api/users/guest/${zip}`);
     console.log(data);
     return data;
   } catch (error) {

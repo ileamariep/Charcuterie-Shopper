@@ -7,7 +7,7 @@ const {
   getUserById,
   getUserByUsername,
   updateUser,
-  createGuestUser
+  createGuestUser,
 } = require("../db");
 
 const jwt = require("jsonwebtoken");
@@ -64,7 +64,7 @@ usersRouter.post("/register", async (req, res, next) => {
 // login user
 usersRouter.post("/login", async (req, res, next) => {
   const { username, password } = req.body;
-  const { isAdminTF } = req.params
+  const { isAdminTF } = req.params;
 
   if (!username || !password) {
     next({
@@ -74,8 +74,7 @@ usersRouter.post("/login", async (req, res, next) => {
   }
   try {
     const user = await getUserByUsername(username);
-    console.log(user, 'this is the user data')
-
+    console.log(user, "this is the user data");
 
     const isPasswordMatch = await bcrypt.compare(password, user.password);
 
@@ -103,9 +102,6 @@ usersRouter.post("/login", async (req, res, next) => {
     next(error);
   }
 });
-
-
-
 
 // update user info - user
 usersRouter.patch("/user/:id", requireUser, async (req, res, next) => {
@@ -202,19 +198,17 @@ usersRouter.get("/:userId/users", async (req, res, next) => {
 //   });
 // });
 
-
 usersRouter.post(`/guest/:zip`, async (req, res, next) => {
-  const { zip } = req.body;
+  const { zip } = req.params;
   try {
     const user = await createGuestUser({
       zip,
     });
-    res.send(user)
+    res.send(user);
   } catch (error) {
     console.error(error);
     next(error);
   }
 });
-
 
 module.exports = usersRouter;

@@ -39,35 +39,42 @@ const Login = ({ setIsAdmin, isAdmin }) => {
   };
   return (
     <>
-      {/* <div> backgroundImage: `url(${bottlesill})`</div> */}
-      {/* <div className="form-container"> */}
-      <Form id="login-form" onSubmit={onFormSubmit}>
-        <Form.Group controlId="formBasicUsername">
-          <Form.Label>Username</Form.Label>
-          <Form.Control
-            type="username"
-            placeholder="Enter username"
-            onInput={(event) => {
-              setUsername(event.target.value);
-            }}
-          />
-        </Form.Group>
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Password"
-            onInput={(event) => {
-              setPassword(event.target.value);
-            }}
-          />
-        </Form.Group>
+      <div className="login-form-container">
+        <div className="login-card">
+          <div className="login-image">
+            <img src="images/hunts.jpg" alt="salesman" />
+          </div>
+          <div className="login-container">
+            <h1>LOGIN</h1>
+            <Form id="login-form" onSubmit={onFormSubmit}>
+              <Form.Group controlId="formBasicUsername">
+                <Form.Label>Username</Form.Label>
+                <Form.Control
+                  type="username"
+                  placeholder="Enter username"
+                  onInput={(event) => {
+                    setUsername(event.target.value);
+                  }}
+                />
+              </Form.Group>
+              <Form.Group controlId="formBasicPassword">
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  placeholder="Password"
+                  onInput={(event) => {
+                    setPassword(event.target.value);
+                  }}
+                />
+              </Form.Group>
 
-        <Button variant="primary" type="submit">
-          Submit
-        </Button>
-      </Form>
-      {/* </div> */}
+              <Button variant="primary" type="submit">
+                Submit
+              </Button>
+            </Form>
+          </div>
+        </div>
+      </div>
     </>
   );
 };
