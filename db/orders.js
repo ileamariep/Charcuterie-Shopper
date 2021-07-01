@@ -77,7 +77,6 @@ async function getOrderById(orderId) {
       [orderId]
     );
 
-
     return order;
   } catch (error) {
     throw error;

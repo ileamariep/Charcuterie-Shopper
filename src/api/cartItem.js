@@ -1,31 +1,54 @@
 import axios from "axios";
 
+// export async function addCartItem(quantity, ingredientId, usersId) {
+//     try {
+//         const response = await fetch(`api/cartItems/cartPost`, {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             },
+//             body: JSON.stringify({
+//                 quantity,
+//                 ingredientId,
+//                 orderId: null,
+//                 usersId
+//             })
+//         })
 
+//         const newCartItem = await response.json();
 
+//         console.log(newCartItem, "the new cart item from cartItems")
+//         return newCartItem
+//     } catch (error) {
+//         throw error;
+//     }
+// }
 
-export async function addCartItem({ quantity, ingredientId, usersId }) {
+export async function addCartItem(quantity ,ingredientId, usersId) {
     try {
-        // console.log(quantity, "this should be qty", ingredientId, "ingred id", usersId, "the user id", "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-        const response = await fetch(`api/cartItems/cartPost`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
+        console.log({
+            quantity: quantity,
+            ingredientId: ingredientId,
+            usersId: usersId,
+            ordersId: null})
+        return await axios
+          .post("/api/cartItems/cartPost", {
+            quantity: quantity,
+            ingredientId: ingredientId,
+            usersId: usersId,
+            ordersId: null
+          })
+          .then(
+            (response) => {
+              console.log(response);
             },
-            body: JSON.stringify({
-                quantity,
-                ingredientId,
-                orderId: null,
-                usersId,
-            }),
-        })
-
-        const newCartItem = await response.json();
-        console.log(newCartItem, "new item in API")
-
-        return newCartItem
-    } catch (error) {
-        throw error;
-    }
+            (error) => {
+              console.log(error);
+            }
+          );
+      } catch (err) {
+        console.error(err);
+      }
 }
 // export async function addCartItem(quantity, ingredientId, usersId) {
 //     return await axios.post(`api/cartItems/cartPost`, {
