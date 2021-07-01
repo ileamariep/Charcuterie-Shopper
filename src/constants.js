@@ -5,3 +5,6 @@ export const CART_ROUTE = "/cart";
 export const ADMIN_ROUTE = "/admin";
 export const MYACCOUNT_ROUTE = "/my-account";
 export const SHOP_ROUTE = "/shop";
+export const ADMIN_USERS_ROUTE = "/admin/users";
+export const ADMIN_ORDERS_ROUTE = "/admin/orders";
+export const ADMIN_PRODUCTS_ROUTE = "/admin/products";

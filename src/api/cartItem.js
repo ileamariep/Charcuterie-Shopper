@@ -1,7 +1,11 @@
 import axios from "axios";
 
-export async function addCartItem(quantity, ingredientId, usersId) {
+
+
+
+export async function addCartItem({ quantity, ingredientId, usersId }) {
     try {
+        // console.log(quantity, "this should be qty", ingredientId, "ingred id", usersId, "the user id", "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         const response = await fetch(`api/cartItems/cartPost`, {
             method: 'POST',
             headers: {
@@ -11,13 +15,13 @@ export async function addCartItem(quantity, ingredientId, usersId) {
                 quantity,
                 ingredientId,
                 orderId: null,
-                usersId
-            })
+                usersId,
+            }),
         })
 
         const newCartItem = await response.json();
+        console.log(newCartItem, "new item in API")
 
-        console.log(newCartItem, "the new cart item from cartItems")
         return newCartItem
     } catch (error) {
         throw error;

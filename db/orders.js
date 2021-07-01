@@ -55,16 +55,7 @@ async function getOrderByUser(id) {
 // double join ingridients to cart items to orders
 async function getOrderById(orderId) {
   try {
-    // const {
-    //   rows: [order],
-    // } = await client.query(
-    //   `
-    //     SELECT *
-    //     FROM orders
-    //     WHERE id=$1;
-    //   `,
-    //   [orderId]
-    // );
+
     const { rows: order } = await client.query(
       `
       SELECT 
@@ -85,35 +76,14 @@ async function getOrderById(orderId) {
     `,
       [orderId]
     );
-    // const {
-    //   rows: [user],
-    // } = await client.query(
-    //   `
-    //   SELECT *
-    //   FROM users
-    //   WHERE id=$1;
-    // `,
-    //   [orderId] // <- need to use user ID, not order ID
-    // );
-    // order.cart = cart;
-    // order.user = user;
+
 
     return order;
   } catch (error) {
     throw error;
   }
 }
-// async function getOrderById(id) {
-//   try {
-//       const {rows: [order]} = await client.query(`
-//       SELECT * FROM orders
-//       WHERE id=$1
-//       `, [id])
-//       return order
-//   } catch(error) {
-//       throw error
-//   }
-// }
+
 const destroyOrder = async (id) => {
   try {
     const {

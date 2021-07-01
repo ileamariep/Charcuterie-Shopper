@@ -7,8 +7,8 @@ async function createCartItem({ quantity, ingredientId, usersId }) {
     } = await client.query(
       `
         INSERT INTO cart_items("quantity", "ingredientId", "usersId")
-        VALUES ($1, $2, $3)
-        RETURNING *
+        VALUES ($1, $2, $3, $4)
+        RETURNING *;
       `,
       [quantity, ingredientId, usersId]
     );
@@ -90,8 +90,23 @@ async function destroyCartItems(id) {
   }
 }
 
+async function getAllCartItems() {
+  try {
+    const { rows } = await client.query(
+      `
+      SELECT *
+      FROM cart_items
+      `
+    )
+    return rows
+  } catch (error) {
+    throw error
+  }
+}
+
 module.exports = {
   client,
+  getAllCartItems,
   createCartItem,
   getCartItemsById,
   getCartByUser,

@@ -5,51 +5,60 @@ import React, { useEffect, useState } from "react";
 import "./Admin.css";
 import { getUsers } from "../api";
 
-const Admin = () => {
-  const [usersAccountData, setUsersAccountData] = useState([]);
-  console.log(usersAccountData, "users account data");
-  useEffect(() => {
-    const myToken = JSON.parse(localStorage.getItem("token"));
-    if (myToken) {
-      const fetchData = async () => {
-        try {
-          let myUsers = await getUsers(myToken);
-          const userArray = [myUsers].flat();
-          // const account = await myOrdersFetch(myUsername, myToken);
-          console.log(myUsers, "account data after flat");
-          setUsersAccountData(userArray);
-        } catch (error) {
-          console.error(error);
-        }
-      };
 
-      fetchData();
-    }
-  }, []);
+import { Switch, Route, Link } from "react-router-dom";
+import {
+  ADMIN_PRODUCTS_ROUTE,
+  ADMIN_ORDERS_ROUTE,
+  ADMIN_USERS_ROUTE,
+} from "../constants";
+import AdminOrders from "./AdminOrders";
+import AdminUsers from "./AdminUsers";
+import AdminProducts from "./AdminProducts";
+// import { getSomething } from "../api";
 
+const Admin = ({
+  grabbedIngredients,
+  setIngredients,
+  resetIngredients,
+  setResetIngredients,
+  currentUserId,
+}) => {
   return (
-    <div id="users-container">
-      {usersAccountData.map((user, idx) => {
-        if (user.username == null) {
-          return (
-            <div key={user.id} user={user}>
-              <div>Guest From ZIP Code:{user.zip}</div>
-            </div>
-          );
-        } else {
-          return (
-            <div key={user.id} user={user}>
-              <div>username: {user.username}</div>
-              <div>email: {user.email}</div>
-              <div>address:{user.address}</div>
-              <div>city:{user.city}</div>
-              <div>state:{user.state}</div>
-              <div>ZIP:{user.zip}</div>
-            </div>
-          );
-        }
-      })}
-    </div>
+
+    <>
+      <div className="admin-nav">
+        <Link to={ADMIN_PRODUCTS_ROUTE}>PRODUCTS</Link>
+        <Link to={ADMIN_ORDERS_ROUTE}>ORDERS</Link>
+        <Link to={ADMIN_USERS_ROUTE}>USERS</Link>
+      </div>
+
+      <div className="tabs">
+        <Switch>
+          <Route path={ADMIN_PRODUCTS_ROUTE}>
+            <AdminProducts
+              grabbedIngredients={grabbedIngredients}
+              setIngredients={setIngredients}
+              resetIngredients={resetIngredients}
+              setResetIngredients={setResetIngredients}
+            />
+          </Route>
+
+          <Route path={ADMIN_ORDERS_ROUTE}>
+            <AdminOrders
+
+            />
+          </Route>
+          <Route path={ADMIN_USERS_ROUTE}>
+            <AdminUsers
+
+            />
+          </Route>
+
+        </Switch>
+      </div>
+
+    </>
   );
 };
 
