@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Shop.css";
 import { getSingleIngredient } from "../api";
-import { addCartItem } from "../api/cartItem"
+import { addCartItem } from "../api/cartItem";
 import Dropdown from "./Dropdown";
 
 const items = [
@@ -30,7 +30,7 @@ const Shop = ({
 }) => {
   const [showCartButton, setCartButton] = useState(false);
   const [selection, setSelection] = useState([]);
-  const [addedToCart, setAddedToCart] = useState(false)
+  const [addedToCart, setAddedToCart] = useState(false);
 
   const handleViewClick = async (id) => {
     try {
@@ -43,24 +43,28 @@ const Shop = ({
     }
   };
   const handleKeepShopping = () => {
-    setCartButton(false)
-    setSelection([])
+    setCartButton(false);
+    setSelection([]);
     window.location.reload();
   };
 
   const handleAddToCart = async (qtySelect, ingredientId, currentUserId) => {
-    
-    const numOutOfArray = qtySelect.toString()
+    const numOutOfArray = qtySelect.toString();
     const qtyStringToNum = Number(numOutOfArray);
 
-    setCartButton(false)
-    setAddedToCart(true)
+    setCartButton(false);
+    setAddedToCart(true);
 
-
-    console.log(numOutOfArray, "!!!!!!!!!!!!!!!", ingredientId, "***************", currentUserId, "")
+    console.log(
+      numOutOfArray,
+      "!!!!!!!!!!!!!!!",
+      ingredientId,
+      "***************",
+      currentUserId,
+      ""
+    );
     try {
-      await addCartItem(qtyStringToNum, ingredientId, currentUserId)
-
+      await addCartItem(qtyStringToNum, ingredientId, currentUserId);
     } catch (error) {
       throw error;
     }
@@ -91,15 +95,9 @@ const Shop = ({
                 </div>
                 <p className="product-description">{description}</p>
 
-
                 <div className="product-price">{price}</div>
                 <div className="product-buttons">
-                  {!addedToCart ? (
-                    <div></div>) : (
-                    <div></div>
-                  )
-
-                  }
+                  {!addedToCart ? <div></div> : <div></div>}
                   {!showCartButton && !addedToCart ? (
                     <Button
                       type="submit"
@@ -120,7 +118,9 @@ const Shop = ({
                       <Button
                         type="submit"
                         className="addcart"
-                        onClick={() => handleAddToCart(selection, id, currentUserId)}
+                        onClick={() =>
+                          handleAddToCart(selection, id, currentUserId)
+                        }
                       >
                         Add to Cart
                       </Button>
@@ -144,8 +144,7 @@ const Shop = ({
                         Keep Shopping
                       </Button>
                     </>
-                  )
-                  }
+                  )}
                 </div>
               </div>
             </div>

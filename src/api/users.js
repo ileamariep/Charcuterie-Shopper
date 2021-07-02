@@ -1,38 +1,4 @@
 import axios from "axios";
-// import { getUserById } from "../../db";
-// import { getAllUsers } from "../../db";
-
-export async function allIngredients() {
-  try {
-    const { data } = await axios.get("/api/ingredients");
-    return data;
-  } catch (error) {
-    throw error;
-  }
-}
-
-export async function updateCount(id, qty) {
-  try {
-    const { data } = await axios.patch(`/api/ingredients/${id}/${qty}`);
-    console.log(data);
-    return data;
-  } catch (error) {
-    throw error;
-  }
-}
-
-export async function getSingleIngredient(ingredientId) {
-  try {
-    const response = await fetch(`/api/ingredients/${ingredientId}/product`);
-
-    const data = await response.json();
-    console.log(data, "the ingredient object in API");
-
-    return data;
-  } catch (error) {
-    throw error;
-  }
-}
 
 // Users
 export async function getUserInfo() {
@@ -90,6 +56,7 @@ export async function getAllUsersAdmin() {
   }
 }
 
+// update user info - user
 export async function updateUserAccount(id, updatedUser) {
   try {
     const data = await fetch(`/api/users/user/${id}`, {
@@ -108,6 +75,7 @@ export async function updateUserAccount(id, updatedUser) {
   }
 }
 
+// update user info admin status - admin
 export async function promoteUserToAdmin(id, isAdmin) {
   try {
     const data = await fetch(`/api/users/${id}`, {
@@ -125,6 +93,7 @@ export async function promoteUserToAdmin(id, isAdmin) {
     throw error;
   }
 }
+
 export async function myAccountFetch(myToken) {
   try {
     return axios
