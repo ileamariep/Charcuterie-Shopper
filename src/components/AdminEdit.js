@@ -1,22 +1,26 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Admin.css";
 import "./Shop.css";
-import Button from "react-bootstrap/Button";
-import "bootstrap/dist/css/bootstrap.min.css";
+// import Button from "react-bootstrap/Button";
+// import "bootstrap/dist/css/bootstrap.min.css";
 import { deleteIngredient } from "../api/ingredients"
+// import { deleteCartItem, getUsersCurrentCartItems } from "../api/cartItem"
 
 // import { getSomething } from "../api";
 
 const AdminEdit = ({
-    resetIngredients: { id, name, description, price, category, img, imgAlt } }) => {
+    resetIngredients: { id, name, description, price, category, img, imgAlt }, setIngredients, resetIngredients }) => {
     // const [editMode, setEditMode] = useState(false);
 
     // const onEdit = () => {
     //     setEditMode(true);
     // };
 
+
     const handleDelete = (id) => {
         deleteIngredient(id)
+        setIngredients(resetIngredients)
+        window.location.reload();
     }
 
 
@@ -46,29 +50,27 @@ const AdminEdit = ({
                         <div className="product-price">{price}</div>
                     </div>
                     <div className="admin-product-buttons">
-                        <Button
-                            type="submit"
+                        {/* <button>
+                            type="button"
                             className="view"
                         //   onClick={() => handleViewClick(id)}
-                        >
+                        
                             Edit
-                        </Button>
-                        <Button
-
+                        </button> */}
+                        <button
                             className="delete-button"
-                            //   onClick={() => handleViewClick(id)}
-                            onClick={handleDelete(id)}
+                            onClick={() => handleDelete(id)}
                         >
                             Delete
-                        </Button>
+                        </button>
                     </div>
                 </div>
-                )
 
             </div>
 
         </>
-    );
+    )
 };
+
 
 export default AdminEdit;
