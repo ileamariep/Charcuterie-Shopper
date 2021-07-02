@@ -211,4 +211,12 @@ usersRouter.post(`/guest/:zip`, async (req, res, next) => {
   }
 });
 
+// delete user
+// usersRouter.delete("/", async (req, res) => {
+//   const users = await getAllUsers();
+//   res.send({
+//     users,
+//   });
+// });
+
 module.exports = usersRouter;

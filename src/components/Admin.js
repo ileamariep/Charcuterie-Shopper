@@ -3,8 +3,7 @@
 import React, { useEffect, useState } from "react";
 // import axios from "axios";
 import "./Admin.css";
-import { getUsers } from "../api";
-
+import { getUsers } from "../api/users";
 
 import { Switch, Route, Link } from "react-router-dom";
 import {
@@ -25,7 +24,6 @@ const Admin = ({
   currentUserId,
 }) => {
   return (
-
     <>
       <div className="admin-nav">
         <Link to={ADMIN_PRODUCTS_ROUTE}>PRODUCTS</Link>
@@ -45,19 +43,13 @@ const Admin = ({
           </Route>
 
           <Route path={ADMIN_ORDERS_ROUTE}>
-            <AdminOrders
-
-            />
+            <AdminOrders />
           </Route>
           <Route path={ADMIN_USERS_ROUTE}>
-            <AdminUsers
-
-            />
+            <AdminUsers />
           </Route>
-
         </Switch>
       </div>
-
     </>
   );
 };

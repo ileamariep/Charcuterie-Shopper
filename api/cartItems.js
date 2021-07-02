@@ -7,15 +7,10 @@ const { requireUser } = require("./utils")
 
 cartItemsRouter.get('/:usersId', async (req, res, next) => {
   const { usersId } = req.params;
-  const {orderId} = req.body
+
   try {
-    if(orderId === null) {
-      const allCartItemsByUser = await getCartByUser({ usersId });
-    res.send(allCartItemsByUser)
-    } else {
-      res.send()
-    }
-    
+      const allCartItemsByUser = await getCartByUser(usersId);
+      res.send(allCartItemsByUser)
   } catch (error) {
     next(error)
   }

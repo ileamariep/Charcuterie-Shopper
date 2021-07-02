@@ -52,6 +52,7 @@ const Login = ({ setIsAdmin, isAdmin }) => {
                 <Form.Control
                   type="username"
                   placeholder="Enter username"
+                  required
                   onInput={(event) => {
                     setUsername(event.target.value);
                   }}
@@ -62,6 +63,7 @@ const Login = ({ setIsAdmin, isAdmin }) => {
                 <Form.Control
                   type="password"
                   placeholder="Password"
+                  required
                   onInput={(event) => {
                     setPassword(event.target.value);
                   }}

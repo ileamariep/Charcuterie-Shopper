@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 // import axios from "axios";
 import "./MyAccount.css";
 import { myAccountFetch } from "../api";
-
 const MyAccount = () => {
   const [myAccountData, setMyAccountData] = useState([]);
   console.log(myAccountData, "my account data");
@@ -20,11 +19,9 @@ const MyAccount = () => {
           console.error(error);
         }
       };
-
       fetchData();
     }
   }, []);
-
   return (
     <div id="user-container">
       {myAccountData.map((user, idx) => {
@@ -42,5 +39,4 @@ const MyAccount = () => {
     </div>
   );
 };
-
 export default MyAccount;
