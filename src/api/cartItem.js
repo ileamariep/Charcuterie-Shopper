@@ -66,9 +66,10 @@ export async function deleteCartItem(id) {
     }
 }
 
-export async function getUsersCartItems(userId) {
-    try {
-        const { data } = await axios.get(`/api/cartItems/:${userId}`);
+export async function getUsersCurrentCartItems(usersId) {
+    try { 
+        const { data } = await axios.get(`/api/cartItems/${usersId}`);
+        console.log(data, "THIS IS WHAT THE BACKEND IS RETURNING FRO CART ITEMS BY USERS")
         return data;
     } catch (error) {
         throw error;

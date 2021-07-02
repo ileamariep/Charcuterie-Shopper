@@ -17,11 +17,9 @@ ordersRouter.get("/", async (req, res, next) => {
 });
 
 ordersRouter.post("/", requireUser, async (req, res, next) => {
-  const { id } = req.user;
-  const { date_ordered, total_price } = req.body;
+  const { date_ordered, total_price } = req.params;
   try {
     const createdOrder = await createOrder({
-      usersId: id,
       date_ordered,
       total_price,
     });

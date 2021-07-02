@@ -66,7 +66,7 @@ const Pages = (props) => {
             setResetIngredients={setResetIngredients} />
         </Route>
         <Route path={CART_ROUTE}>
-          <Cart />
+          <Cart currentUserId={currentUserId}/>
         </Route>
         <Route path={LOGIN_ROUTE}>
           <Login currentUser={currentUser} setCurrentUser={setCurrentUser} />
@@ -75,7 +75,7 @@ const Pages = (props) => {
           <Register currentUser={currentUser} setCurrentUser={setCurrentUser} />
         </Route>
         <Route path={CART_ROUTE}>
-          <Cart />
+          <Cart currentUserId={currentUserId}/>
         </Route>
         <Route path={ADMIN_ROUTE}>
           <Admin />
