@@ -53,6 +53,10 @@ const Shop = ({
     const numOutOfArray = qtySelect.toString()
     const qtyStringToNum = Number(numOutOfArray);
 
+    setCartButton(false)
+    setAddedToCart(true)
+
+
     console.log(numOutOfArray, "!!!!!!!!!!!!!!!", ingredientId, "***************", currentUserId, "")
     try {
       await addCartItem(qtyStringToNum, ingredientId, currentUserId)

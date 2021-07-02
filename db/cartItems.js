@@ -23,7 +23,9 @@ async function getAllCartItems() {
     const { rows } = await client.query(
       `
       SELECT *
-      FROM cart_items
+        FROM ingredients
+        JOIN cart_items
+        ON ingredients.id=cart_items."ingredientId"
       `
     )
     return rows
@@ -32,54 +34,56 @@ async function getAllCartItems() {
   }
 }
 
-async function getCartItemsById({ id }) {
-  try {
-    const {
-      rows: [cartItems],
-    } = await client.query(
-      `
-          SELECT * 
-          FROM cart_items
-          WHERE id=$1;
-     `,
-      [id]
-    );
-    return cartItems;
-  } catch (error) {
-    throw error;
-  }
-}
+// async function getCartItemsById(id) {
+//   try {
+//     const {
+//       rows: [cartItems],
+//     } = await client.query(
+//       `
+//           SELECT * 
+//           FROM cart_items
+//           WHERE id=$1;
+//      `,
+//       [id]
+//     );
+//     return cartItems;
+//   } catch (error) {
+//     throw error;
+//   }
+// }
 
-async function getCartByUser({ id }) {
+
+
+async function getCartByUser(usersId) {
   try {
-    const { rows } = await client.query(
+    const { rows: cartItems } = await client.query(
       `
-        SELECT ingredients.name, ingredients.description, ingredients.price, ingredients.img, cart_items.id ,cart_items.quantity
+      SELECT *
         FROM ingredients
         JOIN cart_items
         ON ingredients.id=cart_items."ingredientId"
         WHERE "usersId"=$1
         `,
-      [id]
+      [usersId]
     );
-    return rows;
+    return cartItems
   } catch (error) {
     throw error;
   }
 }
 
-async function updateCartItems({ id, quantity }) {
+async function updateCartItems({ id, quantity, ordersId }) {
   try {
     const {
       rows: [cartItems],
     } = await client.query(
       `
           UPDATE cart_items
-          SET quantity=$2
+          SET quantity=$2, "ordersId" =$3
           WHERE id=$1
           RETURNING *;
           `,
-      [id, quantity]
+      [id, quantity, ordersId]
     );
     return cartItems;
   } catch (error) {
@@ -109,7 +113,6 @@ module.exports = {
   client,
   getAllCartItems,
   createCartItem,
-  getCartItemsById,
   getCartByUser,
   updateCartItems,
   destroyCartItems,
