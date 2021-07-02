@@ -2,14 +2,6 @@ import axios from "axios";
 // import { getUserById } from "../../db";
 // import { getAllUsers } from "../../db";
 
-export async function allIngredients() {
-  try {
-    const { data } = await axios.get("/api/ingredients");
-    return data;
-  } catch (error) {
-    throw error;
-  }
-}
 
 export async function updateCount(id, qty) {
   try {

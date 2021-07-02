@@ -8,6 +8,7 @@ export async function allIngredients() {
     }
 }
 
+
 export async function updateCount(id, qty) {
     try {
         const { data } = await axios.patch(`/api/ingredients/${id}/${qty}`);
@@ -28,6 +29,17 @@ export async function getSingleIngredient(ingredientId) {
 
         return data
 
+    } catch (error) {
+        throw error;
+    }
+}
+
+export async function deleteIngredient(id) {
+    try {
+        const data = await axios.delete(`/api/ingredients/${id}`, {
+            header: { "Content-Type": "application/json" },
+        });
+        return data;
     } catch (error) {
         throw error;
     }
