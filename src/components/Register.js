@@ -63,6 +63,7 @@ const Register = () => {
                 <Form.Control
                   type="username"
                   placeholder="Enter username"
+                  required
                   onInput={(event) => {
                     setUsername(event.target.value);
                   }}
@@ -73,6 +74,7 @@ const Register = () => {
                 <Form.Control
                   type="email"
                   placeholder="Enter email"
+                  required
                   onInput={(event) => {
                     setEmail(event.target.value);
                   }}
@@ -83,6 +85,7 @@ const Register = () => {
                 <Form.Control
                   type="password"
                   placeholder="Password"
+                  required
                   onInput={(event) => {
                     setPassword(event.target.value);
                   }}
@@ -94,6 +97,7 @@ const Register = () => {
                 <Form.Control
                   type="address"
                   placeholder="Address"
+                  required
                   onInput={(event) => {
                     setAddress(event.target.value);
                   }}
@@ -104,6 +108,7 @@ const Register = () => {
                 <Form.Control
                   type="city"
                   placeholder="City"
+                  required
                   onInput={(event) => {
                     setCity(event.target.value);
                   }}
@@ -114,6 +119,7 @@ const Register = () => {
                 <Form.Control
                   type="state"
                   placeholder="State"
+                  required
                   onInput={(event) => {
                     setState(event.target.value);
                   }}
@@ -124,6 +130,7 @@ const Register = () => {
                 <Form.Control
                   type="zip"
                   placeholder="Zipcode"
+                  required
                   onInput={(event) => {
                     setZip(event.target.value);
                   }}

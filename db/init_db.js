@@ -26,10 +26,7 @@ const {
 } = require("./ingredients");
 const { logDOM } = require("@testing-library/react");
 
-const {
-  createCartItem
-} = require("./cartItems");
-
+const { createCartItem } = require("./cartItems");
 
 async function buildTables() {
   try {
@@ -119,8 +116,7 @@ async function populateInitialIngredients() {
         category: "pets",
         stockQty: 50,
         img: "/images/elixir1Test.png",
-        imgAlt: "dog mange elixir"
-
+        imgAlt: "dog mange elixir",
       },
       {
         name: "Hair Loss Elixir",
@@ -216,34 +212,33 @@ async function populateInitialOrders() {
 
 async function createInitialCartItems() {
   try {
-    console.log('starting to create cartItems...');
+    console.log("starting to create cartItems...");
     const [user1, user2, user3] = await getAllUsers();
     const [ing1, ing2, ing3] = await getAllIngredients();
 
     const cartItemsToCreate = [
       {
         usersId: user1.id,
-        ingredientId:ing1.id,
+        ingredientId: ing1.id,
         quantity: 1,
-        orderId: null
+        orderId: null,
       },
       {
         usersId: user2.id,
-        ingredientId:ing2.id,
+        ingredientId: ing2.id,
         quantity: 6,
-        orderId: null
+        orderId: null,
       },
       {
         usersId: user3.id,
-        ingredientId:ing3.id,
+        ingredientId: ing3.id,
         quantity: 3,
-        orderId: null
+        orderId: null,
       },
-      
-    ]
+    ];
     const cartItems = await Promise.all(cartItemsToCreate.map(createCartItem));
-    console.log('cart items created: ', cartItems)
-    console.log('Finished creating cartItems!')
+    console.log("cart items created: ", cartItems);
+    console.log("Finished creating cartItems!");
   } catch (error) {
     throw error;
   }
@@ -299,8 +294,8 @@ async function testDB() {
     const singleUser = await getUserById(1);
     console.log("444 user by id Result:", singleUser);
     console.log("Calling update user");
-    const updatedUserData = await updateUser(users[0].id, {
-      username: "stmstm",
+    const updatedUserData = await updateUser(users[2].id, {
+      username: "xtina",
     });
     console.log("333 Result:", updatedUserData);
     const username = await getUserByUsername(users[1].username);
