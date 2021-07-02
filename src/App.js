@@ -1,7 +1,8 @@
 import "./App.css";
 import React, { useEffect, useState } from "react";
 import { Header, Pages } from "./components";
-import { allIngredients, myAccountFetch } from "./api";
+import { myAccountFetch } from "./api";
+import { allIngredients } from "./api/ingredients";
 
 const App = () => {
   const [grabbedIngredients, setIngredients] = useState([]);

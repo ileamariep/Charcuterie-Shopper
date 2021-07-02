@@ -49,9 +49,12 @@ const Shop = ({
   };
 
   const handleAddToCart = async (qtySelect, ingredientId, currentUserId) => {
-    
+
     const numOutOfArray = qtySelect.toString()
     const qtyStringToNum = Number(numOutOfArray);
+
+    setCartButton(false)
+    setAddedToCart(true)
 
     console.log(numOutOfArray, "!!!!!!!!!!!!!!!", ingredientId, "***************", currentUserId, "")
     try {
