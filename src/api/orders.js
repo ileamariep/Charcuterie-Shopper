@@ -1,25 +1,36 @@
-// import axios from "axios";
+import axios from "axios";
 
-// export async function addCartItem(quantity ,ingredientId, usersId) {
-//     try {
-//         console.log({
-//             quantity: quantity,
-//             ingredientId: ingredientId,
-//             usersId: usersId,
-//             ordersId: null})
-//         return await axios
-//           .post("/api/cartItems/cartPost", {
+export async function addOrder(total_price, status) {
+    try {
+        console.log(total_price, status)
+        return await axios
+          .post("/api/orders", {
+            total_price,
+            status,
+          })
+          .then(
+            ({data}) => {
+              return data;
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
+      } catch (err) {
+        console.error(err);
+      }
+}
 
-//           })
-//           .then(
-//             (response) => {
-//               console.log(response);
-//             },
-//             (error) => {
-//               console.log(error);
-//             }
-//           );
-//       } catch (err) {
-//         console.error(err);
-//       }
-// }
+export async function getSingleOrder(orderId) {
+    try {
+        const response = await fetch(`/api/orders/${orderId}/products`)
+
+        const data = await response.json();
+
+
+        return data
+
+    } catch (error) {
+        throw error;
+    }
+}
