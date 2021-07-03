@@ -16,6 +16,8 @@ import AdminUsers from "./AdminUsers";
 import AdminProducts from "./AdminProducts";
 // import { getSomething } from "../api";
 
+
+
 const Admin = ({
   grabbedIngredients,
   setIngredients,
@@ -23,6 +25,14 @@ const Admin = ({
   setResetIngredients,
   currentUserId,
 }) => {
+
+  const [ingredientName, setIngredientName] = useState('')
+  const [ingredientDescription, setIngredientDescription] = useState('')
+  const [ingredientPrice, setIngredientPrice] = useState('')
+  const [ingredientCategory, setIngredientCategory] = useState('')
+  const [ingredientStockQty, setIngredientStockQty] = useState()
+  const [ingredientImg, setIngredientImg] = useState('')
+  const [ingredientImgAlt, setIngredientImgAlt] = useState('')
   return (
     <>
       <div className="admin-nav">
@@ -39,6 +49,20 @@ const Admin = ({
               setIngredients={setIngredients}
               resetIngredients={resetIngredients}
               setResetIngredients={setResetIngredients}
+              ingredientName={ingredientName}
+              setIngredientName={setIngredientName}
+              ingredientDescription={ingredientDescription}
+              setIngredientDescription={setIngredientDescription}
+              ingredientPrice={ingredientPrice}
+              setIngredientPrice={setIngredientPrice}
+              ingredientCategory={ingredientCategory}
+              setIngredientCategory={setIngredientCategory}
+              ingredientStockQty={ingredientStockQty}
+              setIngredientStockQty={setIngredientStockQty}
+              ingredientImg={ingredientImg}
+              setIngredientImg={setIngredientImg}
+              ingredientImgAlt={ingredientImgAlt}
+              setIngredientImgAlt={setIngredientImgAlt}
             />
           </Route>
 

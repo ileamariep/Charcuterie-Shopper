@@ -10,15 +10,16 @@ import { addAnIngredient } from "../api/ingredients";
 const AdminProducts = ({ grabbedIngredients,
     setIngredients,
     resetIngredients,
-    setResetIngredients, }) => {
+    setResetIngredients,
+    ingredientName, ingredientDescription, ingredientPrice, ingredientCategory, ingredientStockQty, ingredientImg, ingredientImgAlt, setIngredientName,
+    setIngredientDescription,
+    setIngredientPrice,
+    setIngredientCategory,
+    setIngredientStockQty,
+    setIngredientImg,
+    setIngredientImgAlt }) => {
 
-    const [ingredientName, setIngredientName] = useState('')
-    const [ingredientDescription, setIngredientSubscription] = useState('')
-    const [ingredientPrice, setIngredientPrice] = useState('')
-    const [ingredientCategory, setIngredientCategory] = useState('')
-    const [ingredientStockQty, setIngredientStockQty] = useState()
-    const [ingredientImg, setIngredientImg] = useState('')
-    const [ingredientImgAlt, setIngredientImgAlt] = useState('')
+
 
     const HandleFormSubmit = (event) => {
         event.preventDefault()
@@ -51,7 +52,7 @@ const AdminProducts = ({ grabbedIngredients,
 
                             value={ingredientDescription}
                             onInput={(event) => {
-                                setIngredientSubscription(event.target.value)
+                                setIngredientDescription(event.target.value)
                             }}
                             required />
                     </label>

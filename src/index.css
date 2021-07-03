@@ -1,15 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Smythe&display=swap");
 
-/* :root {
-  --cardContainerBackground: #313135;
-  --cardBackground: #0f0f11;
-  --topRowBackground: black;
-  --tagBubbles: #0f0f11;
-  --clickCount: #c3073f;
-  --headerBackground: black;
-  --createLinkBackground: #950740;
-} */
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -21,6 +11,6 @@
   grid-area: header / main;
   display: flex;
   height: 100vh;
-  background-color: black;
   color: black;
+  background-color: #fdf1ec;
 }

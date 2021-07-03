@@ -6,10 +6,13 @@
 
 .dd-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   cursor: pointer;
   width: 100%;
   padding: 0 20px;
+  color: white;
+  border: white;
+  font-size: xx-large;
 }
 
 .dd-list {
@@ -44,3 +47,8 @@ button:focus {
   font-weight: bold;
   background-color: #ccc;
 }
+
+/* .dd-header__action p {
+  text-align: center;
+  font-size: larger;
+} */

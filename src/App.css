@@ -4,16 +4,32 @@
   grid-template-areas:
     "header"
     "main";
-  grid-template-rows: 20% auto;
+  grid-auto-rows: min-content;
   grid-template-columns: auto;
   width: 100vw;
   height: 100vh;
-  background-color: black;
+}
+:root {
+  --headerBackground: ;
+  --pageBackground: #f9e4c0;
+  --topRowBackground: black;
+  --tagBubbles: #0f0f11;
+  --clickCount: #c3073f;
+  --headerBackground: black;
+  --createLinkBackground: #950740;
 }
 
 header {
   grid-area: header;
-  background-color: darkcyan;
+  background-color: #740000;
+}
+
+.header h1 {
+  color: white;
+  text-align: left;
+  padding-left: 25px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 main {
@@ -24,7 +40,8 @@ main {
 
 .topnav {
   overflow: hidden;
-  background-color: rgb(2, 2, 19);
+  background-color: rgb(16, 16, 16);
+  padding-left: 10px;
 }
 
 .topnav a {
