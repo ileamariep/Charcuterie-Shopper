@@ -4,7 +4,8 @@ import "./dropdown.css";
 //https://stackoverflow.com/questions/29108779/how-to-get-selected-value-of-a-dropdown-menu-in-reactjs
 
 
-function Dropdown({ qty, items, selection, setSelection, multiSelect = false }) {
+function Dropdown({ qty, items, selection, setSelection, multiSelect = false, setShowQtyButton,
+    setCartButton }) {
     const [open, setOpen] = useState(false);
 
     const toggle = () => setOpen(!open);
@@ -15,9 +16,13 @@ function Dropdown({ qty, items, selection, setSelection, multiSelect = false }) 
             if (!multiSelect) {
                 setSelection([item.qty]);
                 setOpen(false)
+                setShowQtyButton(false)
+                setCartButton(true)
             } else if (multiSelect) {
                 setSelection([...selection, item.qty]);
                 setOpen(false)
+                setShowQtyButton(false)
+                setCartButton(true)
             }
         } else {
             let selectionAfterRemoval = selection;
@@ -29,7 +34,7 @@ function Dropdown({ qty, items, selection, setSelection, multiSelect = false }) 
         }
     }
 
-    console.log(selection, "this should be what i selected")
+
 
     function isItemInSelection(item) {
         if (selection.some(current => current.id === item.id)) {
@@ -51,7 +56,7 @@ function Dropdown({ qty, items, selection, setSelection, multiSelect = false }) 
                     <p className="dd-header__title--bold">{qty}</p>
                 </div>
                 <div className="dd-header__action">
-                    <p>{open ? 'Close' : `SELECT QTY`}</p>
+                    <p className='select-qty'>{open ? null : `SELECT QTY`}</p>
                 </div>
             </div>
             {open && (

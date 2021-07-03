@@ -1,22 +1,45 @@
 import React, { useState } from "react";
 import "./Admin.css";
 import "./Shop.css";
-import Button from "react-bootstrap/Button";
-import "bootstrap/dist/css/bootstrap.min.css";
+// import Button from "react-bootstrap/Button";
+// import "bootstrap/dist/css/bootstrap.min.css";
 import { deleteIngredient } from "../api/ingredients"
+// import { deleteCartItem, getUsersCurrentCartItems } from "../api/cartItem"
 
 // import { getSomething } from "../api";
 
 const AdminEdit = ({
-    resetIngredients: { id, name, description, price, category, img, imgAlt } }) => {
-    // const [editMode, setEditMode] = useState(false);
+    resetIngredients: { id, name, description, price, category, img, imgAlt }, setIngredients, resetIngredients, ingredientName, ingredientDescription, ingredientPrice, ingredientCategory, ingredientStockQty, ingredientImg, ingredientImgAlt, setIngredientName,
+    setIngredientDescription,
+    setIngredientPrice,
+    setIngredientCategory,
+    setIngredientStockQty,
+    setIngredientImg,
+    setIngredientImgAlt }) => {
+    const [editMode, setEditMode] = useState(false);
 
-    // const onEdit = () => {
-    //     setEditMode(true);
-    // };
+
+
+
+
+
+    const onEdit = () => {
+        setEditMode(true);
+    };
+
 
     const handleDelete = (id) => {
         deleteIngredient(id)
+        setIngredients(resetIngredients)
+        window.location.reload();
+    }
+
+    const handleEditClick = (id) = {
+
+    }
+
+    const handleSaveClick = (id) = {
+
     }
 
 
@@ -46,29 +69,36 @@ const AdminEdit = ({
                         <div className="product-price">{price}</div>
                     </div>
                     <div className="admin-product-buttons">
-                        <Button
-                            type="submit"
+                        <button
+                            type="button"
                             className="view"
-                        //   onClick={() => handleViewClick(id)}
+                            onClick={() => handleEditClick(id)}
                         >
-                            Edit
-                        </Button>
-                        <Button
 
+                            Edit
+                        </button>
+                        <button
+                            type="button"
+                            className="view"
+                            onClick={() => handleSaveClick(id)}
+                        >
+
+                            Save
+                        </button>
+                        <button
                             className="delete-button"
-                            //   onClick={() => handleViewClick(id)}
-                            onClick={handleDelete(id)}
+                            onClick={() => handleDelete(id)}
                         >
                             Delete
-                        </Button>
+                        </button>
                     </div>
                 </div>
-                )
 
             </div>
 
         </>
-    );
+    )
 };
+
 
 export default AdminEdit;

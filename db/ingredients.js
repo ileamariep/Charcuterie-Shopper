@@ -79,6 +79,11 @@ async function destroyIngredient(id) {
             throw new Error({ message: "Error this ingredient doesnt exist" })
         };
 
+        await client.query(`
+        DELETE FROM cart_items
+        WHERE "ingredientId"=$1;
+        `, [id]);
+
         const { rows: [ingredient] } = await client.query(`
           DELETE FROM ingredients
           WHERE id=$1
