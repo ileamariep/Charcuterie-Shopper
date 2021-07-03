@@ -75,3 +75,22 @@ export async function getUsersCurrentCartItems(usersId) {
         throw error;
     }
 }
+
+export async function addOrderIdToCartItems(id, orderId) {
+  try {
+    const { data } = await axios.patch(`api/cartItems/${id}`, {
+      orderId
+    })
+    return data
+  } catch(error) {
+    throw error
+  }
+}
+
+// export async function updateCartItems(id) {
+//   try {
+//     const { data } = await axios.patch(`api/${}`)
+//   } catch(error) {
+
+//   }
+// }

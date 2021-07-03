@@ -3,6 +3,7 @@ const {
   createOrder,
   destroyOrder,
   getAllOrders,
+  getOrderById,
 } = require("../db");
 const { requireUser } = require("./utils");
 const ordersRouter = express.Router();
@@ -16,12 +17,22 @@ ordersRouter.get("/", async (req, res, next) => {
   }
 });
 
+ordersRouter.get('/:orderId', async (req, res, next) => {
+  const { orderId } = req.params
+  try {
+      const order = await getOrderById(orderId);
+      res.send(order)
+  } catch (error) {
+      next(error);
+  }
+});
+
 ordersRouter.post("/", requireUser, async (req, res, next) => {
-  const { date_ordered, total_price } = req.params;
+  const {total_price, status} = req.body;
   try {
     const createdOrder = await createOrder({
-      date_ordered,
       total_price,
+      status
     });
     res.send(createdOrder);
   } catch (error) {

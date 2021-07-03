@@ -1,19 +1,19 @@
 const { client } = require("./client");
 // const { createCart, addCartToOrder } = require("./cart")
 
-
-async function createOrder({ date_ordered, total_price }) {
+async function createOrder({total_price, status}) {
   try {
     const {
       rows: [order],
     } = await client.query(
       `
-        INSERT INTO orders(date_ordered, total_price)
+        INSERT INTO orders(total_price, status)
         VALUES($1, $2)
         RETURNING *;
       `,
-      [date_ordered, total_price]
+      [ total_price, status]
     );
+    console.log(order, "!!!!!!!!!!!!!!!!!!!!!!!")
     return order;
   } catch (error) {
     throw error;
@@ -22,36 +22,40 @@ async function createOrder({ date_ordered, total_price }) {
 async function getAllOrders() {
   try {
     const { rows: orders } = await client.query(`
-    SELECT 
-      ingredients.name, 
-      ingredients.description, 
-      ingredients.price, 
-      ingredients.img, 
-      cart_items.id,
-      cart_items.quantity, 
-      orders.total_price,
-      orders.date_ordered
-      FROM ingredients
-      JOIN cart_items
-      ON ingredients.id=cart_items."ingredientId"
-      JOIN orders
-      ON orders.id=cart_items."orderId"
-      WHERE cart_items."orderId"=$1;
+    SELECT *
+    FROM orders
       `);
-   
-    console.log(orders, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     return orders;
   } catch (error) {
     throw error;
   }
 }
+
+async function getOrderById(orderId) {
+  try {
+    const {
+      rows: [order],
+    } = await client.query(
+      `
+        SELECT *
+        FROM orders
+        WHERE id=$1;
+      `,
+      [orderId]
+    );
+    return order;
+  } catch (error) {
+    throw error;
+  }
+}
+
 // async function getOrderByUser(id) {
 //   try {
 //     const { rows: orderId } = await client.query(
 //       `
-//     select * 
+//     select *
 //     from cart_items
-//     JOIN orders 
+//     JOIN orders
 //     ON cart_items."orderId" = orders.id;
 //     `,
 //       [id]
@@ -67,7 +71,6 @@ async function getAllOrders() {
 // double join ingridients to cart items to orders
 async function getOrderByUser(orderId) {
   try {
-
     const { rows: order } = await client.query(
       `
       SELECT 
@@ -79,12 +82,12 @@ async function getOrderByUser(orderId) {
         cart_items.quantity, 
         orders.total_price,
         orders.date_ordered
-      FROM ingredients
-      JOIN cart_items
-      ON ingredients.id=cart_items."ingredientId"
-      JOIN orders
-      ON orders.id=cart_items."orderId"
-      WHERE cart_items."orderId"=$1;
+        FROM ingredients
+        JOIN cart_items
+        ON ingredients.id=cart_items."ingredientId"
+        JOIN orders
+        ON orders.id=cart_items."orderId"
+        WHERE cart_items."orderId"=$1;
     `,
       [orderId]
     );
@@ -141,8 +144,6 @@ module.exports = {
   createOrder,
   getAllOrders,
   destroyOrder,
-  getOrderByUser
+  getOrderByUser,
+  getOrderById,
 };
-
-
-
