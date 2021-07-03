@@ -7,6 +7,7 @@ const {
   getUserById,
   updateUser,
   getUserByUsername,
+  destroyUser,
 } = require("./users");
 
 const {

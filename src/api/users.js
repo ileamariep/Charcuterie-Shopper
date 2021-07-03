@@ -75,6 +75,17 @@ export async function updateUserAccount(id, updatedUser) {
   }
 }
 
+export async function deleteUser(id) {
+  try {
+    const data = await axios.delete(`/api/users/${id}`, {
+      header: { "Content-Type": "application/json" },
+    });
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
 // update user info admin status - admin
 export async function promoteUserToAdmin(id, isAdmin) {
   try {

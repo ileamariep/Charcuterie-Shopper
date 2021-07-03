@@ -1,0 +1,39 @@
+.thanks-container {
+  grid-area: main;
+  display: grid;
+  padding: 60px;
+}
+
+.thanks-card {
+  display: grid;
+  grid-template-columns: auto auto;
+
+  max-height: 500px;
+  max-width: 672px;
+  justify-self: center;
+}
+.thanks-image img {
+  display: flex;
+  max-height: 500px;
+  max-width: 336px;
+}
+
+.thanks-info-right {
+  padding-top: 75px;
+  padding-left: 20px;
+}
+
+.thanks-info-right p {
+  font-family: "Lato", sans-serif;
+}
+
+.thanks-info-right h1 {
+  font-size: 70px;
+}
+.guest-head {
+  font-size: 40px;
+}
+
+.guest-container p {
+  font-size: smaller;
+}
