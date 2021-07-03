@@ -158,6 +158,24 @@ async function createGuestUser({ zip, isAdmin = false, isUser = false }) {
   }
 }
 
+async function destroyUser(userId) {
+  try {
+    const {
+      rows: [user],
+    } = await client.query(
+      `
+        DELETE FROM users
+        WHERE id=$1
+        RETURNING *;
+        `,
+      [userId]
+    );
+    return user;
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
   client,
   createUser,
@@ -167,4 +185,5 @@ module.exports = {
   updateUser,
   getUserByUsername,
   createGuestUser,
+  destroyUser,
 };

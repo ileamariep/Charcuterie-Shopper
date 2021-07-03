@@ -2,7 +2,6 @@ import axios from "axios";
 // import { getUserById } from "../../db";
 // import { getAllUsers } from "../../db";
 
-
 export async function updateCount(id, qty) {
   try {
     const { data } = await axios.patch(`/api/ingredients/${id}/${qty}`);
@@ -117,6 +116,18 @@ export async function promoteUserToAdmin(id, isAdmin) {
     throw error;
   }
 }
+
+export async function deleteUser(id) {
+  try {
+    const data = await axios.delete(`/api/users/${id}`, {
+      header: { "Content-Type": "application/json" },
+    });
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
 export async function myAccountFetch(myToken) {
   try {
     return axios

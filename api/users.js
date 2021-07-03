@@ -8,6 +8,7 @@ const {
   getUserByUsername,
   updateUser,
   createGuestUser,
+  destroyUser,
 } = require("../db");
 
 const jwt = require("jsonwebtoken");
@@ -212,11 +213,14 @@ usersRouter.post(`/guest/:zip`, async (req, res, next) => {
 });
 
 // delete user
-// usersRouter.delete("/", async (req, res) => {
-//   const users = await getAllUsers();
-//   res.send({
-//     users,
-//   });
-// });
+usersRouter.delete("/:userId", requireAdmin, async (req, res, next) => {
+  const userId = req.params.userId;
+  try {
+    const deleteUser = await destroyUser(userId);
+    res.send(deleteUser);
+  } catch (error) {
+    next(error);
+  }
+});
 
 module.exports = usersRouter;

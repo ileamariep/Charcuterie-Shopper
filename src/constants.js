@@ -8,3 +8,4 @@ export const SHOP_ROUTE = "/shop";
 export const ADMIN_USERS_ROUTE = "/admin/users";
 export const ADMIN_ORDERS_ROUTE = "/admin/orders";
 export const ADMIN_PRODUCTS_ROUTE = "/admin/products";
+export const THANKYOU_ROUTE = "/thank-you";
