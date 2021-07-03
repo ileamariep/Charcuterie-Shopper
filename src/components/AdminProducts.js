@@ -3,7 +3,7 @@ import "./Admin.css";
 import "./Shop.css";
 // import Button from "react-bootstrap/Button";
 // import "bootstrap/dist/css/bootstrap.min.css";
-import AdminEdit from "./AdminEdit"
+import AdminEdit from "./AdminEdit";
 
 import { addAnIngredient } from "../api/ingredients";
 
@@ -55,7 +55,7 @@ const AdminProducts = ({ grabbedIngredients,
                                 setIngredientDescription(event.target.value)
                             }}
                             required />
-                    </label>
+                    </label>rr
                     <br />
                     <label className='Price'>
                         <h3>Price</h3>

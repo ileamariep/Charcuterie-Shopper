@@ -5,7 +5,6 @@ import "./Shop.css";
 import { getSingleIngredient } from "../api";
 import { addCartItem } from "../api/cartItem";
 import Dropdown from "./Dropdown";
-import linkBackground from "./img/vintageBorder.png"
 
 const items = [
   {

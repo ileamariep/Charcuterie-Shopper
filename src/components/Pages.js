@@ -9,6 +9,7 @@ import {
   CART_ROUTE,
   ADMIN_ROUTE,
   HOME_ROUTE,
+  THANKYOU_ROUTE,
 } from "../constants";
 import Admin from "./Admin";
 import Cart from "./Cart";
@@ -17,6 +18,8 @@ import Register from "./Register";
 import Shop from "./Shop";
 import Login from "./Login";
 import Home from "./Home";
+import UserOrders from "./UserOrders";
+import ThankYou from "./ThankYou";
 
 // import { getSomething } from "../api";
 
@@ -33,7 +36,19 @@ const Pages = (props) => {
     isAdmin,
     setIsAdmin,
     currentUserGuest,
-    setCurrentUserGuest
+    setCurrentUserGuest,
+    accountUsername,
+    setAccountUsername,
+    accountEmail,
+    setAccountEmail,
+    accountAddress,
+    setAccountAddress,
+    accountCity,
+    setAccountCity,
+    accountState,
+    setAccountState,
+    accountZip,
+    setAccountZip,
   } = props;
 
   return (
@@ -55,18 +70,36 @@ const Pages = (props) => {
           />
         </Route>
         <Route path={MYACCOUNT_ROUTE}>
-          <MyAccount />
+          <MyAccount
+            accountUsername={accountUsername}
+            setAccountUsername={setAccountUsername}
+            accountEmail={accountEmail}
+            setAccountEmail={setAccountEmail}
+            accountAddress={accountAddress}
+            setAccountAddress={setAccountAddress}
+            accountCity={accountCity}
+            setAccountCity={setAccountCity}
+            accountState={accountState}
+            setAccountState={setAccountState}
+            accountZip={accountZip}
+            setAccountZip={setAccountZip}
+            currentUserId={currentUserId}
+            setCurrentUserId={setCurrentUserId}
+          />
+          <UserOrders />
         </Route>
         <Route path={ADMIN_ROUTE}>
-          <Admin isAdmin={isAdmin}
+          <Admin
+            isAdmin={isAdmin}
             setIsAdmin={setIsAdmin}
             grabbedIngredients={grabbedIngredients}
             setIngredients={setIngredients}
             resetIngredients={resetIngredients}
-            setResetIngredients={setResetIngredients} />
+            setResetIngredients={setResetIngredients}
+          />
         </Route>
         <Route path={CART_ROUTE}>
-          <Cart currentUserId={currentUserId}/>
+          <Cart currentUserId={currentUserId} />
         </Route>
         <Route path={LOGIN_ROUTE}>
           <Login currentUser={currentUser} setCurrentUser={setCurrentUser} />
@@ -75,10 +108,13 @@ const Pages = (props) => {
           <Register currentUser={currentUser} setCurrentUser={setCurrentUser} />
         </Route>
         <Route path={CART_ROUTE}>
-          <Cart currentUserId={currentUserId}/>
+          <Cart currentUserId={currentUserId} />
         </Route>
         <Route path={ADMIN_ROUTE}>
           <Admin />
+        </Route>
+        <Route path={THANKYOU_ROUTE}>
+          <ThankYou />
         </Route>
       </Switch>
     </div>
