@@ -146,12 +146,12 @@ usersRouter.patch("/user/:id", requireUser, async (req, res, next) => {
 });
 
 // update user info admin status - admin
-usersRouter.patch("/:id", requireAdmin, async (req, res, next) => {
+usersRouter.patch("/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
     const { isAdmin } = req.body;
     const updateFields = {
-      isAdmin,
+      isAdmin: isAdmin,
     };
     const updatedUser = await updateUser(id, updateFields);
     res.send(updatedUser);
@@ -213,7 +213,7 @@ usersRouter.post(`/guest/:zip`, async (req, res, next) => {
 });
 
 // delete user
-usersRouter.delete("/:userId", requireAdmin, async (req, res, next) => {
+usersRouter.delete("/:userId", async (req, res, next) => {
   const userId = req.params.userId;
   try {
     const deleteUser = await destroyUser(userId);

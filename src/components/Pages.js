@@ -96,6 +96,10 @@ const Pages = (props) => {
             setIngredients={setIngredients}
             resetIngredients={resetIngredients}
             setResetIngredients={setResetIngredients}
+            accountUsername={accountUsername}
+            setAccountUsername={setAccountUsername}
+            accountEmail={accountEmail}
+            setAccountEmail={setAccountEmail}
           />
         </Route>
         <Route path={CART_ROUTE}>

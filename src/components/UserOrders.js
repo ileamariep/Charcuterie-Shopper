@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-// import axios from "axios";
 import "./Admin.css";
-import { getUsers } from "../api";
+import { getUsers } from "../api/users";
 
 const UserOrders = () => {
   const [usersAccountData, setUsersAccountData] = useState([]);
-  console.log(usersAccountData, "users account data");
+  // console.log(usersAccountData, "users account data");
   useEffect(() => {
     const myToken = JSON.parse(localStorage.getItem("token"));
     if (myToken) {
@@ -14,7 +13,7 @@ const UserOrders = () => {
           let myUsers = await getUsers(myToken);
           const userArray = [myUsers].flat();
           // const account = await myOrdersFetch(myUsername, myToken);
-          console.log(myUsers, "account data after flat");
+          // console.log(myUsers, "account data after flat");
           setUsersAccountData(userArray);
         } catch (error) {
           console.error(error);

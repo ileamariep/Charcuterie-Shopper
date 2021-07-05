@@ -302,11 +302,11 @@ async function testDB() {
     console.log("Calling getUserById with 1");
     const singleUser = await getUserById(1);
     console.log("444 user by id Result:", singleUser);
-    console.log("Calling update user");
-    const updatedUserData = await updateUser(users[0].id, {
-      username: "xtina",
-    });
-    console.log("333 Result:", updatedUserData);
+    // console.log("Calling update user");
+    // const updatedUserData = await updateUser(users[2].id, {
+    //   username: "xtina",
+    // });
+    // console.log("333 Result:", updatedUserData);
     const username = await getUserByUsername(users[1].username);
     console.log("222 user by username Result:", username);
     console.log("Calling getUserByUsername with 1");
@@ -333,9 +333,8 @@ async function testDB() {
     console.log("Result:", ingredientsWithFruit);
 
     console.log("Calling getAllorders");
-    const theOrders = await getAllOrders()
-    console.log(theOrders, "please for the love of god")
- 
+    const theOrders = await getAllOrders();
+    console.log(theOrders, "please for the love of god");
 
     console.log("Finished database tests!");
   } catch (error) {
