@@ -64,6 +64,8 @@
   color: #fdf1ec;
   letter-spacing: 0.2em;
   text-align: left;
+  background-color: #8b0400;
+  border: none;
 }
 
 .product-description {

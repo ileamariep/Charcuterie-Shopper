@@ -1,9 +1,9 @@
 //https://www.pluralsight.com/guides/how-to-create-nested-tab-routes-with-react-router
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 // import axios from "axios";
 import "./Admin.css";
-import { getUsers } from "../api/users";
+
 
 import { Switch, Route, Link } from "react-router-dom";
 import {
@@ -21,9 +21,8 @@ import AdminProducts from "./AdminProducts";
 const Admin = ({
   grabbedIngredients,
   setIngredients,
-  resetIngredients,
-  setResetIngredients,
   currentUserId,
+  reset
 }) => {
 
   const [ingredientName, setIngredientName] = useState('')
@@ -47,8 +46,7 @@ const Admin = ({
             <AdminProducts
               grabbedIngredients={grabbedIngredients}
               setIngredients={setIngredients}
-              resetIngredients={resetIngredients}
-              setResetIngredients={setResetIngredients}
+              reset={reset}
               ingredientName={ingredientName}
               setIngredientName={setIngredientName}
               ingredientDescription={ingredientDescription}

@@ -1,6 +1,8 @@
 import React from "react";
 import "./Navigation.css";
+
 import { Link } from "react-router-dom";
+
 import {
   MYACCOUNT_ROUTE,
   REGISTER_ROUTE,
@@ -17,7 +19,12 @@ const Navigation = ({
   isAdmin,
   setIsAdmin,
   isUser,
+  grabbedIngredients,
+  setIngredients
 }) => {
+
+
+
   const myToken = JSON.parse(localStorage.getItem("token"));
   const logOut = () => {
     localStorage.clear("token");
@@ -28,23 +35,29 @@ const Navigation = ({
   if (myToken && !isAdmin) {
     //user
     return (
-      <nav>
-        <div className="topnav">
-          {/* <Link to={HOME_ROUTE}>Home</Link> */}
-          <Link to={SHOP_ROUTE}>Shop</Link>
-          <Link to={MYACCOUNT_ROUTE}>My Account</Link>
-          <Link to={CART_ROUTE}>Cart</Link>
-          <Link
-            to={SHOP_ROUTE}
-            id="logout-button"
-            onClick={() => {
-              logOut();
-            }}
-          >
-            Logout
-          </Link>
-        </div>
-      </nav>
+      <>
+        <nav>
+          <div className="topnav">
+            {/* <Link to={HOME_ROUTE}>Home</Link> */}
+            <Link to={SHOP_ROUTE}>Shop</Link>
+            <Link to={MYACCOUNT_ROUTE}>My Account</Link>
+            <Link to={CART_ROUTE}>Cart</Link>
+            <Link
+              to={SHOP_ROUTE}
+              id="logout-button"
+              onClick={() => {
+                logOut();
+              }}
+            >
+              Logout
+            </Link>
+
+          </div>
+
+        </nav>
+
+      </>
+
     );
     //else if (myToken && isAdmin)
   } else if (myToken && isAdmin) {
@@ -65,7 +78,9 @@ const Navigation = ({
           >
             Logout
           </Link>
+
         </div>
+
       </nav>
     );
   } else {
@@ -77,7 +92,9 @@ const Navigation = ({
           <Link to={CART_ROUTE}>Cart</Link>
           <Link to={REGISTER_ROUTE}>Register</Link>
           <Link to={LOGIN_ROUTE}>Login</Link>
+
         </div>
+
       </nav>
     );
   }

@@ -323,6 +323,12 @@ async function testDB() {
     const updatedIngredient = await updateIngredient(ingredients[0].id, {
       name: "New Elixir",
       description: "Updated elixir",
+      price: 1,
+      category: "test",
+      stockQty: 4,
+      img: "fjkdlafjd",
+      imgAlt: 'hehehe',
+
     });
 
     console.log("Result:", updatedIngredient);
@@ -331,7 +337,7 @@ async function testDB() {
     console.log("deleted ingredient #2", deleteIngredient);
 
     console.log("Calling getIngredientByCategory with fruit");
-    const ingredientsWithFruit = await ingredientByCategory("fruit");
+    const ingredientsWithFruit = await ingredientByCategory("pets");
     console.log("Result:", ingredientsWithFruit);
 
     // console.log("Calling getAllorders");

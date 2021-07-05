@@ -1,4 +1,5 @@
 /* eslint-disable no-sequences */
+
 const express = require('express');
 const ingredientsRouter = express.Router();
 const { getAllIngredients, createIngredient, updateIngredient, destroyIngredient, ingredientByCategory, decreaseStock, getIngredientbyId } = require('../db');
@@ -26,22 +27,57 @@ ingredientsRouter.get('/:ingredientId/product', async (req, res, next) => {
 
 });
 
-ingredientsRouter.patch('/:id', async (req, res, next) => {
+ingredientsRouter.patch("/ingredient/:id", async (req, res, next) => {
+    const { id } = req.params;
+    const { name, description, price, category, stockQty, img, imgAlt } = req.body;
 
-    const id = req.params.id
-    const { name, description } = req.body
+    const updateFields = {};
 
+    if (name) {
+        updateFields.name = name;
+    }
+    if (description) {
+        updateFields.description = description;
+    }
+    if (price) {
+        updateFields.price = price;
+    }
+    if (category) {
+        updateFields.category = category;
+    }
+    if (stockQty) {
+        stockQty.city = stockQty;
+    }
+    if (img) {
+        updateFields.img = img;
+    }
+    if (imgAlt) {
+        updateFields.imgAlt = imgAlt;
+    }
 
     try {
 
-        const newIngredient = await updateIngredient({ id, name, description })
-        res.send(newIngredient)
-
+        const updatedTheIngredient = await updateIngredient(id, updateFields);
+        res.send(updatedTheIngredient);
     } catch (error) {
         next(error);
     }
-
 });
+
+// ingredientsRouter.patch("/ingredient/:ingredientId", async (req, res, next) => {
+
+//     try {
+//         const { ingredientId } = req.params.ingredientId;
+//         const { ...fields } = req.body;
+//         console.log(ingredientId, "this should be my updated id")
+//         const updatedIngredient = await updateIngredient(ingredientId, ...fields);
+
+//         res.send(updatedIngredient);
+//     } catch (error) {
+//         next(error);
+//     }
+// });
+
 
 ingredientsRouter.post('/', async (req, res, next) => {
 
@@ -83,12 +119,12 @@ ingredientsRouter.delete('/:id', async (req, res, next) => {
 
 });
 
-ingredientsRouter.get("/:categoryName", async (req, res, next) => {
+ingredientsRouter.get("/:category", async (req, res, next) => {
     // read the category from the params
-    const { categoryName } = req.params;
+    const { category } = req.params;
 
     try {
-        const ingredientsByCategory = await ingredientByCategory(categoryName);
+        const ingredientsByCategory = await ingredientByCategory(category);
 
         res.send(ingredientsByCategory);
     } catch (error) {
