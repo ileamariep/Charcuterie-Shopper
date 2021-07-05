@@ -1,7 +1,7 @@
 import "./App.css";
 import React, { useEffect, useState } from "react";
 import { Header, Pages } from "./components";
-import { myAccountFetch } from "./api";
+import { myAccountFetch } from "./api/users";
 import { allIngredients } from "./api/ingredients";
 
 const App = () => {

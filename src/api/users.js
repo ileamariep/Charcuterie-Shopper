@@ -1,19 +1,9 @@
 import axios from "axios";
 
 // Users
-export async function getUserInfo() {
-  try {
-    const { data } = await axios.get("/api/users/me");
-    return data;
-  } catch (error) {
-    throw error;
-  }
-}
-
 export async function getUsers() {
   try {
     const { data } = await axios.get("/api/users");
-    console.log(data.users);
     return data.users;
   } catch (error) {
     throw error;
@@ -23,7 +13,6 @@ export async function getUsers() {
 export async function getGuestUser(zip) {
   try {
     const { data } = await axios.post(`/api/users/guest/${zip}`);
-    console.log(data);
     return data;
   } catch (error) {
     throw error;
@@ -32,9 +21,7 @@ export async function getGuestUser(zip) {
 
 export async function getSingleUser(userId) {
   try {
-    const response = await fetch(`/api/users/${userId}/users`);
-    const data = await response.json();
-    console.log(data, "the user in API");
+    const { data } = await axios.get(`/api/users/${userId}/users`);
     return data;
   } catch (error) {
     throw error;
@@ -46,7 +33,6 @@ export async function getAllUsersAdmin() {
     // if user.isAdmin === true
     const { data } = await axios.get("/api/users");
     if (data.isAdmin === true) {
-      console.log(data.isAdmin, "this should be true");
       return data;
     } else {
       return null;
@@ -59,26 +45,25 @@ export async function getAllUsersAdmin() {
 // update user info - user
 export async function updateUserAccount(id, updatedUser) {
   try {
-    const data = await fetch(`/api/users/user/${id}`, {
-      method: "PATCH",
-      body: JSON.stringify({
-        updatedUser,
-      }),
-      header: {
+    const { data } = await axios.patch(`/api/users/user/${id}`, {
+      updatedUser,
+      headers: {
         "Content-Type": "application/json",
       },
     });
-    const result = await data.json();
-    return result;
+    return data;
   } catch (error) {
     throw error;
   }
 }
 
-export async function deleteUser(id) {
+export async function deleteUser(id, myToken) {
   try {
-    const data = await axios.delete(`/api/users/${id}`, {
-      header: { "Content-Type": "application/json" },
+    const { data } = await axios.delete(`/api/users/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${myToken}`,
+      },
     });
     return data;
   } catch (error) {
@@ -87,19 +72,16 @@ export async function deleteUser(id) {
 }
 
 // update user info admin status - admin
-export async function promoteUserToAdmin(id, isAdmin) {
+export async function promoteUserToAdmin(id, isAdmin, myToken) {
   try {
-    const data = await fetch(`/api/users/${id}`, {
-      method: "PATCH",
-      body: JSON.stringify({
-        isAdmin,
-      }),
-      header: {
+    const { data } = await axios.patch(`/api/users/${id}`, {
+      isAdmin,
+      headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${myToken}`,
       },
     });
-    const result = await data.json();
-    return result;
+    return data;
   } catch (error) {
     throw error;
   }
@@ -107,18 +89,15 @@ export async function promoteUserToAdmin(id, isAdmin) {
 
 export async function myAccountFetch(myToken) {
   try {
-    return axios
-      .get(`api/users/me`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${myToken}`,
-        },
-      })
-      .then(({ data }) => {
-        return data;
-      });
-  } catch (err) {
-    console.error(err);
+    const { data } = await axios.get(`/api/users/me`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${myToken}`,
+      },
+    });
+    return data;
+  } catch (error) {
+    throw error;
   }
 }
 

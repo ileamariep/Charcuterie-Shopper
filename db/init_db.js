@@ -72,8 +72,9 @@ async function buildTables() {
         );
         CREATE TABLE orders(
             id SERIAL PRIMARY KEY,
-            date_ordered VARCHAR(255) NOT NULL,
-            total_price INTEGER
+            date_ordered varchar(14) default to_char(CURRENT_DATE, 'yyyy / mm / dd'),
+            total_price INTEGER DEFAULT 0,
+            status text
           );
         CREATE TABLE cart_items(
           id SERIAL PRIMARY KEY,
@@ -233,15 +234,12 @@ async function populateInitialOrders() {
     console.log("starting to create orders...");
     const ordersToCreate = [
       {
-        date_ordered: "01/01/2025",
         total_price: 50,
       },
       {
-        date_ordered: "01/04/2025",
         total_price: 500,
       },
       {
-        date_ordered: "01/03/2025",
         total_price: 5000,
       },
     ];
@@ -313,14 +311,14 @@ async function rebuildDB() {
     console.log("starting to build tables in rebuildDB");
     await buildTables();
     console.log("starting to populate initial ingredients in rebuildDB");
+    await populateInitialOrders();
+    console.log("starting to populate initial cart items in rebuildDB");
     await populateInitialIngredients();
     console.log("starting to populate initial Users in rebuildDB");
     await populateInitialUsers();
     console.log("starting to populate initial cartitems in rebuildDB");
     // await createInitialCartItems();
     console.log("starting to populate initial orders in rebuildDB");
-    await populateInitialOrders();
-    console.log("starting to populate initial cart items in rebuildDB");
     // await populateInitialCart();
   } catch (error) {
     console.log("Error during rebuildDB");
@@ -340,11 +338,11 @@ async function testDB() {
     console.log("Calling getUserById with 1");
     const singleUser = await getUserById(1);
     console.log("444 user by id Result:", singleUser);
-    console.log("Calling update user");
-    const updatedUserData = await updateUser(users[0].id, {
-      username: "xtina",
-    });
-    console.log("333 Result:", updatedUserData);
+    // console.log("Calling update user");
+    // const updatedUserData = await updateUser(users[2].id, {
+    //   username: "xtina",
+    // });
+    // console.log("333 Result:", updatedUserData);
     const username = await getUserByUsername(users[1].username);
     console.log("222 user by username Result:", username);
     console.log("Calling getUserByUsername with 1");
@@ -376,14 +374,9 @@ async function testDB() {
     const ingredientsWithFruit = await ingredientByCategory("pets");
     console.log("Result:", ingredientsWithFruit);
 
-    // console.log("Calling getAllorders");
-    // const theOrders = await getAllOrders()
-    // console.log(theOrders, "please for the love of god")
-    // const orderId = await getOrderById(2)
-    // console.log(orderId, "please for the love of god")
-
-    // const usersOrder = await getOrderByUser()
-    // console.log(usersOrder, "This is smashleys order")
+    console.log("Calling getAllorders");
+    const theOrders = await getAllOrders();
+    console.log(theOrders, "please for the love of god");
 
     console.log("Finished database tests!");
   } catch (error) {
