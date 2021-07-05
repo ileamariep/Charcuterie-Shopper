@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./Admin.css";
 import "./Shop.css";
+import Button from "react-bootstrap/Button";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 // import Button from "react-bootstrap/Button";
 // import "bootstrap/dist/css/bootstrap.min.css";
@@ -52,7 +54,7 @@ const AdminProducts = ({ grabbedIngredients,
                 /> :
                 <>
                     <div className='add-but-container'>
-                        <button onClick={handleAddButtonClick} className="button-add">Add Product</button>
+                        <Button onClick={handleAddButtonClick} className="button-add">Add Product</Button>
                     </div>
                     <div id="product-container">
                         {grabbedIngredients.map(

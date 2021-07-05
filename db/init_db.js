@@ -125,6 +125,42 @@ async function populateInitialIngredients() {
         category: "hair loss",
         stockQty: 50,
       },
+      {
+        name: "Love Potion",
+        description: "Get the attention of the person you want!",
+        price: 10,
+        category: "general",
+        stockQty: 50,
+        img: "/images/lovepotion.png",
+        imgAlt: "love potion elixir",
+      },
+      {
+        name: "Diabetes Cure",
+        description: "Get rid of your diabetes with this magic elixir!",
+        price: 10,
+        category: "general",
+        stockQty: 50,
+        img: "/images/diabetescure.png",
+        imgAlt: "diabetes elixir",
+      },
+      {
+        name: "Infinite Gravity",
+        description: "Ready to Fly? Drink this to become weightless!",
+        price: 10,
+        category: "general",
+        stockQty: 50,
+        img: "/images/infinitegravity.png",
+        imgAlt: "gravity elixir",
+      },
+      {
+        name: "Brain Salt",
+        description: "Rids the body of brain troubles, sea sickness, headaches and more!",
+        price: 10,
+        category: "health",
+        stockQty: 50,
+        img: "/images/brainsalt.png",
+        imgAlt: "brain elixir",
+      },
     ];
 
     const theIngredients = await Promise.all(
@@ -319,19 +355,19 @@ async function testDB() {
     console.log("Calling getIngredientById with 1");
     const singleIngredient = await getIngredientbyId(1);
     console.log("Result:", singleIngredient);
-    console.log("Calling updateIngredient on ingredient[0]");
-    const updatedIngredient = await updateIngredient(ingredients[0].id, {
-      name: "New Elixir",
-      description: "Updated elixir",
-      price: 1,
-      category: "test",
-      stockQty: 4,
-      img: "fjkdlafjd",
-      imgAlt: 'hehehe',
+    // console.log("Calling updateIngredient on ingredient[0]");
+    // const updatedIngredient = await updateIngredient(ingredients[0].id, {
+    //   name: "New Elixir",
+    //   description: "Updated elixir",
+    //   price: 1,
+    //   category: "test",
+    //   stockQty: 4,
+    //   img: "fjkdlafjd",
+    //   imgAlt: 'hehehe',
 
-    });
+    // });
 
-    console.log("Result:", updatedIngredient);
+    // console.log("Result:", updatedIngredient);
     console.log("Testing delete ingredient");
     const deleteIngredient = await destroyIngredient(2);
     console.log("deleted ingredient #2", deleteIngredient);

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./Admin.css";
 import "./Shop.css";
-// import Button from "react-bootstrap/Button";
-// import "bootstrap/dist/css/bootstrap.min.css";
+import Button from "react-bootstrap/Button";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 import { deleteIngredient } from "../api/ingredients"
 import { TextField } from "@material-ui/core";
@@ -157,29 +157,29 @@ const AdminEdit = ({ grabbedIngredients: { id, name, description, price, categor
                             </div>
                         </div>
                         <div className="admin-product-buttons">
-                            <button
+                            <Button
                                 type="button"
                                 className="view"
                                 onClick={() => handleEditClick()}
                             >
 
                                 Edit
-                            </button>
+                            </Button>
 
-                            <button
+                            <Button
                                 className="delete-button"
                                 onClick={() => handleDelete(id)}
                             >
                                 Delete
-                            </button>
+                            </Button>
 
-                            <button
+                            <Button
                                 onClick={() => {
                                     handleSaveClick(id);
                                 }}>
 
                                 Save
-                            </button>
+                            </Button>
 
                         </div>
                     </> :

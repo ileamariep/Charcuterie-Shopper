@@ -91,22 +91,22 @@ const Shop = ({
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      {hideViewButton ? (<form onSubmit={handleSubmit}>
         <label>
           Select a category:
           <select value={category} onChange={handleChange}>
-            <option value="All" selected>All</option>
+            <option value="All" defaultValue>All</option>
             <option value="pets">Pets</option>
             <option value="general">General</option>
             <option value="beauty">Weightloss</option>
           </select>
         </label>
         <input type="submit" value="Submit" />
-      </form>
+      </form>) : (null)}
 
       <div id="product-container" >
         {grabbedIngredients.map(
-          ({ id, name, description, price, category, img, imgAlt }) => (
+          ({ id, name, description, price, category, stockQty, img, imgAlt }) => (
             <div key={id} className="product-card">
               <div className="image-container" >
                 {img ? (
@@ -128,6 +128,8 @@ const Shop = ({
                 <p className="product-description">{description}</p>
 
                 <div className="product-price">{price}</div>
+                {stockQty > 0 ? (<div className="product-stock">In Stock</div>) : (<div className="product-stock">Out of Stock</div>)}
+
 
                 <div className="product-buttons">
                   {hideViewButton ? <>
@@ -141,7 +143,7 @@ const Shop = ({
                   </>
                     : showQtyButton ?
                       <>
-                        <div className='select-qty-message'>Select Quantity to Add to Cart</div>
+
                         <Dropdown
                           title="Select movie"
                           selection={selection}
