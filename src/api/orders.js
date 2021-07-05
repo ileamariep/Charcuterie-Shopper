@@ -2,7 +2,6 @@ import axios from "axios";
 
 export async function addOrder(total_price, status) {
     try {
-        console.log(total_price, status)
         return await axios
           .post("/api/orders", {
             total_price,

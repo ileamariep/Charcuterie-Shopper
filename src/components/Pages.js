@@ -100,9 +100,6 @@ const Pages = (props) => {
             reset={reset}
           />
         </Route>
-        <Route path={CART_ROUTE}>
-          <Cart currentUserId={currentUserId} />
-        </Route>
         <Route path={LOGIN_ROUTE}>
           <Login currentUser={currentUser} setCurrentUser={setCurrentUser} />
         </Route>

@@ -3,7 +3,7 @@ const {
   createOrder,
   destroyOrder,
   getAllOrders,
-  getOrderById,
+  getOrderByUser,
 } = require("../db");
 const { requireUser } = require("./utils");
 const ordersRouter = express.Router();
@@ -17,10 +17,12 @@ ordersRouter.get("/", async (req, res, next) => {
   }
 });
 
-ordersRouter.get('/:orderId', async (req, res, next) => {
-  const { orderId } = req.params
+ordersRouter.get('/:userId', async (req, res, next) => {
+  const { usersId } = req.params
+  console.log(usersId)
   try {
-      const order = await getOrderById(orderId);
+      const order = await getOrderByUser(usersId);
+      console.log(order, 'this is order')
       res.send(order)
   } catch (error) {
       next(error);
