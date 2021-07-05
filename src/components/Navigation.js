@@ -53,8 +53,9 @@ const Navigation = ({
       <nav>
         <div className="topnav">
           <Link to={SHOP_ROUTE}>Shop</Link>
-          <Link to={CART_ROUTE}>Cart</Link>
+          <Link to={MYACCOUNT_ROUTE}>My Account</Link>
           <Link to={ADMIN_ROUTE}>Admin</Link>
+          <Link to={CART_ROUTE}>Cart</Link>
           <Link
             to={SHOP_ROUTE}
             id="logout-button"

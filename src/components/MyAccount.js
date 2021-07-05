@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-// import axios from "axios";
 import { TableRow, TableCell, TextField } from "@material-ui/core";
 import { Create as CreateIcon, Save as SaveIcon } from "@material-ui/icons";
 import "./MyAccount.css";
-import { myAccountFetch } from "../api";
+import { myAccountFetch } from "../api/users";
 
 const myToken = JSON.parse(localStorage.getItem("token"));
 const MyAccount = ({
@@ -48,29 +47,28 @@ const MyAccount = ({
     setEditMode(true);
   };
 
-  const onSave = (id) => {
+  const onSave = async (id) => {
     setEditMode(false);
-    window.location.reload();
-    fetch(`/api/users/user/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${myToken}`,
-      },
-      body: JSON.stringify({
-        name: accountUsername,
-        email: accountEmail,
-        address: accountAddress,
-        city: accountCity,
-        state: accountState,
-        zip: accountZip,
-      }),
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        console.log(result);
-      })
-      .catch(console.error);
+    try {
+      await fetch(`/api/users/user/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${myToken}`,
+        },
+        body: JSON.stringify({
+          name: accountUsername,
+          email: accountEmail,
+          address: accountAddress,
+          city: accountCity,
+          state: accountState,
+          zip: accountZip,
+        }),
+      });
+      window.location.reload();
+    } catch (err) {
+      console.log("Error updating user", err);
+    }
   };
 
   return (
