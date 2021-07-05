@@ -21,7 +21,7 @@
 
 header {
   grid-area: header;
-  background-color: #740000;
+  background-color: black;
 }
 
 .header h1 {
@@ -30,6 +30,7 @@ header {
   padding-left: 25px;
   padding-top: 10px;
   padding-bottom: 10px;
+  background-color: #740000;
 }
 
 main {
@@ -39,7 +40,6 @@ main {
 }
 
 .topnav {
-  overflow: hidden;
   background-color: rgb(16, 16, 16);
   padding-left: 10px;
 }
@@ -51,6 +51,7 @@ main {
   padding: 14px 16px;
   text-decoration: none;
   font-size: 20px;
+  height: 100%;
 }
 
 .topnav a:hover {
@@ -62,4 +63,9 @@ main {
 .topnav a.active {
   background-color: #04aa6d;
   color: white;
+}
+
+.btn {
+  max-width: 160px;
+  max-height: 38px;
 }

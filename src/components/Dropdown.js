@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import "./dropdown.css";
+import Button from "react-bootstrap/Button";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 //https://stackoverflow.com/questions/29108779/how-to-get-selected-value-of-a-dropdown-menu-in-reactjs
 
@@ -56,7 +58,7 @@ function Dropdown({ qty, items, selection, setSelection, multiSelect = false, se
                     <p className="dd-header__title--bold">{qty}</p>
                 </div>
                 <div className="dd-header__action">
-                    <p className='select-qty'>{open ? null : `SELECT QTY`}</p>
+                    <Button className='select-qty'>{open ? null : `SELECT QTY`}</Button>
                 </div>
             </div>
             {open && (

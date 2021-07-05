@@ -6,11 +6,11 @@ import { allIngredients } from "./api/ingredients";
 
 const App = () => {
   const [grabbedIngredients, setIngredients] = useState([]);
-  const [resetIngredients, setResetIngredients] = useState([]);
+
   const [isAdmin, setIsAdmin] = useState(null);
   const [currentUserId, setCurrentUserId] = useState();
   const [currentUserGuest, setCurrentUserGuest] = useState();
-  const [myAccountData, setMyAccountData] = useState([]);
+  // const [myAccountData, setMyAccountData] = useState([]);
   const [accountUsername, setAccountUsername] = useState("");
   const [accountEmail, setAccountEmail] = useState("");
   const [accountAddress, setAccountAddress] = useState("");
@@ -24,7 +24,6 @@ const App = () => {
     allIngredients()
       .then((ingredient) => {
         setIngredients(ingredient);
-        setResetIngredients(ingredient);
       })
       .catch((error) => {
         // something something errors
@@ -60,14 +59,16 @@ const App = () => {
   return (
     <div className="App">
       <header>
-        <Header isAdmin={isAdmin} setIsAdmin={setIsAdmin} />
+        <Header
+          isAdmin={isAdmin}
+          setIsAdmin={setIsAdmin}
+          grabbedIngredients={grabbedIngredients}
+          setIngredients={setIngredients} />
       </header>
       <main>
         <Pages
           grabbedIngredients={grabbedIngredients}
           setIngredients={setIngredients}
-          resetIngredients={resetIngredients}
-          setResetIngredients={setResetIngredients}
           currentUserId={currentUserId}
           setCurrentUserId={setCurrentUserId}
           currentUserGuest={currentUserGuest}
@@ -86,6 +87,7 @@ const App = () => {
           setAccountState={setAccountState}
           accountZip={accountZip}
           setAccountZip={setAccountZip}
+          reset={retrieveIngredients}
         />
       </main>
     </div>

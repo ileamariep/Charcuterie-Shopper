@@ -1,7 +1,8 @@
 export { default as Admin } from "./Admin";
-export { default as AdminEdit } from "./AdminEdit";
+export { default as AdminAddProduct } from "./AdminEdit";
+export { default as Home } from "./Home";
 export { default as Cart } from "./Cart";
-// export { default as Category } from "./Category";
+export { default as Category } from "./Category";
 export { default as Header } from "./Header";
 export { default as Login } from "./Login";
 export { default as MyAccount } from "./MyAccount";
@@ -11,4 +12,5 @@ export { default as Register } from "./Register";
 // export { default as Search } from "./Search";
 export { default as Shop } from "./Shop";
 export { default as Dropdown } from "./Dropdown";
-export { default as Home } from "./Home";
+export { default as SingleProductView } from "./SingleProductView";
+

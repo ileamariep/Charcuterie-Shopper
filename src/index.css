@@ -8,7 +8,6 @@
 }
 
 #root {
-  grid-area: header / main;
   display: flex;
   height: 100vh;
   color: black;

@@ -1,4 +1,5 @@
 const { client } = require("./client")
+const utilFile = require('./util')
 
 async function createIngredient({ name, description, price, category, stockQty, img, imgAlt }) {
 
@@ -46,29 +47,33 @@ async function getAllIngredients() {
         throw (error)
     }
 }
-async function updateIngredient(ingredientId, fields = {}) {
+async function updateIngredient(id, fields = {}) {
 
-
-    const setString = Object.keys(fields)
-        .map((key, index) => `"${key}"=$${index + 1}`)
-        .join(", ");
-
+    console.log(id, 'this should be my id')
     try {
-        if (setString.length > 0) {
-            await client.query(
-                `
-          UPDATE ingredients
-          SET ${setString}
-          WHERE id=${ingredientId}
-          RETURNING *;
-        `,
-                Object.values(fields)
-            );
+
+        const toUpdate = {}
+        for (let column in fields) {
+            if (fields[column] !== undefined) {
+                toUpdate[column] = fields[column]
+            }
         }
 
-        return await getIngredientbyId(ingredientId);
+        if (utilFile.dbFields(fields).insert.length > 0) {
+
+            const { rows } = await client.query(`
+            UPDATE ingredients
+            SET ${utilFile.dbFields(toUpdate).insert}
+            WHERE id=${id}
+            RETURNING *;
+            `, Object.values(toUpdate))
+
+            let ingredient = rows[0]
+            return ingredient
+        }
+
     } catch (error) {
-        throw error;
+        throw (error)
     }
 }
 
@@ -97,11 +102,12 @@ async function destroyIngredient(id) {
 
 async function ingredientByCategory(category) {
     try {
+
         const { rows: ingredients } = await client.query(
             `
         SELECT id
         FROM ingredients
-        WHERE ingredients.category=$1;
+        WHERE ingredients.category=$1
       `,
             [category]
         );

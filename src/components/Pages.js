@@ -10,6 +10,7 @@ import {
   ADMIN_ROUTE,
   HOME_ROUTE,
   THANKYOU_ROUTE,
+  SINGLE_PRODUCT_ROUTE,
 } from "../constants";
 import Admin from "./Admin";
 import Cart from "./Cart";
@@ -20,6 +21,8 @@ import Login from "./Login";
 import Home from "./Home";
 import UserOrders from "./UserOrders";
 import ThankYou from "./ThankYou";
+import SingleProductView from "./SingleProductView"
+
 
 // import { getSomething } from "../api";
 
@@ -27,8 +30,6 @@ const Pages = (props) => {
   const {
     grabbedIngredients,
     setIngredients,
-    resetIngredients,
-    setResetIngredients,
     currentUser,
     setCurrentUser,
     currentUserId,
@@ -49,6 +50,7 @@ const Pages = (props) => {
     setAccountState,
     accountZip,
     setAccountZip,
+    reset,
   } = props;
 
   return (
@@ -58,15 +60,16 @@ const Pages = (props) => {
           <Home />
         </Route>
         <Route path={SHOP_ROUTE}>
+
           <Shop
+
             grabbedIngredients={grabbedIngredients}
             setIngredients={setIngredients}
-            resetIngredients={resetIngredients}
-            setResetIngredients={setResetIngredients}
             currentUserId={currentUserId}
             setCurrentUserId={setCurrentUserId}
             currentUserGuest={currentUserGuest}
             setCurrentUserGuest={setCurrentUserGuest}
+            reset={reset}
           />
         </Route>
         <Route path={MYACCOUNT_ROUTE}>
@@ -94,12 +97,7 @@ const Pages = (props) => {
             setIsAdmin={setIsAdmin}
             grabbedIngredients={grabbedIngredients}
             setIngredients={setIngredients}
-            resetIngredients={resetIngredients}
-            setResetIngredients={setResetIngredients}
-            accountUsername={accountUsername}
-            setAccountUsername={setAccountUsername}
-            accountEmail={accountEmail}
-            setAccountEmail={setAccountEmail}
+            reset={reset}
           />
         </Route>
         <Route path={CART_ROUTE}>
@@ -119,6 +117,9 @@ const Pages = (props) => {
         </Route>
         <Route path={THANKYOU_ROUTE}>
           <ThankYou />
+        </Route>
+        <Route path={SINGLE_PRODUCT_ROUTE}>
+          <SingleProductView />
         </Route>
       </Switch>
     </div>

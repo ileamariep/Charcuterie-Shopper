@@ -4,7 +4,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./Shop.css";
 import { getSingleIngredient } from "../api";
 import { addCartItem } from "../api/cartItem";
+import { selectCategory } from "../api/ingredients";
 import Dropdown from "./Dropdown";
+
 
 const items = [
   {
@@ -24,8 +26,7 @@ const items = [
 const Shop = ({
   grabbedIngredients,
   setIngredients,
-  resetIngredients,
-  setResetIngredients,
+  reset,
   currentUserId,
 }) => {
 
@@ -34,7 +35,7 @@ const Shop = ({
   const [showQtyButton, setShowQtyButton] = useState(false);
   const [showCartButton, setCartButton] = useState(false);
 
-
+  const [category, setCategory] = useState('');
 
 
   const handleViewClick = async (id) => {
@@ -51,6 +52,7 @@ const Shop = ({
   const handleKeepShopping = () => {
     setCartButton(false);
     setSelection([]);
+    reset()
     window.location.reload();
   };
 
@@ -68,11 +70,43 @@ const Shop = ({
     }
   };
 
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    try {
+      if (category === 'All') {
+        reset()
+      } else {
+        const categoryResults = await selectCategory(category);
+        setIngredients(categoryResults)
+      }
+
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleChange = event => {
+    setCategory(event.target.value);
+  };
+
   return (
     <>
+      {hideViewButton ? (<form onSubmit={handleSubmit}>
+        <label>
+          Select a category:
+          <select value={category} onChange={handleChange}>
+            <option value="All" defaultValue>All</option>
+            <option value="pets">Pets</option>
+            <option value="general">General</option>
+            <option value="beauty">Weightloss</option>
+          </select>
+        </label>
+        <input type="submit" value="Submit" />
+      </form>) : (null)}
+
       <div id="product-container" >
         {grabbedIngredients.map(
-          ({ id, name, description, price, category, img, imgAlt }) => (
+          ({ id, name, description, price, category, stockQty, img, imgAlt }) => (
             <div key={id} className="product-card">
               <div className="image-container" >
                 {img ? (
@@ -94,6 +128,8 @@ const Shop = ({
                 <p className="product-description">{description}</p>
 
                 <div className="product-price">{price}</div>
+                {stockQty > 0 ? (<div className="product-stock">In Stock</div>) : (<div className="product-stock">Out of Stock</div>)}
+
 
                 <div className="product-buttons">
                   {hideViewButton ? <>
@@ -107,7 +143,7 @@ const Shop = ({
                   </>
                     : showQtyButton ?
                       <>
-                        <div className='select-qty-message'>Select Quantity to Add to Cart</div>
+
                         <Dropdown
                           title="Select movie"
                           selection={selection}

@@ -1,5 +1,4 @@
 .register-form-container {
-  grid-area: main;
   display: grid;
   padding: 60px;
 }

@@ -66,3 +66,16 @@ export async function addAnIngredient(name, description, price, category, stockQ
         throw error;
     }
 }
+
+export async function selectCategory(categoryName) {
+    try {
+
+        const response = await fetch(`/api/ingredients/${categoryName}`);
+        const data = await response.json();
+        console.log(data, "the user in API");
+        return data;
+
+    } catch (error) {
+        throw error;
+    }
+}
