@@ -13,7 +13,7 @@ const Cart = ({ currentUserId }) => {
   const [orderStatus, setOrderStatus] = useState('')
   const [orderId, setOrderId] = useState()
 
-  const retrieveCartItems = async () => {
+  const retrieveCartItems =  () => {
     getUsersCurrentCartItems(currentUserId)
       .then((cartItems) => {
         setMyCartItems(cartItems)
@@ -24,7 +24,7 @@ const Cart = ({ currentUserId }) => {
   }
 
   const retrieveOrderId = async () => {
-    addOrder()
+    addOrder(totalPrice, orderStatus)
       .then(({id}) => {
         setOrderId(id)
       })
@@ -34,8 +34,8 @@ const Cart = ({ currentUserId }) => {
   }
 
   useEffect(() => {
-    const fetchCartItems = async () => {
-      await retrieveCartItems()
+    const fetchCartItems =  () => {
+       retrieveCartItems()
     }
     fetchCartItems()
   }, [])
@@ -46,7 +46,6 @@ const Cart = ({ currentUserId }) => {
   const createOrder = async () => {
     setTotalPrice(100)
     setOrderStatus('processing')
-    await addOrder(totalPrice, orderStatus)
     await retrieveOrderId()
     myCartItems.forEach(cartItem => {
       console.log(orderId)
@@ -103,7 +102,7 @@ const Cart = ({ currentUserId }) => {
           </h1>
           <Button
             className="checkcout"
-            onClick={() => {createOrder()}}
+            onClick={createOrder}
           >
             Checkout
           </Button>
