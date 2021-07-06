@@ -3,9 +3,12 @@ import "./Cart.css";
 import Button from "react-bootstrap/Button";
 import {
   addOrderIdToCartItems,
+  deleteCartItem,
   getUsersCurrentCartItems,
 } from "../api/cartItem";
 import { addOrder } from "../api/orders";
+
+
 
 const Cart = ({ currentUserId }) => {
   const [myCartItems, setMyCartItems] = useState([]);
@@ -49,11 +52,13 @@ const Cart = ({ currentUserId }) => {
         return addOrderIdToCartItems(cartItem.id, orderId);
       })
     );
-    // myCartItems.forEach((cartItem) => {
-    //   console.log(orderId);
-    //   addOrderIdToCartItems(cartItem.id, orderId);
-    // });
   };
+
+
+  const deleteSelectedCartItem = async (id) => {
+    console.log(id, "this is cartItems id")
+    await deleteCartItem(id)
+  }
 
   return (
 
@@ -62,56 +67,41 @@ const Cart = ({ currentUserId }) => {
       <div className="cart-card">
         <div className="cart-info">
           <div className="cart-info-title">
-            {myCartItems[0] ? (
-              <>
-                <div>{myCartItems.map(
-                  ({
-                    id,
-                    name,
-                    description,
-                    price,
-                    quantity,
-                  }) => (
-                    <div key={id} className="cart-cards">
-                      <div className="cart-card">
-                        <div className="card-name">
-                          <b>Name:</b><p>{name}</p>
-                        </div>
-                        <div className="card-description">
-                          <b>Description:</b><p>{description}</p>
-                        </div>
-                        <div className="card-name">
-                          <b>Price:</b><p>{price}</p>
-                        </div>
-                        <div className="card-name">
-                          <b>Quantity:</b><p>{quantity}</p>
-                        </div>
-                      </div>
+            <>
+              {myCartItems.map(({ id, name, description, price, quantity }) => (
+                <div key={id} className="cart-cards">
+                  <div className="cart-card">
+                    <div className="card-name">
+                      <b>Name:</b>
+                      <p>{name}</p>
                     </div>
-                  )
-                )}</div>
-                <Button
-                  type="submit"
-                  className="editcart"
-                // onClick={() => )}
-                >
-                  Edit Cart
-                </Button>
-              </>
-            ) : (
+                    <div className="card-description">
+                      <b>Description:</b>
+                      <p>{description}</p>
+                    </div>
+                    <div className="card-name">
+                      <b>Price:</b>
+                      <p>{price}</p>
+                    </div>
+                    <div className="card-name">
+                      <b>Quantity:</b>
+                      <p>{quantity}</p>
+                    </div>
+                    <Button onClick={() => deleteSelectedCartItem(id)}>Remove From Cart</Button>
 
-              <>
-                <div>Your Cart is empty, keep shopping</div>
-
-              </>
-            )}
-
-
-
-            {/* stop if statement here */}
+                  </div>
+                </div>
+              ))}
+            </>
           </div>
 
-
+          {/* <Button
+            type="button"
+            className="editcart"
+            // onClick={() => )}
+          >
+            Edit Cart
+          </Button> */}
         </div>
 
         <div className="checkout-section">

@@ -50,9 +50,14 @@ cartItemsRouter.patch('/:cartId', async (req, res, next) => {
 })
 
 cartItemsRouter.delete('/:id', async (req, res, next) => {
+<<<<<<< HEAD
   const { id } = req.params
+=======
+  const  { id }  = req.params
+>>>>>>> 1488ce33f546b079631076e8ee6b16e7a404168c
   try {
     const deletedCartItem = await destroyCartItem(id)
+    console.log(deletedCartItem, 'this is the deleted cart Item')
     res.send(deletedCartItem)
   } catch (error) {
     next(error)

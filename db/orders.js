@@ -191,6 +191,7 @@ module.exports = {
   client,
   createOrder,
   getAllOrders,
+  updateOrderStatus,
   destroyOrder,
   getOrderByUser,
   getOrderById,
