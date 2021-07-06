@@ -5,25 +5,26 @@
   background-color: #fdf1ec;
 }
 
-.product-card {
+.admin-product-card {
   display: grid;
   grid-template-rows: 1fr auto auto;
   grid-template-columns: 2fr 1fr 1fr;
-  background-color: white;
+  background-color: #8b0400;
   margin: 10px;
   border-radius: 7px;
   box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.15);
 }
 
-.image-container {
+.admin-image-container {
   grid-row: 1 / 4;
   grid-column: 1 / 2;
-  background-color: lightblue;
-  border-bottom-left-radius: 7px;
+
   border-top-left-radius: 7px;
+  background-color: white;
+  padding: 10px;
 }
 
-.product-info {
+.admin-product-info {
   grid-column: 2 /4;
   grid-row: 1 /4;
   display: grid;
@@ -32,66 +33,53 @@
   padding-top: 10px;
   padding-bottom: 20px;
   padding-right: 20px;
+  background-color: #8b0400;
 }
 
-.product-title {
+.admin-product-title {
   grid-row: 1 / 2;
   grid-column: 1 / 3;
   color: #474747;
 }
 
-.product-name {
+.admin-product-name {
   text-transform: uppercase;
   text-align: left;
+  font-size: 40px;
 }
 
-.product-category {
+.admin-product-category {
   font-size: 13px;
   font-weight: 500;
   text-transform: uppercase;
-  color: #c4c2c2;
+  color: #fdf1ec;
   letter-spacing: 0.2em;
   text-align: left;
 }
 
-.product-description {
+.admin-product-description {
   grid-row: 2 / 3;
-  grid-column: 1/ 3;
+  grid-column: 1/ 5;
   text-align: left;
   padding-right: 10px;
-  color: #474747;
+  color: #fdf1ec;
+  font-family: Lato;
 }
 
-.product-price {
+.admin-product-price {
   grid-row: 4 / 5;
   grid-column: 1 / 2;
-  color: #474747;
+  color: #fdf1ec;
   font-weight: bolder;
   font-size: x-large;
 }
 
-.admin-nav {
-  background-color: rgb(37, 36, 36);
-  padding: 20px;
-}
-
-.admin-nav a {
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 20px;
-}
-
-.admin-nav a:hover {
-  background-color: #ddd;
-  color: black;
-  text-decoration: none;
-}
-
-.admin-nav a.active {
-  background-color: #04aa6d;
-  color: white;
+.admin-product-stockQty {
+  grid-row: 4 / 5;
+  grid-column: 2 / 5;
+  color: #fdf1ec;
+  font-weight: bolder;
+  font-size: x-large;
 }
 
 .button-add {
@@ -105,4 +93,53 @@
 
 .add-but-container {
   text-align: center;
+}
+
+.admin-product-buttons {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  grid-row: 4/5;
+  grid-column: 1/4;
+  background-color: #6c0501;
+  padding: 10px;
+}
+
+.admin-edit {
+  margin-right: 5px;
+}
+
+.admin-nav {
+  display: grid;
+  grid-template: auto / 1fr 1fr 1fr;
+  margin-top: 20px;
+}
+
+.admin-link {
+  text-decoration: none;
+  height: 250px;
+  width: 250px;
+  background-color: rgba(0, 0, 0, 0.15);
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 7px;
+  color: white;
+  font-size: 60px;
+  place-self: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.admin-page-title {
+  font-size: 60px;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+
+  color: inherit;
 }

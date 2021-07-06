@@ -27,13 +27,13 @@ const Shop = ({
   grabbedIngredients,
   setIngredients,
   reset,
-  currentUserId,
+  currentUserId, hideViewButton, setHideViewButton,
+  showQtyButton, setShowQtyButton,
+  showCartButton, setCartButton
 }) => {
 
   const [selection, setSelection] = useState([]);
-  const [hideViewButton, setHideViewButton] = useState(true)
-  const [showQtyButton, setShowQtyButton] = useState(false);
-  const [showCartButton, setCartButton] = useState(false);
+
 
   const [category, setCategory] = useState('');
 
@@ -73,7 +73,7 @@ const Shop = ({
   const handleSubmit = async (event) => {
     event.preventDefault()
     try {
-      if (category === 'All') {
+      if (category === 'All' || category === "header") {
         reset()
       } else {
         const categoryResults = await selectCategory(category);
@@ -91,18 +91,22 @@ const Shop = ({
 
   return (
     <>
-      {hideViewButton ? (<form onSubmit={handleSubmit}>
-        <label>
-          Select a category:
-          <select value={category} onChange={handleChange}>
-            <option value="All" defaultValue>All</option>
-            <option value="pets">Pets</option>
-            <option value="general">General</option>
-            <option value="beauty">Weightloss</option>
-          </select>
-        </label>
-        <input type="submit" value="Submit" />
-      </form>) : (null)}
+      {hideViewButton ? (
+        <div className='category-container'>
+          <form onSubmit={handleSubmit}>
+
+            <select value={category} onChange={handleChange}>
+              <option value="header" defaultValue>Select Category</option>
+              <option value="All">All</option>
+              <option value="pets">Pets</option>
+              <option value="general">General</option>
+              <option value="beauty">Weightloss</option>
+            </select>
+
+            <input type="submit" value="Submit" className='category-submit' style={{ textAlign: "center" }} />
+          </form>
+        </div>
+      ) : (null)}
 
       <div id="product-container" >
         {grabbedIngredients.map(
@@ -194,13 +198,7 @@ const Shop = ({
                           >
                             Keep Shopping
                           </Button>
-                          <Button
-                            type="button"
-                            className="keep-shopping"
-                            onClick={() => handleKeepShopping()}
-                          >
-                            Go to Cart
-                          </Button>
+
                         </>
                   }
                 </div>

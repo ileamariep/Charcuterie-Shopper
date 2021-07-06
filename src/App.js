@@ -20,6 +20,12 @@ const App = () => {
   const [orderHistory, setOrderHistory] = useState([]);
   // const [errorMessage, setErrorMessage] = useState();
   const myToken = JSON.parse(localStorage.getItem("token"));
+  const [showDashLinks, setDashLinks] = useState(true)
+
+  const [hideViewButton, setHideViewButton] = useState(true)
+  const [showQtyButton, setShowQtyButton] = useState(false);
+  const [showCartButton, setCartButton] = useState(false);
+
 
   const retrieveIngredients = async () => {
     allIngredients()
@@ -27,7 +33,7 @@ const App = () => {
         setIngredients(ingredient);
       })
       .catch((error) => {
-        // something something errors
+        console.log(error)
       });
   };
 
@@ -45,7 +51,7 @@ const App = () => {
         setAccountZip(user.zip);
       })
       .catch((error) => {
-        // something something errors
+        console.log(error)
       });
   };
 
@@ -65,6 +71,15 @@ const App = () => {
           setIsAdmin={setIsAdmin}
           grabbedIngredients={grabbedIngredients}
           setIngredients={setIngredients}
+          showDashLinks={showDashLinks}
+          setDashLinks={setDashLinks}
+          reset={retrieveIngredients}
+          hideViewButton={hideViewButton}
+          setHideViewButton={setHideViewButton}
+          showQtyButton={showQtyButton}
+          setShowQtyButton={setShowQtyButton}
+          showCartButton={showCartButton}
+          setCartButton={setCartButton}
         />
       </header>
       <main>
@@ -92,6 +107,14 @@ const App = () => {
           reset={retrieveIngredients}
           orderHistory={orderHistory}
           setOrderHistory={setOrderHistory}
+          showDashLinks={showDashLinks}
+          setDashLinks={setDashLinks}
+          hideViewButton={hideViewButton}
+          setHideViewButton={setHideViewButton}
+          showQtyButton={showQtyButton}
+          setShowQtyButton={setShowQtyButton}
+          showCartButton={showCartButton}
+          setCartButton={setCartButton}
         />
       </main>
     </div>

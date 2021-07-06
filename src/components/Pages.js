@@ -52,6 +52,11 @@ const Pages = (props) => {
     reset,
     orderHistory,
     setOrderHistory,
+    showDashLinks,
+    setDashLinks,
+    hideViewButton, setHideViewButton,
+    showQtyButton, setShowQtyButton,
+    showCartButton, setCartButton
   } = props;
 
   return (
@@ -69,6 +74,12 @@ const Pages = (props) => {
             currentUserGuest={currentUserGuest}
             setCurrentUserGuest={setCurrentUserGuest}
             reset={reset}
+            hideViewButton={hideViewButton}
+            setHideViewButton={setHideViewButton}
+            showQtyButton={showQtyButton}
+            setShowQtyButton={setShowQtyButton}
+            showCartButton={showCartButton}
+            setCartButton={setCartButton}
           />
         </Route>
         <Route path={MYACCOUNT_ROUTE}>
@@ -102,6 +113,9 @@ const Pages = (props) => {
             grabbedIngredients={grabbedIngredients}
             setIngredients={setIngredients}
             reset={reset}
+            showDashLinks={showDashLinks}
+            setDashLinks={setDashLinks}
+
           />
         </Route>
         <Route path={LOGIN_ROUTE}>

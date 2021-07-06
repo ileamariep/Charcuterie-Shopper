@@ -53,14 +53,16 @@ const Cart = ({ currentUserId }) => {
       })
     );
   };
-  
+
 
   const deleteSelectedCartItem = async (id) => {
     console.log(id, "this is cartItems id")
     await deleteCartItem(id)
   }
-  
+
   return (
+
+
     <div className="cart-container">
       <div className="cart-card">
         <div className="cart-info">
@@ -85,14 +87,14 @@ const Cart = ({ currentUserId }) => {
                       <b>Quantity:</b>
                       <p>{quantity}</p>
                     </div>
-                    <Button  onClick={() => deleteSelectedCartItem(id)}>Remove From Cart</Button> 
-                    
+                    <Button onClick={() => deleteSelectedCartItem(id)}>Remove From Cart</Button>
+
                   </div>
                 </div>
               ))}
             </>
           </div>
-                
+
           {/* <Button
             type="button"
             className="editcart"

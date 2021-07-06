@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 import { LOGIN_ROUTE, REGISTER_ROUTE } from "../constants";
 import Button from "react-bootstrap/Button";
 import { getGuestUser } from "../api/users";
+import {
+  SHOP_ROUTE,
+} from "../constants";
 
 const Home = () => {
   const [guestZip, setGuestZip] = useState("");
@@ -11,7 +14,10 @@ const Home = () => {
   const handleGuestSubmit = () => {
     const zipTostring = guestZip.toString();
     getGuestUser(zipTostring);
+    window.location.href = `${SHOP_ROUTE}`;
   };
+
+
   return (
     <div className="home-container">
       <div className="home-card">

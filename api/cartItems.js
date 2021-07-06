@@ -9,8 +9,8 @@ cartItemsRouter.get('/:usersId', async (req, res, next) => {
   const { usersId } = req.params;
 
   try {
-      const allCartItemsByUser = await getCartByUser(usersId);
-      res.send(allCartItemsByUser)
+    const allCartItemsByUser = await getCartByUser(usersId);
+    res.send(allCartItemsByUser)
   } catch (error) {
     next(error)
   }
@@ -31,18 +31,18 @@ cartItemsRouter.post('/cartPost', async (req, res, next) => {
 
 
   try {
-    const createdCartItem = await createCartItem({quantity, ingredientId, usersId});
+    const createdCartItem = await createCartItem({ quantity, ingredientId, usersId });
     res.json(createdCartItem);
   } catch (error) {
     next(error);
   }
 })
 
-cartItemsRouter.patch('/:cartId', requireUser, async (req, res, next) => {
+cartItemsRouter.patch('/:cartId', async (req, res, next) => {
   const { cartId } = req.params
   const { orderId } = req.body
   try {
-    const updatedCartItem = await updateCartItemWithOrderId({cartId, orderId});
+    const updatedCartItem = await updateCartItemWithOrderId({ cartId, orderId });
     res.send(updatedCartItem)
   } catch (error) {
     next(error)
@@ -50,7 +50,7 @@ cartItemsRouter.patch('/:cartId', requireUser, async (req, res, next) => {
 })
 
 cartItemsRouter.delete('/:id', async (req, res, next) => {
-  const  { id }  = req.params
+  const { id } = req.params
   try {
     const deletedCartItem = await destroyCartItem(id)
     console.log(deletedCartItem, 'this is the deleted cart Item')

@@ -69,18 +69,18 @@ ordersRouter.post("/", requireUser, async (req, res, next) => {
 });
 
 ordersRouter.patch("/", async (req, res, next) => {
-  const {id} = req.params
-  const {status} = req.body
+  const { id } = req.params
+  const { status } = req.body
 
   try {
     const orderStatusUpdate = await updateOrderStatus(id, status)
     res.send(orderStatusUpdate)
-  } catch(error) {
+  } catch (error) {
     next(error)
   }
 });
 
-ordersRouter.delete("/:orderId", requireUser, async (req, res, next) => {
+ordersRouter.delete("/:orderId", async (req, res, next) => {
   const { orderId } = req.params;
   try {
     const deletedOrder = await destroyOrder(orderId);

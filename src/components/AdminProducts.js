@@ -19,7 +19,7 @@ const AdminProducts = ({ grabbedIngredients,
   setIngredientCategory,
   setIngredientStockQty,
   setIngredientImg,
-  setIngredientImgAlt }) => {
+  setIngredientImgAlt, reset }) => {
 
   const [showAddForm, setShowAddForm] = useState(false)
 
@@ -51,6 +51,7 @@ const AdminProducts = ({ grabbedIngredients,
           setIngredientImg={setIngredientImg}
           ingredientImgAlt={ingredientImgAlt}
           setIngredientImgAlt={setIngredientImgAlt}
+          reset={reset}
         /> :
         <>
           <div className='add-but-container'>
@@ -63,7 +64,7 @@ const AdminProducts = ({ grabbedIngredients,
                   key={grabbedIngredients.id}
                   grabbedIngredients={grabbedIngredients}
                   setIngredients={setIngredients}
-
+                  reset={reset}
 
                 />
               )

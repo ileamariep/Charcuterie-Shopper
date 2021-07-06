@@ -5,7 +5,11 @@ import Navigation from "./Navigation";
 // import { storeCurrentUser, clearCurrentUser } from "../auth";
 // import { getSomething } from "../api";
 
-const Header = ({ isAdmin, setIsAdmin, grabbedIngredients, setIngredients }) => {
+const Header = ({ isAdmin, setIsAdmin, grabbedIngredients, setIngredients, showDashLinks,
+  setDashLinks, reset, hideViewButton, setHideViewButton,
+  showQtyButton, setShowQtyButton,
+  showCartButton, setCartButton }) => {
+
 
   return (
     <div className="header">
@@ -14,7 +18,18 @@ const Header = ({ isAdmin, setIsAdmin, grabbedIngredients, setIngredients }) => 
         isAdmin={isAdmin}
         setIsAdmin={setIsAdmin}
         grabbedIngredients={grabbedIngredients}
-        setIngredients={setIngredients} />
+        setIngredients={setIngredients}
+        showDashLinks={showDashLinks}
+        setDashLinks={setDashLinks}
+        reset={reset}
+        hideViewButton={hideViewButton}
+        setHideViewButton={setHideViewButton}
+        showQtyButton={showQtyButton}
+        setShowQtyButton={setShowQtyButton}
+        showCartButton={showCartButton}
+        setCartButton={setCartButton}
+
+      />
 
     </div>
   );

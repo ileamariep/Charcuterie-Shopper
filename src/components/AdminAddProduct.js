@@ -16,10 +16,10 @@ const AdminAddProduct = ({
     setShowAddForm, }) => {
 
 
-    const HandleFormSubmit = (event) => {
+    const HandleFormSubmit = async (event) => {
         event.preventDefault()
-        addAnIngredient(ingredientName, ingredientDescription, ingredientPrice, ingredientCategory, ingredientStockQty, ingredientImg, ingredientImgAlt)
-        setShowAddForm(false)
+        await addAnIngredient(ingredientName, ingredientDescription, ingredientPrice, ingredientCategory, ingredientStockQty, ingredientImg, ingredientImgAlt)
+        await setShowAddForm(false)
     }
 
     const handleButtonCancel = () => {
