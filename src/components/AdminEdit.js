@@ -33,6 +33,7 @@ const AdminEdit = ({ grabbedIngredients: { id, name, description, price, categor
 
     const handleSaveClick = async (id) => {
         await setEditMode(false)
+        await reset()
         await fetch(
             `/api/ingredients/ingredient/${id}`, {
             method: "PATCH",

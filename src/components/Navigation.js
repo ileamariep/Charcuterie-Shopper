@@ -34,10 +34,10 @@ const Navigation = ({
     window.location.href = `${SHOP_ROUTE}`;
   };
 
-
   const handleAdminClick = () => {
     setDashLinks(true)
   }
+
   if (myToken && !isAdmin) {
     //user
     return (

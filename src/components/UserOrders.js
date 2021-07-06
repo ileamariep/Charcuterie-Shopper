@@ -1,50 +1,68 @@
 import React, { useEffect, useState } from "react";
 import "./Admin.css";
-import { getUsers } from "../api/users";
+import { TableRow, TableCell } from "@material-ui/core";
+import { getUsersOrderHistory } from "../api/orders";
 
-const UserOrders = () => {
-  const [usersAccountData, setUsersAccountData] = useState([]);
-  // console.log(usersAccountData, "users account data");
+const UserOrders = ({ currentUserId }) => {
+  const [orderHistory, setOrderHistory] = useState([]);
   useEffect(() => {
     const myToken = JSON.parse(localStorage.getItem("token"));
-    if (myToken) {
-      const fetchData = async () => {
-        try {
-          let myUsers = await getUsers(myToken);
-          const userArray = [myUsers].flat();
-          // const account = await myOrdersFetch(myUsername, myToken);
-          // console.log(myUsers, "account data after flat");
-          setUsersAccountData(userArray);
-        } catch (error) {
-          console.error(error);
-        }
-      };
-      fetchData();
+    if (myToken && currentUserId) {
+      getUsersOrderHistory(currentUserId).then(setOrderHistory);
     }
   }, []);
+
+  const getItemContainer = (cartItems) => {
+    return (
+      <ul>
+        {cartItems.map((item) => {
+          return (
+            <li key={item.id}>
+              <TableCell align="left">
+                <div key={item.name}>Item Name:{item.name}</div>
+                <div key={item.quantity}>Item Quantity:{item.quantity}</div>
+                <div key={item.price}>Item Price:{item.price}</div>
+              </TableCell>
+            </li>
+          );
+        })}
+      </ul>
+    );
+  };
+
   return (
-    <div id="users-container">
-      {usersAccountData.map((user, idx) => {
-        if (user.username == null) {
-          return (
-            <div key={user.id} user={user}>
-              <div>Guest From ZIP Code:{user.zip}</div>
-            </div>
-          );
-        } else {
-          return (
-            <div key={user.id} user={user}>
-              <div>username: {user.username}</div>
-              <div>email: {user.email}</div>
-              <div>address:{user.address}</div>
-              <div>city:{user.city}</div>
-              <div>state:{user.state}</div>
-              <div>ZIP:{user.zip}</div>
-            </div>
-          );
-        }
-      })}
-    </div>
+    <>
+      <div id="order-history-container" align="center">
+        <h1>Order History</h1>
+        <TableRow>
+          {orderHistory.map((orderItem) => {
+            return (
+              <div key={orderItem.id}>
+                <TableCell align="center">
+                  Order ID
+                  <div>{orderItem.id}</div>
+                </TableCell>
+                <TableCell align="center">
+                  Order Total
+                  <div> ${orderItem.totalPrice}</div>
+                </TableCell>
+                <TableCell align="center">
+                  Date Ordered
+                  <div>{orderItem.date}</div>
+                </TableCell>
+                <div>
+                  <TableCell align="left">
+                    Items Ordered:
+                    <div>{getItemContainer(orderItem.items)}</div>
+                  </TableCell>
+                </div>
+              </div>
+            );
+          })}
+        </TableRow>
+      </div>
+    </>
   );
 };
+
 export default UserOrders;

@@ -1,5 +1,14 @@
 import axios from "axios";
 
+export async function getUsersOrderHistory(userId) {
+  try {
+    const { data } = await axios.get(`/api/orders/${userId}`);
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
 export async function addOrder(total_price, status) {
   try {
     return await axios
@@ -22,21 +31,10 @@ export async function addOrder(total_price, status) {
 
 export async function getSingleOrder(orderId) {
   try {
-    const response = await fetch(`/api/orders/${orderId}/products`)
+    const response = await fetch(`/api/orders/${orderId}/products`);
 
     const data = await response.json();
 
-
-    return data
-
-  } catch (error) {
-    throw error;
-  }
-}
-
-export async function getAllOrders() {
-  try {
-    const { data } = await axios.get("/api/orders");
     return data;
   } catch (error) {
     throw error;

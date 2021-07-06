@@ -17,9 +17,10 @@ const App = () => {
   const [accountCity, setAccountCity] = useState("");
   const [accountState, setAccountState] = useState("");
   const [accountZip, setAccountZip] = useState("");
+  const [orderHistory, setOrderHistory] = useState([]);
   // const [errorMessage, setErrorMessage] = useState();
-  const [showDashLinks, setDashLinks] = useState(true)
   const myToken = JSON.parse(localStorage.getItem("token"));
+  const [showDashLinks, setDashLinks] = useState(true)
 
   const retrieveIngredients = async () => {
     allIngredients()
@@ -68,7 +69,6 @@ const App = () => {
           showDashLinks={showDashLinks}
           setDashLinks={setDashLinks}
         />
-
       </header>
       <main>
         <Pages
@@ -92,9 +92,11 @@ const App = () => {
           setAccountState={setAccountState}
           accountZip={accountZip}
           setAccountZip={setAccountZip}
+          reset={retrieveIngredients}
+          orderHistory={orderHistory}
+          setOrderHistory={setOrderHistory}
           showDashLinks={showDashLinks}
           setDashLinks={setDashLinks}
-          reset={retrieveIngredients}
         />
       </main>
     </div>

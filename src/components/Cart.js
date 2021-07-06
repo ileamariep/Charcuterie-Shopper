@@ -1,61 +1,59 @@
 import React, { useState, useEffect } from "react";
 import "./Cart.css";
 import Button from "react-bootstrap/Button";
-import { addOrderIdToCartItems, getUsersCurrentCartItems } from "../api/cartItem";
-import { addOrder, getSingleOrder } from "../api/orders";
-
-
-
+import {
+  addOrderIdToCartItems,
+  getUsersCurrentCartItems,
+} from "../api/cartItem";
+import { addOrder } from "../api/orders";
 
 const Cart = ({ currentUserId }) => {
   const [myCartItems, setMyCartItems] = useState([]);
-  const [totalPrice, setTotalPrice] = useState(0)
-  const [orderStatus, setOrderStatus] = useState('')
-  const [orderId, setOrderId] = useState()
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [orderStatus, setOrderStatus] = useState("");
+  const [orderId, setOrderId] = useState();
 
   const retrieveCartItems = () => {
     getUsersCurrentCartItems(currentUserId)
       .then((cartItems) => {
-        setMyCartItems(cartItems)
+        setMyCartItems(cartItems);
       })
       .catch((error) => {
-        throw error
-      })
-  }
+        throw error;
+      });
+  };
 
   const retrieveOrderId = async () => {
     addOrder(totalPrice, orderStatus)
       .then(({ id }) => {
-        setOrderId(id)
+        setOrderId(id);
       })
       .catch((error) => {
-        throw error
-      })
-  }
+        throw error;
+      });
+  };
 
   useEffect(() => {
     const fetchCartItems = () => {
-      retrieveCartItems()
-    }
-    fetchCartItems()
-  }, [])
-
-
-
+      retrieveCartItems();
+    };
+    fetchCartItems();
+  }, []);
 
   const createOrder = async () => {
-    setTotalPrice(100)
-    setOrderStatus('processing')
-    await retrieveOrderId()
-    myCartItems.forEach(async (cartItem) => {
-      const itemsAddedToCart = await addOrderIdToCartItems(cartItem.id, orderId)
-      console.log(itemsAddedToCart)
-
-    });
-
-    await getSingleOrder(orderId)
-
-  }
+    setTotalPrice(100);
+    setOrderStatus("processing");
+    await retrieveOrderId();
+    Promise.all(
+      myCartItems.map((cartItem) => {
+        return addOrderIdToCartItems(cartItem.id, orderId);
+      })
+    );
+    // myCartItems.forEach((cartItem) => {
+    //   console.log(orderId);
+    //   addOrderIdToCartItems(cartItem.id, orderId);
+    // });
+  };
 
   return (
 
@@ -121,8 +119,8 @@ const Cart = ({ currentUserId }) => {
             <h1>This will be the checkout side</h1>
           </h1>
           <Button
-            className="checkcout"
-            onClick={createOrder}
+            className="checkout"
+            onClick={async () => await createOrder()}
           >
             Checkout
           </Button>
