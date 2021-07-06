@@ -53,6 +53,7 @@ cartItemsRouter.delete('/:id', async (req, res, next) => {
   const { id } = req.params
   try {
     const deletedCartItem = await destroyCartItem(id)
+    console.log(deletedCartItem, 'this is the deleted cart Item')
     res.send(deletedCartItem)
   } catch (error) {
     next(error)

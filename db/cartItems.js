@@ -118,16 +118,17 @@ async function updateCartItemWithOrderId({ cartId, orderId }) {
 
 async function destroyCartItems(id) {
   try {
-    const { rows: cartItems } = await client.query(
+    const { rows: [cartItem] } = await client.query(
       `
-  DELETE * 
+  DELETE 
   FROM cart_items
   WHERE id=$1
+  RETURNING *;
   `,
       [id]
     );
-
-    return cartItems;
+      console.log(cartItem, 'this is the deleted cart Iem')
+    return cartItem;
   } catch (err) {
     throw err;
   }
@@ -138,8 +139,8 @@ module.exports = {
   getAllCartItems,
   createCartItem,
   getCartByUser,
+  getCartItemsByOrderId,
   updateCartItemWithQuantity,
   updateCartItemWithOrderId,
   destroyCartItems,
-  getCartItemsByOrderId,
 };
