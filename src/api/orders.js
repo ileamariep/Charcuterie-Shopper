@@ -1,35 +1,44 @@
 import axios from "axios";
 
 export async function addOrder(total_price, status) {
-    try {
-        return await axios
-          .post("/api/orders", {
-            total_price,
-            status,
-          })
-          .then(
-            ({data}) => {
-              return data;
-            },
-            (error) => {
-              console.log(error);
-            }
-          );
-      } catch (err) {
-        console.error(err);
-      }
+  try {
+    return await axios
+      .post("/api/orders", {
+        total_price,
+        status,
+      })
+      .then(
+        ({ data }) => {
+          return data;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  } catch (err) {
+    console.error(err);
+  }
 }
 
 export async function getSingleOrder(orderId) {
-    try {
-        const response = await fetch(`/api/orders/${orderId}/products`)
+  try {
+    const response = await fetch(`/api/orders/${orderId}/products`)
 
-        const data = await response.json();
+    const data = await response.json();
 
 
-        return data
+    return data
 
-    } catch (error) {
-        throw error;
-    }
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function getAllOrders() {
+  try {
+    const { data } = await axios.get("/api/orders");
+    return data;
+  } catch (error) {
+    throw error;
+  }
 }

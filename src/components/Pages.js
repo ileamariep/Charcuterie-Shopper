@@ -51,6 +51,8 @@ const Pages = (props) => {
     accountZip,
     setAccountZip,
     reset,
+    showDashLinks,
+    setDashLinks
   } = props;
 
   return (
@@ -98,6 +100,8 @@ const Pages = (props) => {
             grabbedIngredients={grabbedIngredients}
             setIngredients={setIngredients}
             reset={reset}
+            showDashLinks={showDashLinks}
+            setDashLinks={setDashLinks}
           />
         </Route>
         <Route path={LOGIN_ROUTE}>

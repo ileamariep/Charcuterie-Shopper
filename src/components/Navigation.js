@@ -20,7 +20,9 @@ const Navigation = ({
   setIsAdmin,
   isUser,
   grabbedIngredients,
-  setIngredients
+  setIngredients,
+  showDashLinks,
+  setDashLinks
 }) => {
 
 
@@ -32,6 +34,10 @@ const Navigation = ({
     window.location.href = `${SHOP_ROUTE}`;
   };
 
+
+  const handleAdminClick = () => {
+    setDashLinks(true)
+  }
   if (myToken && !isAdmin) {
     //user
     return (
@@ -67,7 +73,10 @@ const Navigation = ({
         <div className="topnav">
           <Link to={SHOP_ROUTE}>Shop</Link>
           <Link to={MYACCOUNT_ROUTE}>My Account</Link>
-          <Link to={ADMIN_ROUTE}>Admin</Link>
+          <Link to={ADMIN_ROUTE}
+            onClick={() => {
+              handleAdminClick();
+            }}>Admin</Link>
           <Link to={CART_ROUTE}>Cart</Link>
           <Link
             to={SHOP_ROUTE}

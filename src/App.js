@@ -18,6 +18,7 @@ const App = () => {
   const [accountState, setAccountState] = useState("");
   const [accountZip, setAccountZip] = useState("");
   // const [errorMessage, setErrorMessage] = useState();
+  const [showDashLinks, setDashLinks] = useState(true)
   const myToken = JSON.parse(localStorage.getItem("token"));
 
   const retrieveIngredients = async () => {
@@ -26,7 +27,7 @@ const App = () => {
         setIngredients(ingredient);
       })
       .catch((error) => {
-        // something something errors
+        console.log(error)
       });
   };
 
@@ -44,7 +45,7 @@ const App = () => {
         setAccountZip(user.zip);
       })
       .catch((error) => {
-        // something something errors
+        console.log(error)
       });
   };
 
@@ -63,7 +64,11 @@ const App = () => {
           isAdmin={isAdmin}
           setIsAdmin={setIsAdmin}
           grabbedIngredients={grabbedIngredients}
-          setIngredients={setIngredients} />
+          setIngredients={setIngredients}
+          showDashLinks={showDashLinks}
+          setDashLinks={setDashLinks}
+        />
+
       </header>
       <main>
         <Pages
@@ -87,6 +92,8 @@ const App = () => {
           setAccountState={setAccountState}
           accountZip={accountZip}
           setAccountZip={setAccountZip}
+          showDashLinks={showDashLinks}
+          setDashLinks={setDashLinks}
           reset={retrieveIngredients}
         />
       </main>

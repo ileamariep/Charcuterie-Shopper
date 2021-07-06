@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Cart.css";
 import Button from "react-bootstrap/Button";
 import { addOrderIdToCartItems, getUsersCurrentCartItems } from "../api/cartItem";
-import { addOrder } from "../api/orders";
+import { addOrder, getSingleOrder } from "../api/orders";
 
 
 
@@ -13,7 +13,7 @@ const Cart = ({ currentUserId }) => {
   const [orderStatus, setOrderStatus] = useState('')
   const [orderId, setOrderId] = useState()
 
-  const retrieveCartItems =  () => {
+  const retrieveCartItems = () => {
     getUsersCurrentCartItems(currentUserId)
       .then((cartItems) => {
         setMyCartItems(cartItems)
@@ -25,7 +25,7 @@ const Cart = ({ currentUserId }) => {
 
   const retrieveOrderId = async () => {
     addOrder(totalPrice, orderStatus)
-      .then(({id}) => {
+      .then(({ id }) => {
         setOrderId(id)
       })
       .catch((error) => {
@@ -34,24 +34,27 @@ const Cart = ({ currentUserId }) => {
   }
 
   useEffect(() => {
-    const fetchCartItems =  () => {
-       retrieveCartItems()
+    const fetchCartItems = () => {
+      retrieveCartItems()
     }
     fetchCartItems()
   }, [])
-  
 
-    
-  
+
+
+
   const createOrder = async () => {
     setTotalPrice(100)
     setOrderStatus('processing')
     await retrieveOrderId()
-    myCartItems.forEach(cartItem => {
-      console.log(orderId)
-      addOrderIdToCartItems(cartItem.id, orderId)
+    myCartItems.forEach(async (cartItem) => {
+      const itemsAddedToCart = await addOrderIdToCartItems(cartItem.id, orderId)
+      console.log(itemsAddedToCart)
+
     });
-    
+
+    await getSingleOrder(orderId)
+
   }
 
   return (

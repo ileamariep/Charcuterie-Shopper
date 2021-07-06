@@ -194,13 +194,7 @@ const Shop = ({
                           >
                             Keep Shopping
                           </Button>
-                          <Button
-                            type="button"
-                            className="keep-shopping"
-                            onClick={() => handleKeepShopping()}
-                          >
-                            Go to Cart
-                          </Button>
+
                         </>
                   }
                 </div>

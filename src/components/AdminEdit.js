@@ -24,9 +24,10 @@ const AdminEdit = ({ grabbedIngredients: { id, name, description, price, categor
     };
 
 
-    const handleDelete = (id) => {
+    const handleDelete = async (id) => {
         console.log(id, "this should be the id")
-        deleteIngredient(id)
+        await deleteIngredient(id)
+        await reset()
 
     }
 
@@ -53,141 +54,156 @@ const AdminEdit = ({ grabbedIngredients: { id, name, description, price, categor
             })
             .catch(console.error);
 
+        reset()
+
     }
 
     return (
         <>
-            <div id="product-container">
 
-                <div key={id} className="product-card">
 
-                    <>
-                        <div className="image-container">
-                            {img ? (
-                                <img src={window.location.origin + img} alt={imgAlt} height="200" width="100" />
-                            ) : (
-                                <img
-                                    src="/images/default.png"
-                                    alt="defualt"
-                                    height="200"
-                                    width="100"
-                                />
-                            )}
+            <div key={id} className="admin-product-card">
+
+                <>
+                    <div className="admin-image-container">
+                        {img ? (
+                            <img src={window.location.origin + img} alt={imgAlt} height="200" width="100" />
+                        ) : (
+                            <img
+                                src="/images/default.png"
+                                alt="defualt"
+                                height="200"
+                                width="100"
+                            />
+                        )}
+                    </div>
+                    <div className="admin-product-info">
+                        <div className="product-title">
+
+                            <div className="admin-product-name">
+                                {editMode ? (
+                                    <TextField
+                                        value={ingredientName}
+                                        onChange={(event) => {
+                                            setIngredientName(event.target.value);
+                                        }}
+                                    />
+                                )
+                                    : (
+                                        name
+                                    )
+                                }
+                            </div>
+                            <h2 className="admin-product-category">
+
+                                {editMode ? (
+                                    <TextField
+                                        value={ingredientCategory}
+                                        onChange={(event) => {
+                                            setIngredientCategory(event.target.value);
+                                        }}
+                                    />
+                                )
+                                    : (
+                                        category
+                                    )
+                                }</h2>
                         </div>
-                        <div className="product-info">
-                            <div className="product-title">
 
-                                <div className="product-name">
-                                    {editMode ? (
-                                        <TextField
-                                            value={ingredientName}
-                                            onChange={(event) => {
-                                                setIngredientName(event.target.value);
-                                            }}
-                                        />
-                                    )
-                                        : (
-                                            name
-                                        )
-                                    }
-                                </div>
-                                <h2 className="product-category">
+                        <div className="admin-product-description">
 
-                                    {editMode ? (
-                                        <TextField
-                                            value={ingredientCategory}
-                                            onChange={(event) => {
-                                                setIngredientCategory(event.target.value);
-                                            }}
-                                        />
-                                    )
-                                        : (
-                                            category
-                                        )
-                                    }</h2>
-                            </div>
-                            <p>Stock Quantity:</p>
-                            <div className="product-description">
-
-                                {editMode ? (
-                                    <TextField
-                                        value={ingredientDescription}
-                                        onChange={(event) => {
-                                            setIngredientDescription(event.target.value);
-                                        }}
-                                    />
+                            {editMode ? (
+                                <TextField
+                                    value={ingredientDescription}
+                                    onChange={(event) => {
+                                        setIngredientDescription(event.target.value);
+                                    }}
+                                />
+                            )
+                                : (
+                                    description
                                 )
-                                    : (
-                                        description
-                                    )
-                                }
+                            }
 
-                            </div>
-                            <div className="product-price">
-                                {editMode ? (
-                                    <TextField
-                                        value={ingredientPrice}
-                                        onChange={(event) => {
-                                            setIngredientPrice(event.target.value);
-                                        }}
-                                    />
+                        </div>
+                        <div className="admin-product-price">
+                            {editMode ? (
+                                <TextField
+                                    value={ingredientPrice}
+                                    onChange={(event) => {
+                                        setIngredientPrice(event.target.value);
+                                    }}
+                                />
+                            )
+                                : (
+                                    price
                                 )
-                                    : (
-                                        price
-                                    )
-                                }
+                            }
 
 
-                            </div>
-                            <div className="product-stockQty">
-                                {editMode ? (
+                        </div>
+                        <div className="admin-product-stockQty">
+
+                            {editMode ? (
+                                <>
                                     <TextField
                                         value={ingredientStockQty}
                                         onChange={(event) => {
                                             setIngredientStockQty(event.target.value);
                                         }}
                                     />
+                                </>
+                            )
+                                : (
+                                    <div>Stock qty:  {stockQty}</div>
                                 )
-                                    : (
-                                        stockQty
-                                    )
-                                }
+                            }
 
-
-                            </div>
-                        </div>
-                        <div className="admin-product-buttons">
-                            <Button
-                                type="button"
-                                className="view"
-                                onClick={() => handleEditClick()}
-                            >
-
-                                Edit
-                            </Button>
-
-                            <Button
-                                className="delete-button"
-                                onClick={() => handleDelete(id)}
-                            >
-                                Delete
-                            </Button>
-
-                            <Button
-                                onClick={() => {
-                                    handleSaveClick(id);
-                                }}>
-
-                                Save
-                            </Button>
 
                         </div>
-                    </> :
+                    </div>
+                    <div className="admin-product-buttons">
+                        {editMode ? (
+                            <>
+                                <Button
+                                    onClick={() => {
+                                        handleSaveClick(id);
+                                    }}
+                                    className="save-button admin-edit"
+                                >
 
-                    {/* //product card div below */}
-                </div>
+                                    Save
+                                </Button>
+                            </>
+                        ) : (
+                            <>
+                                <Button
+                                    type="button"
+                                    className="edit-button admin-edit"
+                                    onClick={() => handleEditClick()}
+                                >
 
+                                    Edit
+                                </Button>
+                            </>
+                        )}
+
+                        <Button
+                            className="delete-button admin-edit"
+                            onClick={() => handleDelete(id)}
+                        >
+                            Delete
+                        </Button>
+
+
+
+                    </div>
+                </>
+
+                {/* //product card div below */}
             </div>
+
+
 
         </>
     )

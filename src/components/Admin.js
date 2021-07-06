@@ -14,6 +14,9 @@ import {
 import AdminOrders from "./AdminOrders";
 import AdminUsers from "./AdminUsers";
 import AdminProducts from "./AdminProducts";
+import linkBontemps from "./img/bontemps.png"
+import linkDoctor from "./img/doctoryourself.png"
+import linkBelt from "./img/dietbelt.png"
 // import { getSomething } from "../api";
 
 
@@ -22,7 +25,9 @@ const Admin = ({
   grabbedIngredients,
   setIngredients,
   currentUserId,
-  reset
+  reset,
+  showDashLinks,
+  setDashLinks,
 }) => {
 
   const [ingredientName, setIngredientName] = useState('')
@@ -32,46 +37,86 @@ const Admin = ({
   const [ingredientStockQty, setIngredientStockQty] = useState()
   const [ingredientImg, setIngredientImg] = useState('')
   const [ingredientImgAlt, setIngredientImgAlt] = useState('')
+
+
+
+
+  const handleLinkClick = () => {
+    setDashLinks(false)
+  }
   return (
     <>
-      <div className="admin-nav">
-        <Link to={ADMIN_PRODUCTS_ROUTE}>PRODUCTS</Link>
-        <Link to={ADMIN_ORDERS_ROUTE}>ORDERS</Link>
-        <Link to={ADMIN_USERS_ROUTE}>USERS</Link>
-      </div>
 
-      <div className="tabs">
-        <Switch>
-          <Route path={ADMIN_PRODUCTS_ROUTE}>
-            <AdminProducts
-              grabbedIngredients={grabbedIngredients}
-              setIngredients={setIngredients}
-              reset={reset}
-              ingredientName={ingredientName}
-              setIngredientName={setIngredientName}
-              ingredientDescription={ingredientDescription}
-              setIngredientDescription={setIngredientDescription}
-              ingredientPrice={ingredientPrice}
-              setIngredientPrice={setIngredientPrice}
-              ingredientCategory={ingredientCategory}
-              setIngredientCategory={setIngredientCategory}
-              ingredientStockQty={ingredientStockQty}
-              setIngredientStockQty={setIngredientStockQty}
-              ingredientImg={ingredientImg}
-              setIngredientImg={setIngredientImg}
-              ingredientImgAlt={ingredientImgAlt}
-              setIngredientImgAlt={setIngredientImgAlt}
-            />
-          </Route>
+      {showDashLinks ? (
+        <>
+          <div className="admin-page-title">Select an Admin Dashboard Below</div>
+          <div className="admin-nav">
+            <Link to={ADMIN_PRODUCTS_ROUTE} className="admin-link products-route"
+              style={{
+                backgroundImage: `url(${linkBontemps})`
+              }}
+              onClick={() => {
+                handleLinkClick();
+              }}
+            >PRODUCTS</Link>
+            <Link to={ADMIN_ORDERS_ROUTE} className="admin-link orders-route"
+              style={{
+                backgroundImage: `url(${linkDoctor})`
+              }}
+              onClick={() => {
+                handleLinkClick();
+              }}
+            >ORDERS</Link>
+            <Link to={ADMIN_USERS_ROUTE} className="admin-link orders-route"
+              style={{
+                backgroundImage: `url(${linkBelt})`
+              }}
+              onClick={() => {
+                handleLinkClick();
+              }}
+            >USERS</Link>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="tabs">
+            <Switch>
+              <Route path={ADMIN_PRODUCTS_ROUTE}>
+                <AdminProducts
+                  grabbedIngredients={grabbedIngredients}
+                  setIngredients={setIngredients}
+                  reset={reset}
+                  ingredientName={ingredientName}
+                  setIngredientName={setIngredientName}
+                  ingredientDescription={ingredientDescription}
+                  setIngredientDescription={setIngredientDescription}
+                  ingredientPrice={ingredientPrice}
+                  setIngredientPrice={setIngredientPrice}
+                  ingredientCategory={ingredientCategory}
+                  setIngredientCategory={setIngredientCategory}
+                  ingredientStockQty={ingredientStockQty}
+                  setIngredientStockQty={setIngredientStockQty}
+                  ingredientImg={ingredientImg}
+                  setIngredientImg={setIngredientImg}
+                  ingredientImgAlt={ingredientImgAlt}
+                  setIngredientImgAlt={setIngredientImgAlt}
+                />
+              </Route>
 
-          <Route path={ADMIN_ORDERS_ROUTE}>
-            <AdminOrders />
-          </Route>
-          <Route path={ADMIN_USERS_ROUTE}>
-            <AdminUsers />
-          </Route>
-        </Switch>
-      </div>
+              <Route path={ADMIN_ORDERS_ROUTE}>
+                <AdminOrders />
+              </Route>
+              <Route path={ADMIN_USERS_ROUTE}>
+                <AdminUsers />
+              </Route>
+            </Switch>
+          </div>
+        </>
+
+      )}
+
+
+
     </>
   );
 };
