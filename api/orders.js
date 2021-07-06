@@ -4,6 +4,7 @@ const {
   destroyOrder,
   getAllOrders,
   getOrderByUser,
+  getCartItemsByOrderId,
 } = require("../db");
 const { requireUser } = require("./utils");
 const ordersRouter = express.Router();
@@ -17,24 +18,49 @@ ordersRouter.get("/", async (req, res, next) => {
   }
 });
 
-ordersRouter.get('/:userId', async (req, res, next) => {
-  const { usersId } = req.params
-  console.log(usersId)
+ordersRouter.get("/:usersId", async (req, res, next) => {
+  const { usersId } = req.params;
   try {
-      const order = await getOrderByUser(usersId);
-      console.log(order, 'this is order')
-      res.send(order)
+    const orderHistory = [];
+    const orders = await getOrderByUser(usersId);
+    orders.forEach((order) => {
+      const item = {
+        id: order.id,
+        totalPrice: order.total_price,
+        date: order.date_ordered,
+        items: [],
+      };
+      orderHistory.push(item);
+    });
+
+    await Promise.all(
+      orderHistory.map(async (orderItem) => {
+        return getCartItemsByOrderId(orderItem.id).then((cartItems) => {
+          cartItems.forEach((cartItem) => {
+            const newCartItem = {
+              id: cartItem.id,
+              name: cartItem.name,
+              decription: cartItem.description,
+              quantity: cartItem.quantity,
+              price: cartItem.price,
+            };
+            orderItem.items.push(newCartItem);
+          });
+        });
+      })
+    );
+    res.send(orderHistory);
   } catch (error) {
-      next(error);
+    next(error);
   }
 });
 
 ordersRouter.post("/", requireUser, async (req, res, next) => {
-  const {total_price, status} = req.body;
+  const { total_price, status } = req.body;
   try {
     const createdOrder = await createOrder({
       total_price,
-      status
+      status,
     });
     res.send(createdOrder);
   } catch (error) {
@@ -42,9 +68,7 @@ ordersRouter.post("/", requireUser, async (req, res, next) => {
   }
 });
 
-ordersRouter.patch("/", async (req, res, next) => {
-
-});
+ordersRouter.patch("/", async (req, res, next) => {});
 
 ordersRouter.delete("/:orderId", requireUser, async (req, res, next) => {
   const { orderId } = req.params;

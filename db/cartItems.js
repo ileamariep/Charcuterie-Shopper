@@ -1,10 +1,11 @@
 const { client } = require("./client");
 
-
-async function createCartItem({quantity, ingredientId, usersId }) {
+async function createCartItem({ quantity, ingredientId, usersId }) {
   try {
-    console.log(quantity, ingredientId, usersId , "%%%%%%%%%%%%%%%%%%%")
-    const { rows: [cart_item] } = await client.query(
+    console.log(quantity, ingredientId, usersId, "%%%%%%%%%%%%%%%%%%%");
+    const {
+      rows: [cart_item],
+    } = await client.query(
       `
         INSERT INTO cart_items ("quantity", "ingredientId", "usersId")
         VALUES ($1, $2, $3)
@@ -27,32 +28,36 @@ async function getAllCartItems() {
         JOIN cart_items
         ON ingredients.id=cart_items."ingredientId"
       `
-    )
-    return rows
-  } catch(error) {
-    throw error
+    );
+    return rows;
+  } catch (error) {
+    throw error;
   }
 }
 
-// async function getCartItemsById(id) {
-//   try {
-//     const {
-//       rows: [cartItems],
-//     } = await client.query(
-//       `
-//           SELECT * 
-//           FROM cart_items
-//           WHERE id=$1;
-//      `,
-//       [id]
-//     );
-//     return cartItems;
-//   } catch (error) {
-//     throw error;
-//   }
-// }
-
-
+async function getCartItemsByOrderId(orderId) {
+  try {
+    const { rows } = await client.query(
+      `
+        SELECT 
+          ingredients.name,
+          ingredients.price,
+          ingredients.description,
+          ingredients.img,
+          cart_items.quantity,
+          cart_items.id
+         FROM ingredients
+         JOIN cart_items
+         ON ingredients.id=cart_items."ingredientId"
+          WHERE cart_items."orderId"=$1;
+     `,
+      [orderId]
+    );
+    return rows;
+  } catch (error) {
+    throw error;
+  }
+}
 
 async function getCartByUser(usersId) {
   try {
@@ -66,18 +71,18 @@ async function getCartByUser(usersId) {
         `,
       [usersId]
     );
-    return cartItems
+    return cartItems;
   } catch (error) {
     throw error;
   }
 }
 
-async function updateCartItemWithQuantity({ id, quantity}) {
+async function updateCartItemWithQuantity({ id, quantity }) {
   try {
     const {
       rows: [cartItems],
     } = await client.query(
-          `
+      `
           UPDATE cart_items
           SET quantity=$2
           WHERE id=$1
@@ -96,21 +101,20 @@ async function updateCartItemWithOrderId({ cartId, orderId }) {
     const {
       rows: [cartItems],
     } = await client.query(
-          `
+      `
           UPDATE cart_items
           SET "orderId"=$1
           WHERE id=$2
           RETURNING *;
           `,
-      [orderId, cartId ]
+      [orderId, cartId]
     );
-    console.log(cartItems)
+    console.log(cartItems);
     return cartItems;
   } catch (error) {
     throw error;
   }
 }
-
 
 async function destroyCartItems(id) {
   try {
@@ -129,7 +133,6 @@ async function destroyCartItems(id) {
   }
 }
 
-
 module.exports = {
   client,
   getAllCartItems,
@@ -138,4 +141,5 @@ module.exports = {
   updateCartItemWithQuantity,
   updateCartItemWithOrderId,
   destroyCartItems,
+  getCartItemsByOrderId,
 };

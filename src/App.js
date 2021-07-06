@@ -17,6 +17,7 @@ const App = () => {
   const [accountCity, setAccountCity] = useState("");
   const [accountState, setAccountState] = useState("");
   const [accountZip, setAccountZip] = useState("");
+  const [orderHistory, setOrderHistory] = useState([]);
   // const [errorMessage, setErrorMessage] = useState();
   const myToken = JSON.parse(localStorage.getItem("token"));
 
@@ -63,7 +64,8 @@ const App = () => {
           isAdmin={isAdmin}
           setIsAdmin={setIsAdmin}
           grabbedIngredients={grabbedIngredients}
-          setIngredients={setIngredients} />
+          setIngredients={setIngredients}
+        />
       </header>
       <main>
         <Pages
@@ -88,6 +90,8 @@ const App = () => {
           accountZip={accountZip}
           setAccountZip={setAccountZip}
           reset={retrieveIngredients}
+          orderHistory={orderHistory}
+          setOrderHistory={setOrderHistory}
         />
       </main>
     </div>
