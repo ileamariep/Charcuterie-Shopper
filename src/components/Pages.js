@@ -21,8 +21,7 @@ import Login from "./Login";
 import Home from "./Home";
 import UserOrders from "./UserOrders";
 import ThankYou from "./ThankYou";
-import SingleProductView from "./SingleProductView"
-
+import SingleProductView from "./SingleProductView";
 
 // import { getSomething } from "../api";
 
@@ -51,6 +50,8 @@ const Pages = (props) => {
     accountZip,
     setAccountZip,
     reset,
+    orderHistory,
+    setOrderHistory,
   } = props;
 
   return (
@@ -60,9 +61,7 @@ const Pages = (props) => {
           <Home />
         </Route>
         <Route path={SHOP_ROUTE}>
-
           <Shop
-
             grabbedIngredients={grabbedIngredients}
             setIngredients={setIngredients}
             currentUserId={currentUserId}
@@ -89,7 +88,12 @@ const Pages = (props) => {
             currentUserId={currentUserId}
             setCurrentUserId={setCurrentUserId}
           />
-          <UserOrders />
+          <UserOrders
+            currentUserId={currentUserId}
+            setCurrentUserId={setCurrentUserId}
+            orderHistory={orderHistory}
+            setOrderHistory={setOrderHistory}
+          />
         </Route>
         <Route path={ADMIN_ROUTE}>
           <Admin
