@@ -3,9 +3,12 @@ import "./Cart.css";
 import Button from "react-bootstrap/Button";
 import {
   addOrderIdToCartItems,
+  deleteCartItem,
   getUsersCurrentCartItems,
 } from "../api/cartItem";
 import { addOrder } from "../api/orders";
+
+
 
 const Cart = ({ currentUserId }) => {
   const [myCartItems, setMyCartItems] = useState([]);
@@ -49,18 +52,20 @@ const Cart = ({ currentUserId }) => {
         return addOrderIdToCartItems(cartItem.id, orderId);
       })
     );
-    // myCartItems.forEach((cartItem) => {
-    //   console.log(orderId);
-    //   addOrderIdToCartItems(cartItem.id, orderId);
-    // });
   };
+  
 
+  const deleteSelectedCartItem = async (id) => {
+    console.log(id, "this is cartItems id")
+    await deleteCartItem(id)
+  }
+  
   return (
     <div className="cart-container">
       <div className="cart-card">
         <div className="cart-info">
           <div className="cart-info-title">
-            <div>
+            <>
               {myCartItems.map(({ id, name, description, price, quantity }) => (
                 <div key={id} className="cart-cards">
                   <div className="cart-card">
@@ -80,19 +85,21 @@ const Cart = ({ currentUserId }) => {
                       <b>Quantity:</b>
                       <p>{quantity}</p>
                     </div>
+                    <Button  onClick={() => deleteSelectedCartItem(id)}>Remove From Cart</Button> 
+                    
                   </div>
                 </div>
               ))}
-            </div>
+            </>
           </div>
-
-          <Button
-            type="submit"
+                
+          {/* <Button
+            type="button"
             className="editcart"
             // onClick={() => )}
           >
             Edit Cart
-          </Button>
+          </Button> */}
         </div>
 
         <div className="checkout-section">
