@@ -27,13 +27,13 @@ const Shop = ({
   grabbedIngredients,
   setIngredients,
   reset,
-  currentUserId,
+  currentUserId, hideViewButton, setHideViewButton,
+  showQtyButton, setShowQtyButton,
+  showCartButton, setCartButton
 }) => {
 
   const [selection, setSelection] = useState([]);
-  const [hideViewButton, setHideViewButton] = useState(true)
-  const [showQtyButton, setShowQtyButton] = useState(false);
-  const [showCartButton, setCartButton] = useState(false);
+
 
   const [category, setCategory] = useState('');
 

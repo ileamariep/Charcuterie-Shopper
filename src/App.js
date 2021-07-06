@@ -22,6 +22,11 @@ const App = () => {
   const myToken = JSON.parse(localStorage.getItem("token"));
   const [showDashLinks, setDashLinks] = useState(true)
 
+  const [hideViewButton, setHideViewButton] = useState(true)
+  const [showQtyButton, setShowQtyButton] = useState(false);
+  const [showCartButton, setCartButton] = useState(false);
+
+
   const retrieveIngredients = async () => {
     allIngredients()
       .then((ingredient) => {
@@ -68,6 +73,13 @@ const App = () => {
           setIngredients={setIngredients}
           showDashLinks={showDashLinks}
           setDashLinks={setDashLinks}
+          reset={retrieveIngredients}
+          hideViewButton={hideViewButton}
+          setHideViewButton={setHideViewButton}
+          showQtyButton={showQtyButton}
+          setShowQtyButton={setShowQtyButton}
+          showCartButton={showCartButton}
+          setCartButton={setCartButton}
         />
       </header>
       <main>
@@ -97,6 +109,12 @@ const App = () => {
           setOrderHistory={setOrderHistory}
           showDashLinks={showDashLinks}
           setDashLinks={setDashLinks}
+          hideViewButton={hideViewButton}
+          setHideViewButton={setHideViewButton}
+          showQtyButton={showQtyButton}
+          setShowQtyButton={setShowQtyButton}
+          showCartButton={showCartButton}
+          setCartButton={setCartButton}
         />
       </main>
     </div>

@@ -27,6 +27,27 @@ async function getAllOrders() {
          ON ingredients.id=cart_items."ingredientId"
          JOIN orders
          ON orders.id=cart_items."orderId"
+         
+      `);
+    return orders;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function getAllOrdersByOrderId(orderId) {
+  try {
+    const { rows: orders } = await client.query(`
+    SELECT DISTINCT
+    cart_items."orderId",
+    orders.id,
+    orders.total_price,
+    orders.date_ordered
+   FROM cart_items
+   JOIN orders
+   ON cart_items."orderId"=orders.id
+   WHERE cart_items."orderId"=$1
+         
       `);
     return orders;
   } catch (error) {
@@ -173,4 +194,5 @@ module.exports = {
   destroyOrder,
   getOrderByUser,
   getOrderById,
+  getAllOrdersByOrderId
 };
