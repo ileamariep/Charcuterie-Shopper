@@ -116,3 +116,31 @@
   color: white;
   font-size: x-small;
 }
+/* category styling */
+
+select {
+  color: white;
+  background-color: dodgerblue;
+  border: none;
+}
+
+option {
+  color: white;
+}
+
+.category-container {
+  background-color: dodgerblue;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-size: 25px;
+  color: white;
+  display: flex;
+  padding-left: 20px;
+}
+
+.category-submit {
+  background-color: dodgerblue;
+  color: white;
+  text-decoration: none;
+  border: none;
+}

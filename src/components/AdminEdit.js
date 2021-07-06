@@ -31,10 +31,9 @@ const AdminEdit = ({ grabbedIngredients: { id, name, description, price, categor
 
     }
 
-    const handleSaveClick = (id) => {
-        setEditMode(false)
-        console.log(id, 'this is the ingredient ID', ingredientDescription, 'description', ingredientPrice)
-        fetch(
+    const handleSaveClick = async (id) => {
+        await setEditMode(false)
+        await fetch(
             `/api/ingredients/ingredient/${id}`, {
             method: "PATCH",
             headers: {
@@ -54,7 +53,7 @@ const AdminEdit = ({ grabbedIngredients: { id, name, description, price, categor
             })
             .catch(console.error);
 
-        reset()
+
 
     }
 
