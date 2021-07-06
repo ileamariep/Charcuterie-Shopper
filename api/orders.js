@@ -21,16 +21,16 @@ ordersRouter.get('/:userId', async (req, res, next) => {
   const { usersId } = req.params
   console.log(usersId)
   try {
-      const order = await getOrderByUser(usersId);
-      console.log(order, 'this is order')
-      res.send(order)
+    const order = await getOrderByUser(usersId);
+    console.log(order, 'this is order')
+    res.send(order)
   } catch (error) {
-      next(error);
+    next(error);
   }
 });
 
-ordersRouter.post("/", requireUser, async (req, res, next) => {
-  const {total_price, status} = req.body;
+ordersRouter.post("/", async (req, res, next) => {
+  const { total_price, status } = req.body;
   try {
     const createdOrder = await createOrder({
       total_price,
@@ -46,7 +46,7 @@ ordersRouter.patch("/", async (req, res, next) => {
 
 });
 
-ordersRouter.delete("/:orderId", requireUser, async (req, res, next) => {
+ordersRouter.delete("/:orderId", async (req, res, next) => {
   const { orderId } = req.params;
   try {
     const deletedOrder = await destroyOrder(orderId);

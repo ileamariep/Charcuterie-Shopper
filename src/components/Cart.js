@@ -58,45 +58,62 @@ const Cart = ({ currentUserId }) => {
   }
 
   return (
+
+
     <div className="cart-container">
       <div className="cart-card">
         <div className="cart-info">
           <div className="cart-info-title">
-            <div>{myCartItems.map(
-              ({
-                id,
-                name,
-                description,
-                price,
-                quantity,
-              }) => (
-                <div key={id} className="cart-cards">
-                  <div className="cart-card">
-                    <div className="card-name">
-                      <b>Name:</b><p>{name}</p>
+            {myCartItems[0] ? (
+              <>
+                <div>{myCartItems.map(
+                  ({
+                    id,
+                    name,
+                    description,
+                    price,
+                    quantity,
+                  }) => (
+                    <div key={id} className="cart-cards">
+                      <div className="cart-card">
+                        <div className="card-name">
+                          <b>Name:</b><p>{name}</p>
+                        </div>
+                        <div className="card-description">
+                          <b>Description:</b><p>{description}</p>
+                        </div>
+                        <div className="card-name">
+                          <b>Price:</b><p>{price}</p>
+                        </div>
+                        <div className="card-name">
+                          <b>Quantity:</b><p>{quantity}</p>
+                        </div>
+                      </div>
                     </div>
-                    <div className="card-description">
-                      <b>Description:</b><p>{description}</p>
-                    </div>
-                    <div className="card-name">
-                      <b>Price:</b><p>{price}</p>
-                    </div>
-                    <div className="card-name">
-                      <b>Quantity:</b><p>{quantity}</p>
-                    </div>
-                  </div>
-                </div>
-              )
-            )}</div>
+                  )
+                )}</div>
+                <Button
+                  type="submit"
+                  className="editcart"
+                // onClick={() => )}
+                >
+                  Edit Cart
+                </Button>
+              </>
+            ) : (
+
+              <>
+                <div>Your Cart is empty, keep shopping</div>
+
+              </>
+            )}
+
+
+
+            {/* stop if statement here */}
           </div>
 
-          <Button
-            type="submit"
-            className="editcart"
-          // onClick={() => )}
-          >
-            Edit Cart
-          </Button>
+
         </div>
 
         <div className="checkout-section">
