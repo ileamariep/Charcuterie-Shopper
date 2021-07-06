@@ -10,6 +10,7 @@ import {
   CART_ROUTE,
   SHOP_ROUTE,
   ADMIN_ROUTE,
+  HOME_ROUTE
 } from "../constants";
 // import { clearCurrentUser } from "../auth";
 
@@ -22,7 +23,11 @@ const Navigation = ({
   grabbedIngredients,
   setIngredients,
   showDashLinks,
-  setDashLinks
+  setDashLinks,
+  reset,
+  hideViewButton, setHideViewButton,
+  showQtyButton, setShowQtyButton,
+  showCartButton, setCartButton
 }) => {
 
 
@@ -31,11 +36,19 @@ const Navigation = ({
   const logOut = () => {
     localStorage.clear("token");
     setIsAdmin(false);
-    window.location.href = `${SHOP_ROUTE}`;
+    window.location.href = `${HOME_ROUTE}`;
   };
 
   const handleAdminClick = () => {
     setDashLinks(true)
+  }
+
+  const shopClick = () => {
+    setHideViewButton(true)
+    setShowQtyButton(false)
+    setCartButton(false)
+    reset()
+
   }
 
   if (myToken && !isAdmin) {
@@ -45,7 +58,8 @@ const Navigation = ({
         <nav>
           <div className="topnav">
             {/* <Link to={HOME_ROUTE}>Home</Link> */}
-            <Link to={SHOP_ROUTE}>Shop</Link>
+            <Link to={SHOP_ROUTE}
+              onClick={shopClick}>Shop</Link>
             <Link to={MYACCOUNT_ROUTE}>My Account</Link>
             <Link to={CART_ROUTE}>Cart</Link>
             <Link
@@ -71,7 +85,8 @@ const Navigation = ({
     return (
       <nav>
         <div className="topnav">
-          <Link to={SHOP_ROUTE}>Shop</Link>
+          <Link to={SHOP_ROUTE}
+            onClick={shopClick}>Shop</Link>
           <Link to={MYACCOUNT_ROUTE}>My Account</Link>
           <Link to={ADMIN_ROUTE}
             onClick={() => {
@@ -98,7 +113,8 @@ const Navigation = ({
     return (
       <nav>
         <div className="topnav">
-          <Link to={SHOP_ROUTE}>Shop</Link>
+          <Link to={SHOP_ROUTE}
+            onClick={shopClick}>Shop</Link>
           <Link to={CART_ROUTE}>Cart</Link>
           <Link to={REGISTER_ROUTE}>Register</Link>
           <Link to={LOGIN_ROUTE}>Login</Link>
