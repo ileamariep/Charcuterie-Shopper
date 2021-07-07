@@ -31,7 +31,7 @@ export async function addCartItem(quantity, ingredientId, usersId) {
 export async function deleteCartItem(id) {
   try {
     console.log(id)
-    const { data } = await axios.delete(`/api/cartItems/${id}/delete`);
+    const { data } = await axios.delete(`/api/cartItems/${id}`);
     console.log(data, "THIS IS DATA")
     return data;
   } catch (error) {
@@ -76,7 +76,7 @@ export async function updateCartItemsQuantityMinus(id) {
   try {
     const { data } = await axios.patch(`api/cartItems/${id}/quantityMinus`)
     return data
-  } catch(error) {
+  } catch (error) {
 
   }
 }
@@ -85,7 +85,7 @@ export async function updateCartItemsQuantityPlus(id) {
   try {
     const { data } = await axios.patch(`api/cartItems/${id}/quantityPlus`)
     return data
-  } catch(error) {
+  } catch (error) {
 
   }
 }
