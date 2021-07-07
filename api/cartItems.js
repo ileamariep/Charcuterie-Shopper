@@ -1,6 +1,5 @@
 const express = require('express');
-const { destroyCartItem } = require('../db');
-const { createCartItem, getCartByUser, updateCartItemWithOrderId, getAllCartItems } = require('../db/cartItems');
+const { createCartItem, getCartByUser, updateCartItemWithOrderId, getAllCartItems, destroyCartItems } = require('../db/cartItems');
 const cartItemsRouter = express.Router();
 const { requireUser } = require("./utils")
 
@@ -52,7 +51,8 @@ cartItemsRouter.patch('/:cartId', async (req, res, next) => {
 cartItemsRouter.delete('/:id/delete', async (req, res, next) => {
   const id = req.params.id
   try {
-    const deletedCartItem = await destroyCartItem(id)
+    console.log("Hello i am in the cart Irtems deete route")
+    const deletedCartItem = await destroyCartItems(id)
     console.log(deletedCartItem, 'this is the deleted cart Item')
     res.send({ deletedCartItem })
   } catch (error) {

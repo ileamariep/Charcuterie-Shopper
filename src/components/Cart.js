@@ -12,8 +12,8 @@ import { addOrder } from "../api/orders";
 
 const Cart = ({ currentUserId }) => {
   const [myCartItems, setMyCartItems] = useState([]);
-  const [totalPrice, setTotalPrice] = useState(100);
-  const [orderStatus, setOrderStatus] = useState("Processing");
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [orderStatus, setOrderStatus] = useState("processing");
   const [orderId, setOrderId] = useState();
 
   const retrieveCartItems = () => {

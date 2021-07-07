@@ -120,7 +120,7 @@ async function destroyCartItems(id) {
   `,
       [id]
     );
-    console.log(cartItem, 'this is the deleted cart Iem')
+    console.log(cartItem, 'this is the deleted cart Item')
     return cartItem;
   } catch (err) {
     throw err;

@@ -28,6 +28,7 @@ async function getAllOrders() {
    FROM cart_items
    JOIN orders
    ON cart_items."orderId"=orders.id
+         
       `);
     return orders;
   } catch (error) {
