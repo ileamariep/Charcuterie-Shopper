@@ -48,12 +48,8 @@ cartItemsRouter.patch('/:cartId', async (req, res, next) => {
   }
 })
 
-<<<<<<< HEAD
-cartItemsRouter.delete('/:id/delete', async (req, res, next) => {
-  const id = req.params.id
-=======
 cartItemsRouter.patch('/:id/quantityPlus', async (req, res, next) => {
-  const {id} = req.params;
+  const { id } = req.params;
 
   try {
     await updateQuantityPlusOne(id);
@@ -66,7 +62,7 @@ cartItemsRouter.patch('/:id/quantityPlus', async (req, res, next) => {
 })
 
 cartItemsRouter.patch('/:id/quantityMinus', async (req, res, next) => {
-  const {id} = req.params;
+  const { id } = req.params;
 
   try {
     await updateQuantityMinusOne(id);
@@ -81,7 +77,6 @@ cartItemsRouter.patch('/:id/quantityMinus', async (req, res, next) => {
 
 cartItemsRouter.delete('/:id', async (req, res, next) => {
   const { id } = req.params
->>>>>>> dcb81edfd9cee87dd37ba41932f54e8924ba7eb0
   try {
     console.log("Hello i am in the cart Irtems deete route")
     const deletedCartItem = await destroyCartItems(id)
