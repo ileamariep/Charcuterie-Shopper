@@ -136,7 +136,11 @@ const Register = () => {
                   }}
                 />
               </Form.Group>
-              <Button variant="primary" type="submit">
+              <Button
+                variant="primary"
+                className="register-button"
+                type="submit"
+              >
                 Submit
               </Button>
             </Form>

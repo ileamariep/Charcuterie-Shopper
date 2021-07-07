@@ -64,9 +64,7 @@ const AdminUsers = () => {
         } else {
           return (
             <TableRow key={user.id} user={user}>
-              <TableCell component="th" scope="row">
-                {/* {myAccountData.id} */}
-              </TableCell>
+              <TableCell component="th" scope="row"></TableCell>
 
               <TableCell align="center">
                 Username
