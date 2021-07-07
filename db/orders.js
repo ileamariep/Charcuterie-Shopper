@@ -25,7 +25,8 @@ async function getAllOrders() {
     cart_items."usersId",
     orders.id,
     orders.total_price,
-    orders.date_ordered
+    orders.date_ordered,
+    orders.status
    FROM cart_items
    JOIN orders
    ON cart_items."orderId"=orders.id
