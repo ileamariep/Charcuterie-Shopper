@@ -31,7 +31,7 @@ export async function addCartItem(quantity, ingredientId, usersId) {
 export async function deleteCartItem(id) {
   try {
     console.log(id)
-    const  {data}  = await axios.delete(`/api/cartItems/${id}`);
+    const { data } = await axios.delete(`/api/cartItems/${id}/delete`);
     console.log(data, "THIS IS DATA")
     return data;
   } catch (error) {

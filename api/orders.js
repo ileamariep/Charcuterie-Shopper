@@ -9,7 +9,6 @@ const {
 } = require("../db");
 const { requireUser } = require("./utils");
 const ordersRouter = express.Router();
-
 ordersRouter.get("/", async (req, res, next) => {
   try {
     const orderHistory = [];
@@ -34,6 +33,7 @@ ordersRouter.get("/", async (req, res, next) => {
               decription: cartItem.description,
               quantity: cartItem.quantity,
               price: cartItem.price,
+
             };
             orderItem.items.push(newCartItem);
           });
@@ -45,7 +45,6 @@ ordersRouter.get("/", async (req, res, next) => {
     next(error);
   }
 });
-
 ordersRouter.get("/:usersId", async (req, res, next) => {
   const { usersId } = req.params;
   try {
@@ -81,7 +80,6 @@ ordersRouter.get("/:usersId", async (req, res, next) => {
     next(error);
   }
 });
-
 ordersRouter.post("/", requireUser, async (req, res, next) => {
   const { total_price, status } = req.body;
   try {
@@ -94,11 +92,9 @@ ordersRouter.post("/", requireUser, async (req, res, next) => {
     next(error);
   }
 });
-
 ordersRouter.patch("/", async (req, res, next) => {
   const { id } = req.params
   const { status } = req.body
-
   try {
     const orderStatusUpdate = await updateOrderStatus(id, status)
     res.send(orderStatusUpdate)
@@ -106,7 +102,6 @@ ordersRouter.patch("/", async (req, res, next) => {
     next(error)
   }
 });
-
 ordersRouter.delete("/:orderId", async (req, res, next) => {
   const { orderId } = req.params;
   try {
@@ -116,6 +111,21 @@ ordersRouter.delete("/:orderId", async (req, res, next) => {
     next(error);
   }
 });
+
+
+//below not finished
+// ordersRouter.get("/:category", async (req, res, next) => {
+//   // read the category from the params
+//   const { category } = req.params;
+
+//   try {
+//     const ingredientsByCategory = await ingredientByCategory(category);
+
+//     res.send(ingredientsByCategory);
+//   } catch (error) {
+//     next(error);
+//   }
+// });
 
 
 module.exports = ordersRouter;

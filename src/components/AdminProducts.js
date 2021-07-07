@@ -3,14 +3,10 @@ import "./Admin.css";
 import "./Shop.css";
 import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
-
 // import Button from "react-bootstrap/Button";
 // import "bootstrap/dist/css/bootstrap.min.css";
 import AdminEdit from "./AdminEdit";
 import AdminAddProduct from "./AdminAddProduct";
-
-
-
 const AdminProducts = ({ grabbedIngredients,
   setIngredients,
   ingredientName, ingredientDescription, ingredientPrice, ingredientCategory, ingredientStockQty, ingredientImg, ingredientImgAlt, setIngredientName,
@@ -20,18 +16,13 @@ const AdminProducts = ({ grabbedIngredients,
   setIngredientStockQty,
   setIngredientImg,
   setIngredientImgAlt, reset }) => {
-
   const [showAddForm, setShowAddForm] = useState(false)
-
-
   const handleAddButtonClick = () => {
     setShowAddForm(true)
   }
-
   return (
     <>
       {showAddForm ?
-
         <AdminAddProduct
           setShowAddForm={setShowAddForm}
           key={grabbedIngredients.id}
@@ -65,15 +56,12 @@ const AdminProducts = ({ grabbedIngredients,
                   grabbedIngredients={grabbedIngredients}
                   setIngredients={setIngredients}
                   reset={reset}
-
                 />
               )
             )}
           </div>
         </>}
-
     </>
   );
 };
-
 export default AdminProducts;

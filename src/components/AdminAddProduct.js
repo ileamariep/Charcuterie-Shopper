@@ -4,6 +4,7 @@ import "./AdminAdd.css";
 import { addAnIngredient } from "../api/ingredients";
 import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { ADMIN_PRODUCTS_ROUTE } from "../constants";
 
 const AdminAddProduct = ({
     ingredientName, ingredientDescription, ingredientPrice, ingredientCategory, ingredientStockQty, ingredientImg, ingredientImgAlt, setIngredientName,
@@ -20,6 +21,7 @@ const AdminAddProduct = ({
         event.preventDefault()
         await addAnIngredient(ingredientName, ingredientDescription, ingredientPrice, ingredientCategory, ingredientStockQty, ingredientImg, ingredientImgAlt)
         await setShowAddForm(false)
+        window.location.href = `${ADMIN_PRODUCTS_ROUTE}`;
     }
 
     const handleButtonCancel = () => {
