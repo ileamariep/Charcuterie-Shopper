@@ -8,10 +8,7 @@ const {
   getUserByUsername,
 } = require("./users");
 
-const {
-  createOrder,
-  getAllOrders,
-} = require("./orders");
+const { createOrder, getAllOrders } = require("./orders");
 
 const {
   createIngredient,
@@ -21,10 +18,7 @@ const {
   ingredientByCategory,
 } = require("./ingredients");
 
-const {
-  createCartItem,
-  destroyCartItems,
-} = require("./cartItems.js")
+const { createCartItem, destroyCartItems } = require("./cartItems.js");
 // const { createCartItem } = require("./cartItems");
 
 async function buildTables() {
@@ -154,7 +148,8 @@ async function populateInitialIngredients() {
       },
       {
         name: "Brain Salt",
-        description: "Rids the body of brain troubles, sea sickness, headaches and more!",
+        description:
+          "Rids the body of brain troubles, sea sickness, headaches and more!",
         price: 10,
         category: "health",
         stockQty: 50,
@@ -207,6 +202,17 @@ async function populateInitialUsers() {
         city: "Mayport",
         state: "FL",
         zip: "32205",
+      },
+      {
+        email: "jeff@jeff.com",
+        name: "Jeff Hauck",
+        password: "123456789",
+        username: "JeffH",
+        address: "123 Florida Ave",
+        city: "Chicago",
+        state: "LA",
+        zip: "60618",
+        isAdmin: true,
       },
       {
         email: "ileamarie@gmail.com",
@@ -352,8 +358,8 @@ async function testDB() {
     console.log("Calling getIngredientById with 1");
     const singleIngredient = await getIngredientbyId(1);
     console.log("Result:", singleIngredient);
-    const destroyedCartItem = await destroyCartItems(1)
-    console.log(destroyedCartItem, "Please work for the love of god")
+    const destroyedCartItem = await destroyCartItems(1);
+    console.log(destroyedCartItem, "Please work for the love of god");
     // console.log("Calling updateIngredient on ingredient[0]");
     // const updatedIngredient = await updateIngredient(ingredients[0].id, {
     //   name: "New Elixir",
@@ -377,7 +383,7 @@ async function testDB() {
 
     console.log("Calling getAllorders");
     const theOrders = await getAllOrders();
-    console.log(theOrders, );
+    console.log(theOrders);
 
     console.log("Finished database tests!");
   } catch (error) {

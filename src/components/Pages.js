@@ -11,6 +11,7 @@ import {
   HOME_ROUTE,
   THANKYOU_ROUTE,
   SINGLE_PRODUCT_ROUTE,
+  ADMIN_USERS_ROUTE,
 } from "../constants";
 import Admin from "./Admin";
 import Cart from "./Cart";
@@ -22,6 +23,7 @@ import Home from "./Home";
 import UserOrders from "./UserOrders";
 import ThankYou from "./ThankYou";
 import SingleProductView from "./SingleProductView";
+import AdminUsers from "./AdminUsers";
 
 // import { getSomething } from "../api";
 
@@ -54,9 +56,12 @@ const Pages = (props) => {
     setOrderHistory,
     showDashLinks,
     setDashLinks,
-    hideViewButton, setHideViewButton,
-    showQtyButton, setShowQtyButton,
-    showCartButton, setCartButton
+    hideViewButton,
+    setHideViewButton,
+    showQtyButton,
+    setShowQtyButton,
+    showCartButton,
+    setCartButton,
   } = props;
 
   return (
@@ -115,7 +120,8 @@ const Pages = (props) => {
             reset={reset}
             showDashLinks={showDashLinks}
             setDashLinks={setDashLinks}
-
+            currentUserId={currentUserId}
+            setCurrentUserId={setCurrentUserId}
           />
         </Route>
         <Route path={LOGIN_ROUTE}>
@@ -127,8 +133,11 @@ const Pages = (props) => {
         <Route path={CART_ROUTE}>
           <Cart currentUserId={currentUserId} />
         </Route>
-        <Route path={ADMIN_ROUTE}>
-          <Admin />
+        <Route path={ADMIN_USERS_ROUTE}>
+          <AdminUsers
+            currentUserId={currentUserId}
+            setCurrentUserId={setCurrentUserId}
+          />
         </Route>
         <Route path={THANKYOU_ROUTE}>
           <ThankYou />

@@ -4,9 +4,6 @@ import Button from "react-bootstrap/Button";
 import { SHOP_ROUTE } from "../constants";
 import axios from "axios";
 import "./Login.css";
-// import { getUserById } from "../../db";
-// import bottlesill from "..public/images/bottlesill";
-// import "bootstrap/dist/css/bootstrap.min.css";
 
 const Login = ({ setIsAdmin, isAdmin }) => {
   const [username, setUsername] = useState();

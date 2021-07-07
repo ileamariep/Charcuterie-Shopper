@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import "./Admin.css";
 import { TableRow, TableCell } from "@material-ui/core";
 import { getUsersOrderHistory } from "../api/orders";
+import "./UserOrders.css";
 
 const UserOrders = ({ currentUserId }) => {
   const [orderHistory, setOrderHistory] = useState([]);
+
   useEffect(() => {
     const myToken = JSON.parse(localStorage.getItem("token"));
     if (myToken && currentUserId) {
@@ -14,19 +15,21 @@ const UserOrders = ({ currentUserId }) => {
 
   const getItemContainer = (cartItems) => {
     return (
-      <ul>
-        {cartItems.map((item) => {
-          return (
-            <li key={item.id}>
-              <TableCell align="left">
-                <div key={item.name}>Item Name:{item.name}</div>
-                <div key={item.quantity}>Item Quantity:{item.quantity}</div>
-                <div key={item.price}>Item Price:{item.price}</div>
-              </TableCell>
-            </li>
-          );
-        })}
-      </ul>
+      <>
+        <ul>
+          {cartItems.map((item) => {
+            return (
+              <li key={item.id}>
+                <TableCell align="left">
+                  <div key={item.name}>Item:{item.name}</div>
+                  <div key={item.quantity}>Quantity:{item.quantity}</div>
+                  <div key={item.price}>Price:{item.price}</div>
+                </TableCell>
+              </li>
+            );
+          })}
+        </ul>
+      </>
     );
   };
 

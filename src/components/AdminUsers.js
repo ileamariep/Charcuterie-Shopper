@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { TableRow, TableCell, TextField, Button } from "@material-ui/core";
 import { Delete as DeleteIcon } from "@material-ui/icons";
-import "./Admin.css";
 import { getUsers, deleteUser, promoteUserToAdmin } from "../api/users";
+import { ADMIN_USERS_ROUTE, SHOP_ROUTE } from "../constants";
+import { Redirect } from "react-router-dom";
+import "./Admin.css";
 
 const AdminUsers = () => {
   const [usersAccountData, setUsersAccountData] = useState([]);
-  const [myAccountData, setMyAccountData] = useState("");
+  // const [myAccountData, setMyAccountData] = useState("");
+  // const [currentUser, setCurrentUser] = useState();
+
   const [editMode, setEditMode] = useState(false);
   const [accountUsername, setAccountUsername] = useState("");
   const [accountEmail, setAccountEmail] = useState("");
   const myToken = JSON.parse(localStorage.getItem("token"));
-  // console.log(usersAccountData, "users account data");
 
   useEffect(() => {
     const myToken = JSON.parse(localStorage.getItem("token"));
@@ -21,7 +24,6 @@ const AdminUsers = () => {
           let myUsers = await getUsers(myToken);
           const userArray = [myUsers].flat();
           // const account = await myOrdersFetch(myUsername, myToken);
-
           setUsersAccountData(userArray);
         } catch (error) {
           console.error(error);
@@ -34,18 +36,18 @@ const AdminUsers = () => {
   const onDelete = async (id) => {
     try {
       await deleteUser(id, myToken);
-      window.location.reload();
-    } catch (err) {
-      console.log("Error deleting user", err);
+      window.location.href = `${ADMIN_USERS_ROUTE}`;
+    } catch (error) {
+      console.log("Error deleting user", error);
     }
   };
 
   const onPromote = async (id) => {
     try {
       await promoteUserToAdmin(id, true, myToken);
-      window.location.reload();
-    } catch (err) {
-      console.log("Error deleting user", err);
+      window.location.href = `${ADMIN_USERS_ROUTE}`;
+    } catch (error) {
+      console.log("Error deleting user", error);
     }
   };
 
@@ -84,7 +86,6 @@ const AdminUsers = () => {
               <TableCell align="center">
                 Email
                 <div>
-                  {/* {myAccountData.email} */}
                   {editMode ? (
                     <TextField
                       value={user.email}
@@ -97,29 +98,32 @@ const AdminUsers = () => {
                   )}
                 </div>
               </TableCell>
-              <TableCell>{user.isAdmin ? "Admin" : "User"}</TableCell>
+              <TableCell align="center">
+                Account
+                <div>{user.isAdmin ? "Admin" : "User"}</div>
+              </TableCell>
               <TableCell align="right">
-                {/* <TableCell align="right"> */}
                 <Button
                   variant="contained"
                   color="primary"
+                  visibility={user.isAdmin ? "hidden" : "visible"}
                   onClick={() => onPromote(user.id)}
                 >
                   Make Admin
                 </Button>
-                {/* </TableCell> */}
               </TableCell>
-              <TableCell align="right">
+              <TableCell align="center">
                 Delete User
-                <DeleteIcon
-                  fontSize="small"
-                  onClick={() => {
-                    onDelete(user.id);
-                  }}
-                />
+                <div>
+                  <DeleteIcon
+                    visibility={user.isAdmin ? "hidden" : "visible"}
+                    fontSize="small"
+                    onClick={() => {
+                      onDelete(user.id);
+                    }}
+                  />
+                </div>
               </TableCell>
-
-              {/* <div>make admin {user.isAdmin}</div> */}
             </TableRow>
           );
         }
