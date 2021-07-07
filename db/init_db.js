@@ -21,10 +21,10 @@ const {
   ingredientByCategory,
 } = require("./ingredients");
 
-const {
-  createCartItem,
-  destroyCartItems,
-} = require("./cartItems.js")
+// const {
+//   createCartItem,
+//   destroyCartItems,
+// } = require("./cartItems.js")
 // const { createCartItem } = require("./cartItems");
 
 async function buildTables() {
@@ -61,7 +61,7 @@ async function buildTables() {
 
         CREATE TABLE ingredients (
           id SERIAL PRIMARY KEY,
-          name varchar(30) UNIQUE,
+          name varchar(50) UNIQUE,
           description VARCHAR(255),
           price MONEY,
           category text,
@@ -73,7 +73,7 @@ async function buildTables() {
             id SERIAL PRIMARY KEY,
             date_ordered varchar(14) default to_char(CURRENT_DATE, 'yyyy / mm / dd'),
             total_price INTEGER DEFAULT 0,
-            status text
+            status text DEFAULT 'Processing'
           );
         CREATE TABLE cart_items(
           id SERIAL PRIMARY KEY,
@@ -254,39 +254,39 @@ async function populateInitialOrders() {
   }
 }
 
-async function createInitialCartItems() {
-  try {
-    console.log("starting to create cartItems...");
-    const [user1, user2, user3] = await getAllUsers();
-    const [ing1, ing2, ing3] = await getAllIngredients();
+// async function createInitialCartItems() {
+//   try {
+//     console.log("starting to create cartItems...");
+//     const [user1, user2, user3] = await getAllUsers();
+//     const [ing1, ing2, ing3] = await getAllIngredients();
 
-    const cartItemsToCreate = [
-      {
-        usersId: user1.id,
-        ingredientId: ing1.id,
-        quantity: 1,
-        orderId: null,
-      },
-      {
-        usersId: user2.id,
-        ingredientId: ing2.id,
-        quantity: 6,
-        orderId: null,
-      },
-      {
-        usersId: user3.id,
-        ingredientId: ing3.id,
-        quantity: 3,
-        orderId: null,
-      },
-    ];
-    const cartItems = await Promise.all(cartItemsToCreate.map(createCartItem));
-    console.log("cart items created: ", cartItems);
-    console.log("Finished creating cartItems!");
-  } catch (error) {
-    throw error;
-  }
-}
+//     const cartItemsToCreate = [
+//       {
+//         usersId: user1.id,
+//         ingredientId: ing1.id,
+//         quantity: 1,
+//         orderId: null,
+//       },
+//       {
+//         usersId: user2.id,
+//         ingredientId: ing2.id,
+//         quantity: 6,
+//         orderId: null,
+//       },
+//       {
+//         usersId: user3.id,
+//         ingredientId: ing3.id,
+//         quantity: 3,
+//         orderId: null,
+//       },
+//     ];
+//     const cartItems = await Promise.all(cartItemsToCreate.map(createCartItem));
+//     console.log("cart items created: ", cartItems);
+//     console.log("Finished creating cartItems!");
+//   } catch (error) {
+//     throw error;
+//   }
+// }
 // async function populateInitialReviews() {
 //     try {
 //         console.log("starting to create reviews...");
@@ -316,7 +316,7 @@ async function rebuildDB() {
     console.log("starting to populate initial Users in rebuildDB");
     await populateInitialUsers();
     console.log("starting to populate initial cartitems in rebuildDB");
-    await createInitialCartItems();
+    // await createInitialCartItems();
     console.log("starting to populate initial orders in rebuildDB");
     // await populateInitialCart();
   } catch (error) {
@@ -352,8 +352,8 @@ async function testDB() {
     console.log("Calling getIngredientById with 1");
     const singleIngredient = await getIngredientbyId(1);
     console.log("Result:", singleIngredient);
-    const destroyedCartItem = await destroyCartItems(1)
-    console.log(destroyedCartItem, "Please work for the love of god")
+    // const destroyedCartItem = await destroyCartItems(1)
+    // console.log(destroyedCartItem, "Please work for the love of god")
     // console.log("Calling updateIngredient on ingredient[0]");
     // const updatedIngredient = await updateIngredient(ingredients[0].id, {
     //   name: "New Elixir",
@@ -377,7 +377,7 @@ async function testDB() {
 
     console.log("Calling getAllorders");
     const theOrders = await getAllOrders();
-    console.log(theOrders, );
+    console.log(theOrders,);
 
     console.log("Finished database tests!");
   } catch (error) {

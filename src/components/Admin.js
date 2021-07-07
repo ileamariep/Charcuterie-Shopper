@@ -1,10 +1,10 @@
 //https://www.pluralsight.com/guides/how-to-create-nested-tab-routes-with-react-router
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // import axios from "axios";
 import "./Admin.css";
 
-
+import { allOrders } from "../api/orders"
 import { Switch, Route, Link } from "react-router-dom";
 import {
   ADMIN_PRODUCTS_ROUTE,
@@ -17,7 +17,7 @@ import AdminProducts from "./AdminProducts";
 import linkBontemps from "./img/bontemps.png"
 import linkDoctor from "./img/doctoryourself.png"
 import linkBelt from "./img/dietbelt.png"
-// import { getSomething } from "../api";
+
 
 
 
@@ -37,8 +37,26 @@ const Admin = ({
   const [ingredientStockQty, setIngredientStockQty] = useState()
   const [ingredientImg, setIngredientImg] = useState('')
   const [ingredientImgAlt, setIngredientImgAlt] = useState('')
+  const [allGrabbedOrders, setAllOrders] = useState([])
+
+  const retrieveAllOrders = async () => {
+    allOrders()
+      .then((orders) => {
+        setAllOrders(orders);
+      })
+      .catch((error) => {
+        console.log(error)
+      });
+  };
 
 
+  useEffect(() => {
+    const fetchProducts = async () => {
+      await retrieveAllOrders();
+
+    };
+    fetchProducts();
+  }, []);
 
 
   const handleLinkClick = () => {
@@ -104,7 +122,10 @@ const Admin = ({
               </Route>
 
               <Route path={ADMIN_ORDERS_ROUTE}>
-                <AdminOrders />
+                <AdminOrders
+                  allGrabbedOrders={allGrabbedOrders}
+                  setAllOrders={setAllOrders}
+                />
               </Route>
               <Route path={ADMIN_USERS_ROUTE}>
                 <AdminUsers />

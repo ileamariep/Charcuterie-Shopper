@@ -59,9 +59,9 @@ const AdminProducts = ({ grabbedIngredients,
           </div>
           <div id="product-container">
             {grabbedIngredients.map(
-              (grabbedIngredients) => (
+              (grabbedIngredients, index) => (
                 <AdminEdit
-                  key={grabbedIngredients.id}
+                  key={index}
                   grabbedIngredients={grabbedIngredients}
                   setIngredients={setIngredients}
                   reset={reset}

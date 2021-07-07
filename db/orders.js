@@ -1,5 +1,4 @@
 const { client } = require("./client");
-
 async function createOrder({ total_price, status }) {
   try {
     const {
@@ -21,20 +20,20 @@ async function createOrder({ total_price, status }) {
 async function getAllOrders() {
   try {
     const { rows: orders } = await client.query(`
-     SELECT *
-         FROM ingredients
-         JOIN cart_items
-         ON ingredients.id=cart_items."ingredientId"
-         JOIN orders
-         ON orders.id=cart_items."orderId"
-         
+    SELECT DISTINCT
+    cart_items."usersId",
+    orders.id,
+    orders.total_price,
+    orders.date_ordered
+   FROM cart_items
+   JOIN orders
+   ON cart_items."orderId"=orders.id
       `);
     return orders;
   } catch (error) {
     throw error;
   }
 }
-
 async function getAllOrdersByOrderId(orderId) {
   try {
     const { rows: orders } = await client.query(`
@@ -47,14 +46,12 @@ async function getAllOrdersByOrderId(orderId) {
    JOIN orders
    ON cart_items."orderId"=orders.id
    WHERE cart_items."orderId"=$1
-         
       `);
     return orders;
   } catch (error) {
     throw error;
   }
 }
-
 async function getOrderById(orderId) {
   try {
     const {
@@ -72,7 +69,6 @@ async function getOrderById(orderId) {
     throw error;
   }
 }
-
 // async function getCartByUser(usersId) {
 //   try {
 //     const { rows: cartItems } = await client.query(
@@ -90,7 +86,6 @@ async function getOrderById(orderId) {
 //     throw error;
 //   }
 // }
-
 async function getOrderByUser(usersId) {
   try {
     const { rows: order } = await client.query(
@@ -112,7 +107,6 @@ async function getOrderByUser(usersId) {
     throw error;
   }
 }
-
 // SELECT
 //         ingredients.name,
 //         ingredients.description,
@@ -128,7 +122,6 @@ async function getOrderByUser(usersId) {
 //         JOIN orders
 //         ON orders.id=cart_items."orderId"
 //         WHERE cart_items."userId"=$1;
-
 const updateOrderStatus = async (id, status) => {
   try {
     const { rows: orders } = await client.query(
@@ -145,7 +138,6 @@ const updateOrderStatus = async (id, status) => {
     throw error;
   }
 };
-
 const destroyOrder = async (id) => {
   try {
     const {

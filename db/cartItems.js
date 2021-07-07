@@ -1,5 +1,4 @@
 const { client } = require("./client");
-
 async function createCartItem({ quantity, ingredientId, usersId }) {
   try {
     console.log(quantity, ingredientId, usersId, "%%%%%%%%%%%%%%%%%%%");
@@ -18,7 +17,6 @@ async function createCartItem({ quantity, ingredientId, usersId }) {
     throw error;
   }
 }
-
 async function getAllCartItems() {
   try {
     const { rows } = await client.query(
@@ -34,7 +32,6 @@ async function getAllCartItems() {
     throw error;
   }
 }
-
 async function getCartItemsByOrderId(orderId) {
   try {
     const { rows } = await client.query(
@@ -58,7 +55,6 @@ async function getCartItemsByOrderId(orderId) {
     throw error;
   }
 }
-
 async function getCartByUser(usersId) {
   try {
     const { rows: cartItems } = await client.query(
@@ -76,7 +72,6 @@ async function getCartByUser(usersId) {
     throw error;
   }
 }
-
 async function updateCartItemWithQuantity({ id, quantity }) {
   try {
     const {
@@ -95,7 +90,6 @@ async function updateCartItemWithQuantity({ id, quantity }) {
     throw error;
   }
 }
-
 async function updateCartItemWithOrderId({ cartId, orderId }) {
   try {
     const {
@@ -115,7 +109,6 @@ async function updateCartItemWithOrderId({ cartId, orderId }) {
     throw error;
   }
 }
-
 async function destroyCartItems(id) {
   try {
     const { rows: [cartItem] } = await client.query(
@@ -127,13 +120,12 @@ async function destroyCartItems(id) {
   `,
       [id]
     );
-      console.log(cartItem, 'this is the deleted cart Iem')
+    console.log(cartItem, 'this is the deleted cart Iem')
     return cartItem;
   } catch (err) {
     throw err;
   }
 }
-
 module.exports = {
   client,
   getAllCartItems,
