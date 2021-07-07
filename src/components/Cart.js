@@ -5,6 +5,8 @@ import {
   addOrderIdToCartItems,
   deleteCartItem,
   getUsersCurrentCartItems,
+  updateCartItemsQuantityMinus,
+  updateCartItemsQuantityPlus
 } from "../api/cartItem";
 import { addOrder } from "../api/orders";
 
@@ -15,11 +17,13 @@ const Cart = ({ currentUserId }) => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [orderStatus, setOrderStatus] = useState("processing");
   const [orderId, setOrderId] = useState();
+  const [cartItemQuantity, setcartItemQuantity] = useState();
 
   const retrieveCartItems = () => {
     getUsersCurrentCartItems(currentUserId)
       .then((cartItems) => {
         setMyCartItems(cartItems);
+        setcartItemQuantity(cartItems.quantity)
       })
       .catch((error) => {
         throw error;
@@ -83,7 +87,9 @@ const Cart = ({ currentUserId }) => {
                     </div>
                     <div className="card-name">
                       <b>Quantity:</b>
-                      <p>{quantity}</p>
+                      <p>{cartItemQuantity}</p>
+                      <button onClick={() => updateCartItemsQuantityPlus(id)}>Add</button>
+                      <button onClick={() => updateCartItemsQuantityMinus(id)}>Subtract</button>
                     </div>
                     <Button onClick={() => deleteSelectedCartItem(id)}>Remove From Cart</Button>
 

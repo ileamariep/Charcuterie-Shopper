@@ -59,10 +59,21 @@ export async function addOrderIdToCartItems(id, orderId) {
   }
 }
 
-// export async function updateCartItems(id) {
-//   try {
-//     const { data } = await axios.patch(`api/${}`)
-//   } catch(error) {
+export async function updateCartItemsQuantityMinus(id) {
+  try {
+    const { data } = await axios.patch(`api/cartItems/${id}/quantity-`)
+    return data
+  } catch(error) {
 
-//   }
-// }
+  }
+}
+
+export async function updateCartItemsQuantityPlus(id) {
+  try {
+    const { data } = await axios.patch(`api/cartItems/${id}/quantity+`)
+    return data
+  } catch(error) {
+
+  }
+}
+
