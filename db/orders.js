@@ -17,6 +17,7 @@ async function createOrder({ total_price, status }) {
     throw error;
   }
 }
+
 async function getAllOrders() {
   try {
     const { rows: orders } = await client.query(`
@@ -36,6 +37,7 @@ async function getAllOrders() {
     throw error;
   }
 }
+
 async function getAllOrdersByOrderId(orderId) {
   try {
     const { rows: orders } = await client.query(`
@@ -54,6 +56,7 @@ async function getAllOrdersByOrderId(orderId) {
     throw error;
   }
 }
+
 async function getOrderById(orderId) {
   try {
     const {
@@ -105,6 +108,30 @@ async function getOrderByUser(usersId) {
       [usersId]
     );
     return order;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function orderByStatus(status) {
+  try {
+
+    const { rows: orders } = await client.query(
+      `
+      SELECT DISTINCT
+      orders.id,
+      orders.total_price,
+      orders.date_ordered,
+      orders.status
+     FROM orders
+     JOIN cart_items
+     ON cart_items."orderId"=orders.id
+     WHERE orders.status=$1;
+    `,
+      [status]
+    );
+    console.log(orders)
+    return orders
   } catch (error) {
     throw error;
   }
@@ -181,6 +208,9 @@ const destroyOrder = async (id) => {
 //     throw err;
 //   }
 // }
+
+
+
 module.exports = {
   client,
   createOrder,
@@ -189,5 +219,6 @@ module.exports = {
   destroyOrder,
   getOrderByUser,
   getOrderById,
-  getAllOrdersByOrderId
+  getAllOrdersByOrderId,
+  orderByStatus
 };

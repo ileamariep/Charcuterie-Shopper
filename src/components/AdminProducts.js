@@ -20,6 +20,8 @@ const AdminProducts = ({ grabbedIngredients,
   const handleAddButtonClick = () => {
     setShowAddForm(true)
   }
+
+  console.log(grabbedIngredients)
   return (
     <>
       {showAddForm ?
