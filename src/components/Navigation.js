@@ -1,8 +1,5 @@
 import React from "react";
-import "./Navigation.css";
-
 import { Link } from "react-router-dom";
-
 import {
   MYACCOUNT_ROUTE,
   REGISTER_ROUTE,
@@ -10,8 +7,9 @@ import {
   CART_ROUTE,
   SHOP_ROUTE,
   ADMIN_ROUTE,
-  HOME_ROUTE
+  HOME_ROUTE,
 } from "../constants";
+import "./Navigation.css";
 // import { clearCurrentUser } from "../auth";
 
 const Navigation = ({
@@ -25,13 +23,13 @@ const Navigation = ({
   showDashLinks,
   setDashLinks,
   reset,
-  hideViewButton, setHideViewButton,
-  showQtyButton, setShowQtyButton,
-  showCartButton, setCartButton
+  hideViewButton,
+  setHideViewButton,
+  showQtyButton,
+  setShowQtyButton,
+  showCartButton,
+  setCartButton,
 }) => {
-
-
-
   const myToken = JSON.parse(localStorage.getItem("token"));
   const logOut = () => {
     localStorage.clear("token");
@@ -40,16 +38,15 @@ const Navigation = ({
   };
 
   const handleAdminClick = () => {
-    setDashLinks(true)
-  }
+    setDashLinks(true);
+  };
 
   const shopClick = () => {
-    setHideViewButton(true)
-    setShowQtyButton(false)
-    setCartButton(false)
-    reset()
-
-  }
+    setHideViewButton(true);
+    setShowQtyButton(false);
+    setCartButton(false);
+    reset();
+  };
 
   if (myToken && !isAdmin) {
     //user
@@ -58,8 +55,9 @@ const Navigation = ({
         <nav>
           <div className="topnav">
             {/* <Link to={HOME_ROUTE}>Home</Link> */}
-            <Link to={SHOP_ROUTE}
-              onClick={shopClick}>Shop</Link>
+            <Link to={SHOP_ROUTE} onClick={shopClick}>
+              Shop
+            </Link>
             <Link to={MYACCOUNT_ROUTE}>My Account</Link>
             <Link to={CART_ROUTE}>Cart</Link>
             <Link
@@ -71,27 +69,27 @@ const Navigation = ({
             >
               Logout
             </Link>
-
           </div>
-
         </nav>
-
       </>
-
     );
-    //else if (myToken && isAdmin)
   } else if (myToken && isAdmin) {
     //admin
     return (
       <nav>
         <div className="topnav">
-          <Link to={SHOP_ROUTE}
-            onClick={shopClick}>Shop</Link>
+          <Link to={SHOP_ROUTE} onClick={shopClick}>
+            Shop
+          </Link>
           <Link to={MYACCOUNT_ROUTE}>My Account</Link>
-          <Link to={ADMIN_ROUTE}
+          <Link
+            to={ADMIN_ROUTE}
             onClick={() => {
               handleAdminClick();
-            }}>Admin</Link>
+            }}
+          >
+            Admin
+          </Link>
           <Link to={CART_ROUTE}>Cart</Link>
           <Link
             to={SHOP_ROUTE}
@@ -103,9 +101,7 @@ const Navigation = ({
           >
             Logout
           </Link>
-
         </div>
-
       </nav>
     );
   } else {
@@ -113,14 +109,13 @@ const Navigation = ({
     return (
       <nav>
         <div className="topnav">
-          <Link to={SHOP_ROUTE}
-            onClick={shopClick}>Shop</Link>
+          <Link to={SHOP_ROUTE} onClick={shopClick}>
+            Shop
+          </Link>
           <Link to={CART_ROUTE}>Cart</Link>
           <Link to={REGISTER_ROUTE}>Register</Link>
           <Link to={LOGIN_ROUTE}>Login</Link>
-
         </div>
-
       </nav>
     );
   }
