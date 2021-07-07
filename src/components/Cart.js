@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Cart.css";
 import Button from "react-bootstrap/Button";
+import { Delete as DeleteIcon } from "@material-ui/icons";
 import {
   addOrderIdToCartItems,
   deleteCartItem,
@@ -8,6 +9,10 @@ import {
   updateCartItemsQuantityMinus,
   updateCartItemsQuantityPlus
 } from "../api/cartItem";
+import ControlPointIcon from '@material-ui/icons/ControlPoint';
+import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
+
+
 import { addOrder } from "../api/orders";
 
 
@@ -19,8 +24,8 @@ const Cart = ({ currentUserId }) => {
   const [orderId, setOrderId] = useState();
   const [cartItemQuantity, setCartItemQuantity] = useState(0);
 
-  const retrieveCartItems = () => {
-    getUsersCurrentCartItems(currentUserId)
+  const retrieveCartItems = async () => {
+    await getUsersCurrentCartItems(currentUserId)
       .then((cartItems) => {
         setMyCartItems(cartItems);
         setCartItemQuantity(cartItems.quantity)
@@ -61,67 +66,108 @@ const Cart = ({ currentUserId }) => {
   const deleteSelectedCartItem = async (id) => {
     console.log(id, "this is cartItems id")
     await deleteCartItem(id)
+    retrieveCartItems()
   }
 
   return (
 
 
     <div className="cart-container">
-      <div className="cart-card">
-        <div className="cart-info">
-          <div className="cart-info-title">
-            <>
-              {myCartItems.map(({ id, name, description, price, quantity }) => (
-                <div key={id} className="cart-cards">
-                  <div className="cart-card">
-                    <div className="card-name">
-                      <b>Name:</b>
-                      <p>{name}</p>
-                    </div>
-                    <div className="card-description">
-                      <b>Description:</b>
-                      <p>{description}</p>
-                    </div>
-                    <div className="card-name">
-                      <b>Price:</b>
-                      <p>{price}</p>
-                    </div>
-                    <div className="card-name">
-                      <b>Quantity:</b>
-                      <p>{quantity}</p>
-                      <button onClick={() => updateCartItemsQuantityPlus(id)}>Add</button>
-                      <button onClick={() => updateCartItemsQuantityMinus(id)}>Subtract</button>
-                    </div>
-                    <Button onClick={() => deleteSelectedCartItem(id)}>Remove From Cart</Button>
+      <div className="cart-header">
+        <h1>Shopping Cart</h1>
+      </div>
+      <div className='update-button-container'>
+        <Button
+          type="button"
+          className="update-cart-button"
+          onClick={() => retrieveCartItems()}
+        >
 
-                  </div>
-                </div>
-              ))}
-            </>
+          Update Cart
+        </Button>
+      </div>
+
+      <div className="cart-card-container">
+
+
+        {myCartItems.map(({ id, name, description, price, quantity }) => (
+
+          <div key={id} className="cart-cards">
+
+            <div className="cart-item-name">
+              <b>Name:</b>
+              <p>{name}</p>
+            </div>
+            <div className="cart-description">
+              <b>Description:</b>
+              <p>{description}</p>
+            </div>
+            <div className="cart-price">
+              <b>Price:</b>
+              <p>{price}</p>
+            </div>
+
+            <div className="cart-quantity-container">
+              <div className='cart-quantity'>
+                <b>Quantity:</b>
+                <p>{quantity}</p>
+              </div>
+              <ControlPointIcon
+                fontSize="small"
+                className='cart-add-item'
+                onClick={() => {
+                  updateCartItemsQuantityPlus(id)
+                  retrieveCartItems()
+                }}
+              />
+              <RemoveCircleOutlineIcon
+                fontSize="small"
+                className='cart-remove-item'
+                onClick={() => {
+                  updateCartItemsQuantityMinus(id)
+                  retrieveCartItems();
+                }}
+              />
+            </div>
+            <div className="item-price-total">
+              <b>Total:</b>
+              <p>{price}</p>
+            </div>
+
+            <div className="cart-delete-container">
+
+              <DeleteIcon
+
+                fontSize="small"
+                onClick={() => {
+                  deleteSelectedCartItem(id);
+                }}
+              />
+            </div>
+
           </div>
 
-          {/* <Button
-            type="button"
-            className="editcart"
-            // onClick={() => )}
-          >
-            Edit Cart
-          </Button> */}
-        </div>
+        ))}
 
-        <div className="checkout-section">
-          <h1>
-            <h1>This will be the checkout side</h1>
-          </h1>
-          <Button
-            className="checkout"
-            onClick={async () => await createOrder()}
-          >
-            Checkout
-          </Button>
-        </div>
+      </div>
+
+      <div className="checkout-section">
+        <h1>
+          <h1>This will be the checkout side</h1>
+          <div className="order total"><h2>Quantity total goes here</h2></div>
+          <div className="order total"><h2>Order total goes here</h2></div>
+
+        </h1>
+        <Button
+          className="checkout"
+          onClick={async () => await createOrder()}
+        >
+          Checkout
+        </Button>
       </div>
     </div>
+
+
   );
 };
 
