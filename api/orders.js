@@ -18,6 +18,7 @@ ordersRouter.get("/", async (req, res, next) => {
         id: order.id,
         totalPrice: order.total_price,
         date: order.date_ordered,
+        status: order.status,
         items: [],
       };
       orderHistory.push(item);

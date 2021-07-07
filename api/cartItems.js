@@ -1,5 +1,5 @@
 const express = require('express');
-const { createCartItem, getCartByUser, updateCartItemWithOrderId, getAllCartItems, destroyCartItems } = require('../db/cartItems');
+const { createCartItem, getCartByUser, updateCartItemWithOrderId, getAllCartItems, destroyCartItems, updateQuantityPlusOne, updateQuantityMinusOne } = require('../db/cartItems');
 const cartItemsRouter = express.Router();
 const { requireUser } = require("./utils")
 
@@ -48,8 +48,40 @@ cartItemsRouter.patch('/:cartId', async (req, res, next) => {
   }
 })
 
+<<<<<<< HEAD
 cartItemsRouter.delete('/:id/delete', async (req, res, next) => {
   const id = req.params.id
+=======
+cartItemsRouter.patch('/:id/quantityPlus', async (req, res, next) => {
+  const {id} = req.params;
+
+  try {
+    await updateQuantityPlusOne(id);
+    res.send({
+      message: 'added a product'
+    })
+  } catch (error) {
+    throw error;
+  }
+})
+
+cartItemsRouter.patch('/:id/quantityMinus', async (req, res, next) => {
+  const {id} = req.params;
+
+  try {
+    await updateQuantityMinusOne(id);
+    res.send({
+      message: 'subtracted a product'
+    })
+  } catch (error) {
+    throw error;
+  }
+})
+
+
+cartItemsRouter.delete('/:id', async (req, res, next) => {
+  const { id } = req.params
+>>>>>>> dcb81edfd9cee87dd37ba41932f54e8924ba7eb0
   try {
     console.log("Hello i am in the cart Irtems deete route")
     const deletedCartItem = await destroyCartItems(id)
