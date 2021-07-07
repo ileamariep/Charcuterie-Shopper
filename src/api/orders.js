@@ -61,3 +61,13 @@ export async function allOrders() {
     throw error;
   }
 }
+
+export async function selectStatus(statusName) {
+  try {
+    const { data } = await axios.get(`/api/orders/${statusName}`);
+    console.log(data, "this is the data in the api for status")
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}

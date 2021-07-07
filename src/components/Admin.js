@@ -125,6 +125,7 @@ const Admin = ({
                 <AdminOrders
                   allGrabbedOrders={allGrabbedOrders}
                   setAllOrders={setAllOrders}
+                  resetOrders={retrieveAllOrders}
                 />
               </Route>
               <Route path={ADMIN_USERS_ROUTE}>

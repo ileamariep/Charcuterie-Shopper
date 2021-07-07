@@ -70,7 +70,7 @@ const Shop = ({
     }
   };
 
-  const handleSubmit = async (event) => {
+  const handleCatSubmit = async (event) => {
     event.preventDefault()
     try {
       if (category === 'All' || category === "header") {
@@ -93,7 +93,7 @@ const Shop = ({
     <>
       {hideViewButton ? (
         <div className='category-container'>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleCatSubmit}>
 
             <select value={category} onChange={handleChange}>
               <option value="header" defaultValue>Select Category</option>
