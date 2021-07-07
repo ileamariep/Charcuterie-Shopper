@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import "./pages.css";
 import {
   SHOP_ROUTE,
@@ -112,17 +112,21 @@ const Pages = (props) => {
           />
         </Route>
         <Route path={ADMIN_ROUTE}>
-          <Admin
-            isAdmin={isAdmin}
-            setIsAdmin={setIsAdmin}
-            grabbedIngredients={grabbedIngredients}
-            setIngredients={setIngredients}
-            reset={reset}
-            showDashLinks={showDashLinks}
-            setDashLinks={setDashLinks}
-            currentUserId={currentUserId}
-            setCurrentUserId={setCurrentUserId}
-          />
+          {isAdmin ? (
+            <Admin
+              isAdmin={isAdmin}
+              setIsAdmin={setIsAdmin}
+              grabbedIngredients={grabbedIngredients}
+              setIngredients={setIngredients}
+              reset={reset}
+              showDashLinks={showDashLinks}
+              setDashLinks={setDashLinks}
+              currentUserId={currentUserId}
+              setCurrentUserId={setCurrentUserId}
+            />
+          ) : (
+            <Redirect to={SHOP_ROUTE} />
+          )}
         </Route>
         <Route path={LOGIN_ROUTE}>
           <Login currentUser={currentUser} setCurrentUser={setCurrentUser} />
@@ -133,12 +137,13 @@ const Pages = (props) => {
         <Route path={CART_ROUTE}>
           <Cart currentUserId={currentUserId} />
         </Route>
-        <Route path={ADMIN_USERS_ROUTE}>
+        <Route exact path={ADMIN_USERS_ROUTE}>
           <AdminUsers
             currentUserId={currentUserId}
             setCurrentUserId={setCurrentUserId}
           />
         </Route>
+
         <Route path={THANKYOU_ROUTE}>
           <ThankYou />
         </Route>
