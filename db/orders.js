@@ -21,12 +21,14 @@ async function createOrder({ total_price, status }) {
 async function getAllOrders() {
   try {
     const { rows: orders } = await client.query(`
-     SELECT *
-         FROM ingredients
-         JOIN cart_items
-         ON ingredients.id=cart_items."ingredientId"
-         JOIN orders
-         ON orders.id=cart_items."orderId"
+    SELECT DISTINCT
+    cart_items."usersId",
+    orders.id,
+    orders.total_price,
+    orders.date_ordered
+   FROM cart_items
+   JOIN orders
+   ON cart_items."orderId"=orders.id
          
       `);
     return orders;
