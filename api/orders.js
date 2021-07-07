@@ -33,6 +33,7 @@ ordersRouter.get("/", async (req, res, next) => {
               decription: cartItem.description,
               quantity: cartItem.quantity,
               price: cartItem.price,
+
             };
             orderItem.items.push(newCartItem);
           });
@@ -110,4 +111,21 @@ ordersRouter.delete("/:orderId", async (req, res, next) => {
     next(error);
   }
 });
+
+
+//below not finished
+// ordersRouter.get("/:category", async (req, res, next) => {
+//   // read the category from the params
+//   const { category } = req.params;
+
+//   try {
+//     const ingredientsByCategory = await ingredientByCategory(category);
+
+//     res.send(ingredientsByCategory);
+//   } catch (error) {
+//     next(error);
+//   }
+// });
+
+
 module.exports = ordersRouter;

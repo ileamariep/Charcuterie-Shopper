@@ -72,12 +72,8 @@ async function getCartByUser(usersId) {
     throw error;
   }
 }
-<<<<<<< HEAD
-async function updateCartItemWithQuantity({ id, quantity }) {
-=======
 
 const updateQuantityPlusOne = async (id) => {
->>>>>>> dcb81edfd9cee87dd37ba41932f54e8924ba7eb0
   try {
     const { rows } = await client.query(
       `
@@ -87,13 +83,10 @@ const updateQuantityPlusOne = async (id) => {
     `,
       [id]
     );
-   return rows
+    return rows
   } catch (error) {
     throw error;
   }
-<<<<<<< HEAD
-}
-=======
 };
 
 const updateQuantityMinusOne = async (id) => {
@@ -106,13 +99,12 @@ const updateQuantityMinusOne = async (id) => {
     `,
       [id]
     );
-   return rows
+    return rows
   } catch (error) {
     throw error;
   }
 };
 
->>>>>>> dcb81edfd9cee87dd37ba41932f54e8924ba7eb0
 async function updateCartItemWithOrderId({ cartId, orderId }) {
   try {
     const {

@@ -1,50 +1,76 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Admin.css";
-import { TextField } from "@material-ui/core";
-import { updateOrderStatus } from "../api/orders";
+// import { updateOrderStatus } from "../api/orders";
+import { TableRow, TableCell } from "@material-ui/core";
+
 
 const AdminOrdersEdit = ({ allGrabbedOrders,
     setAllOrders, theOrderStatus, settheOrderStatus }) => {
 
-    const [editOnMode, setEditOnMode] = useState(false)
+    // const [editOnMode, setEditOnMode] = useState(false)
 
-    const handleChangeStatusClick = () => {
+    // const handleChangeStatusClick = () => {
 
-        setEditOnMode(true)
-    }
+    //     setEditOnMode(true)
+    // }
 
-    const handleSaveStatusClick = () => {
-        console.log(allGrabbedOrders.id, theOrderStatus, "the id and status")
-        updateOrderStatus(allGrabbedOrders.id, theOrderStatus)
-    }
+    const getItemContainer = (cartItems) => {
+        return (
+            <ul>
+                {cartItems.map((item) => {
+                    return (
+                        <li key={item.id}>
+                            <TableCell align="left">
+                                <div key={item.name}>Item Name:{item.name}</div>
+                                <div key={item.quantity}>Item Quantity:{item.quantity}</div>
+                                <div key={item.price}>Item Price:{item.price}</div>
+                            </TableCell>
+                        </li>
+                    );
+                })}
+            </ul>
+        );
+    };
+
+    // const handleSaveStatusClick = () => {
+    //     console.log(allGrabbedOrders.id, theOrderStatus, "the id and status")
+    //     updateOrderStatus(allGrabbedOrders.id, theOrderStatus)
+    // }
     return (
         <div className="admin-order-container">
-            <div className="admin-order-card">
-
-                <span>Order Id:   {allGrabbedOrders.id}</span>
-                <span>Name:   {allGrabbedOrders.name}</span>
-                <span>Order Total:   {allGrabbedOrders.total_price}</span>
-                <span>
-
-                    {editOnMode ? (
-                        <TextField
-                            value={theOrderStatus}
-                            onChange={(event) => {
-                                settheOrderStatus(event.target.value);
-                            }}
-                        />
-                    )
-                        : (
-                            <span>Order Status: {allGrabbedOrders.status}</span>
-                        )
-                    }
-                    <button onClick={handleChangeStatusClick}>Change Order Status</button>
-                    <button onClick={handleSaveStatusClick}>Save</button>
-                </span>
 
 
-                <br />
+            <div id="order-history-container" align="center">
+                <TableRow>
 
+
+                    <div key={allGrabbedOrders.id}>
+                        <TableCell align="center">
+                            Order ID
+                            <div>{allGrabbedOrders.id}</div>
+                        </TableCell>
+                        <TableCell align="center">
+                            Order Total
+                            <div> ${allGrabbedOrders.total_price}</div>
+                        </TableCell>
+                        <TableCell align="center">
+                            Date Ordered
+                            <div>{allGrabbedOrders.date}</div>
+                        </TableCell>
+                        <TableCell align="center">
+                            Order Status
+                            <div>{allGrabbedOrders.status}</div>
+                        </TableCell>
+                        <div>
+                            <TableCell align="left">
+                                Items Ordered:
+                                <div>{getItemContainer(allGrabbedOrders.items)}</div>
+                            </TableCell>
+                        </div>
+                    </div>
+
+
+                </TableRow>
             </div>
         </div>
     );
