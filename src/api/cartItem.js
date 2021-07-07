@@ -61,7 +61,7 @@ export async function addOrderIdToCartItems(id, orderId) {
 
 export async function updateCartItemsQuantityMinus(id) {
   try {
-    const { data } = await axios.patch(`api/cartItems/${id}/quantity-`)
+    const { data } = await axios.patch(`api/cartItems/${id}/quantityMinus`)
     return data
   } catch(error) {
 
@@ -70,7 +70,7 @@ export async function updateCartItemsQuantityMinus(id) {
 
 export async function updateCartItemsQuantityPlus(id) {
   try {
-    const { data } = await axios.patch(`api/cartItems/${id}/quantity+`)
+    const { data } = await axios.patch(`api/cartItems/${id}/quantityPlus`)
     return data
   } catch(error) {
 

@@ -77,7 +77,7 @@ async function buildTables() {
           );
         CREATE TABLE cart_items(
           id SERIAL PRIMARY KEY,
-          quantity INTEGER check (quantity between 0 and 3),
+          quantity INTEGER,
           "ingredientId" INTEGER REFERENCES ingredients(id),
           "orderId" INTEGER REFERENCES orders(id),
           "usersId" INTEGER REFERENCES users(id)

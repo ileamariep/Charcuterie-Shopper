@@ -48,7 +48,7 @@ cartItemsRouter.patch('/:cartId', async (req, res, next) => {
   }
 })
 
-cartItemsRouter.patch('/:id/quantity+', async (req, res, next) => {
+cartItemsRouter.patch('/:id/quantityPlus', async (req, res, next) => {
   const {id} = req.params;
 
   try {
@@ -61,7 +61,7 @@ cartItemsRouter.patch('/:id/quantity+', async (req, res, next) => {
   }
 })
 
-cartItemsRouter.patch('/:id/quantity-', async (req, res, next) => {
+cartItemsRouter.patch('/:id/quantityMinus', async (req, res, next) => {
   const {id} = req.params;
 
   try {

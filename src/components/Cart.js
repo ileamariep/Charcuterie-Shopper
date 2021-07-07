@@ -17,13 +17,14 @@ const Cart = ({ currentUserId }) => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [orderStatus, setOrderStatus] = useState("processing");
   const [orderId, setOrderId] = useState();
-  const [cartItemQuantity, setcartItemQuantity] = useState();
+  const [cartItemQuantity, setCartItemQuantity] = useState(0);
 
   const retrieveCartItems = () => {
     getUsersCurrentCartItems(currentUserId)
       .then((cartItems) => {
         setMyCartItems(cartItems);
-        setcartItemQuantity(cartItems.quantity)
+        setCartItemQuantity(cartItems.quantity)
+        console.log(cartItems)
       })
       .catch((error) => {
         throw error;
@@ -87,7 +88,7 @@ const Cart = ({ currentUserId }) => {
                     </div>
                     <div className="card-name">
                       <b>Quantity:</b>
-                      <p>{cartItemQuantity}</p>
+                      <p>{quantity}</p>
                       <button onClick={() => updateCartItemsQuantityPlus(id)}>Add</button>
                       <button onClick={() => updateCartItemsQuantityMinus(id)}>Subtract</button>
                     </div>
