@@ -6,7 +6,6 @@ import { allIngredients } from "./api/ingredients";
 
 const App = () => {
   const [grabbedIngredients, setIngredients] = useState([]);
-
   const [isAdmin, setIsAdmin] = useState(null);
   const [currentUserId, setCurrentUserId] = useState();
   const [currentUserGuest, setCurrentUserGuest] = useState();
@@ -20,12 +19,10 @@ const App = () => {
   const [orderHistory, setOrderHistory] = useState([]);
   // const [errorMessage, setErrorMessage] = useState();
   const myToken = JSON.parse(localStorage.getItem("token"));
-  const [showDashLinks, setDashLinks] = useState(true)
-
-  const [hideViewButton, setHideViewButton] = useState(true)
+  const [showDashLinks, setDashLinks] = useState(true);
+  const [hideViewButton, setHideViewButton] = useState(true);
   const [showQtyButton, setShowQtyButton] = useState(false);
   const [showCartButton, setCartButton] = useState(false);
-
 
   const retrieveIngredients = async () => {
     allIngredients()
@@ -33,7 +30,7 @@ const App = () => {
         setIngredients(ingredient);
       })
       .catch((error) => {
-        console.log(error)
+        console.log(error);
       });
   };
 
@@ -51,7 +48,7 @@ const App = () => {
         setAccountZip(user.zip);
       })
       .catch((error) => {
-        console.log(error)
+        console.log(error);
       });
   };
 
@@ -115,6 +112,7 @@ const App = () => {
           setShowQtyButton={setShowQtyButton}
           showCartButton={showCartButton}
           setCartButton={setCartButton}
+          resetUser={retrieveUser}
         />
       </main>
     </div>

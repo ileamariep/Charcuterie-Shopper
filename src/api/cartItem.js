@@ -48,6 +48,19 @@ export async function getUsersCurrentCartItems(usersId) {
   }
 }
 
+// export async function getUsersCurrentCartItems(usersId) {
+//   try {
+//     const { data } = await axios.get(`/api/cartItems/${usersId}`);
+//     console.log(
+//       data,
+//       "THIS IS WHAT THE BACKEND IS RETURNING FRO CART ITEMS BY USERS"
+//     );
+//     return data;
+//   } catch (error) {
+//     throw error;
+//   }
+// }
+
 export async function addOrderIdToCartItems(id, orderId) {
   try {
     const { data } = await axios.patch(`api/cartItems/${id}`, {

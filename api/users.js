@@ -12,7 +12,7 @@ const {
 } = require("../db");
 
 const jwt = require("jsonwebtoken");
-const { requireUser, requireAdmin } = require("./utils");
+const { requireUser } = require("./utils");
 const { JWT_SECRET } = process.env;
 const bcrypt = require("bcrypt");
 // const SALT_COUNT = 10;

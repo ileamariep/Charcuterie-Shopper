@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { TableRow, TableCell, TextField } from "@material-ui/core";
 import { Create as CreateIcon, Save as SaveIcon } from "@material-ui/icons";
-import "./MyAccount.css";
 import { myAccountFetch } from "../api/users";
+import "./MyAccount.css";
 
 const myToken = JSON.parse(localStorage.getItem("token"));
 const MyAccount = ({
@@ -20,6 +20,7 @@ const MyAccount = ({
   setAccountZip,
   currentUserId,
   setCurrentUserId,
+  resetUser,
 }) => {
   const [myAccountData, setMyAccountData] = useState("");
   const [editMode, setEditMode] = useState(false);
@@ -30,9 +31,6 @@ const MyAccount = ({
       const fetchData = async () => {
         try {
           let myUsername = await myAccountFetch(myToken);
-          // const userArray = [myUsername].flat();
-          // const account = await myOrdersFetch(myUsername, myToken);
-          console.log(myUsername, "account data after flat");
           setMyAccountData(myUsername);
           console.log(myUsername, "account data after flat again");
         } catch (error) {
@@ -57,7 +55,7 @@ const MyAccount = ({
           Authorization: `Bearer ${myToken}`,
         },
         body: JSON.stringify({
-          name: accountUsername,
+          username: accountUsername,
           email: accountEmail,
           address: accountAddress,
           city: accountCity,
@@ -65,7 +63,9 @@ const MyAccount = ({
           zip: accountZip,
         }),
       });
+
       window.location.reload();
+      resetUser();
     } catch (err) {
       console.log("Error updating user", err);
     }
@@ -77,9 +77,7 @@ const MyAccount = ({
 
       <div key={myAccountData.id}>
         <TableRow key={myAccountData.id}>
-          <TableCell component="th" scope="row">
-            {/* {myAccountData.id} */}
-          </TableCell>
+          <TableCell component="th" scope="row"></TableCell>
           <TableCell align="center">
             Username
             <div>
@@ -98,7 +96,6 @@ const MyAccount = ({
           <TableCell align="center">
             Email
             <div>
-              {/* {myAccountData.email} */}
               {editMode ? (
                 <TextField
                   value={accountEmail}
@@ -115,7 +112,6 @@ const MyAccount = ({
           <TableCell align="center">
             Address
             <div>
-              {/* {accountAddress} */}
               {editMode ? (
                 <TextField
                   value={accountAddress}

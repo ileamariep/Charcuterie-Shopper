@@ -4,9 +4,6 @@ import Button from "react-bootstrap/Button";
 import { SHOP_ROUTE } from "../constants";
 import axios from "axios";
 import "./Login.css";
-// import { getUserById } from "../../db";
-// import bottlesill from "..public/images/bottlesill";
-// import "bootstrap/dist/css/bootstrap.min.css";
 
 const Login = ({ setIsAdmin, isAdmin }) => {
   const [username, setUsername] = useState();
@@ -70,7 +67,7 @@ const Login = ({ setIsAdmin, isAdmin }) => {
                 />
               </Form.Group>
 
-              <Button variant="primary" type="submit">
+              <Button variant="primary" className="login-button" type="submit">
                 Submit
               </Button>
             </Form>
