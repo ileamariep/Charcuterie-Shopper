@@ -16,27 +16,33 @@ const AdminUsers = () => {
   const [accountEmail, setAccountEmail] = useState("");
   const myToken = JSON.parse(localStorage.getItem("token"));
 
-  useEffect(() => {
+  const getMyUserData = async () => {
     const myToken = JSON.parse(localStorage.getItem("token"));
     if (myToken) {
-      const fetchData = async () => {
-        try {
-          let myUsers = await getUsers(myToken);
-          const userArray = [myUsers].flat();
-          // const account = await myOrdersFetch(myUsername, myToken);
-          setUsersAccountData(userArray);
-        } catch (error) {
-          console.error(error);
-        }
-      };
-      fetchData();
-    }
+      try {
+        let myUsers = await getUsers(myToken);
+        const userArray = [myUsers].flat();
+        // const account = await myOrdersFetch(myUsername, myToken);
+        setUsersAccountData(userArray);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+  }
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      await getMyUserData();
+    };
+    fetchUsers();
   }, []);
 
   const onDelete = async (id) => {
     try {
       await deleteUser(id, myToken);
-      window.location.href = `${ADMIN_USERS_ROUTE}`;
+      // window.location.href = `${ADMIN_USERS_ROUTE}`;
+      getMyUserData()
     } catch (error) {
       console.log("Error deleting user", error);
     }
@@ -45,7 +51,8 @@ const AdminUsers = () => {
   const onPromote = async (id) => {
     try {
       await promoteUserToAdmin(id, true, myToken);
-      window.location.href = `${ADMIN_USERS_ROUTE}`;
+      getMyUserData()
+      // window.location.href = `${ADMIN_USERS_ROUTE}`;
     } catch (error) {
       console.log("Error deleting user", error);
     }
