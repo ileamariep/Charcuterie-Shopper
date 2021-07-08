@@ -9,15 +9,6 @@
   width: 100vw;
   height: 100vh;
 }
-:root {
-  --headerBackground: ;
-  --pageBackground: #f9e4c0;
-  --topRowBackground: black;
-  --tagBubbles: #0f0f11;
-  --clickCount: #c3073f;
-  --headerBackground: black;
-  --createLinkBackground: #950740;
-}
 
 header {
   grid-area: header;
@@ -30,7 +21,6 @@ header {
   padding-left: 25px;
   padding-top: 10px;
   padding-bottom: 10px;
-  background-color: #740000;
 }
 
 main {

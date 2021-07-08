@@ -1,0 +1,19 @@
+.header-container {
+  display: grid;
+  grid-template: auto auto;
+}
+
+.header-img-container {
+  display: flex;
+  grid-row: 1/2;
+  padding-top: 100px;
+  padding-bottom: 100px;
+  background-color: #faebd5;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.navigation-container {
+  grid-row: 2/3;
+}

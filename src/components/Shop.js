@@ -6,7 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./Shop.css";
 import { getSingleIngredient } from "../api";
 import { addCartItem } from "../api/cartItem";
-import { selectCategory } from "../api/ingredients";
+import { selectCategory, updateCount } from "../api/ingredients";
 
 const Shop = ({
   grabbedIngredients,
@@ -20,7 +20,7 @@ const Shop = ({
   showCartButton,
   setCartButton,
 }) => {
-  const [selection, setSelection] = useState(0);
+  const [selection, setSelection] = useState(1);
 
   const [category, setCategory] = useState("");
 
@@ -51,6 +51,7 @@ const Shop = ({
 
     try {
       await addCartItem(qtyStringToNum, ingredientId, currentUserId);
+      await updateCount(ingredientId, qtySelect)
     } catch (error) {
       throw error;
     }
@@ -131,7 +132,7 @@ const Shop = ({
                 </div>
                 <p className="product-description">{description}</p>
 
-                <div className="product-price">{price}</div>
+                <div className="product-price">${price}</div>
                 {stockQty > 0 ? (
                   <div className="product-stock">In Stock</div>
                 ) : (
@@ -159,7 +160,7 @@ const Shop = ({
                           className="product-add-item"
                           onClick={() => setSelection(selection + 1)}
                         />
-                        {selection < 1 ? null : (
+                        {selection < 2 ? null : (
                           <RemoveCircleOutlineIcon
                             fontSize="medium"
                             className="product-remove-item"

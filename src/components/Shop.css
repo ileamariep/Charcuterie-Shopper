@@ -133,7 +133,7 @@
 
 select {
   color: white;
-  background-color: dodgerblue;
+  background-color: #8b0400;
   border: none;
 }
 
@@ -142,7 +142,7 @@ option {
 }
 
 .category-container {
-  background-color: dodgerblue;
+  background-color: #8b0400;
   padding-top: 20px;
   padding-bottom: 20px;
   font-size: 25px;
@@ -152,7 +152,7 @@ option {
 }
 
 .category-submit {
-  background-color: dodgerblue;
+  background-color: #8b0400;
   color: white;
   text-decoration: none;
   border: none;
