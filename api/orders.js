@@ -6,7 +6,7 @@ const {
   getOrderByUser,
   getCartItemsByOrderId,
   updateOrderStatus,
-  ordersByStatus
+  ordersByStatus,
 } = require("../db");
 const { requireUser } = require("./utils");
 const ordersRouter = express.Router();
@@ -35,7 +35,6 @@ ordersRouter.get("/", async (req, res, next) => {
               decription: cartItem.description,
               quantity: cartItem.quantity,
               price: cartItem.price,
-
             };
             orderItem.items.push(newCartItem);
           });
@@ -84,7 +83,7 @@ ordersRouter.get("/:usersId", async (req, res, next) => {
   }
 });
 
-ordersRouter.post("/", requireUser, async (req, res, next) => {
+ordersRouter.post("/", async (req, res, next) => {
   const { total_price, status } = req.body;
   try {
     const createdOrder = await createOrder({
@@ -98,13 +97,13 @@ ordersRouter.post("/", requireUser, async (req, res, next) => {
 });
 
 ordersRouter.patch("/", async (req, res, next) => {
-  const { id } = req.params
-  const { status } = req.body
+  const { id } = req.params;
+  const { status } = req.body;
   try {
-    const orderStatusUpdate = await updateOrderStatus(id, status)
-    res.send(orderStatusUpdate)
+    const orderStatusUpdate = await updateOrderStatus(id, status);
+    res.send(orderStatusUpdate);
   } catch (error) {
-    next(error)
+    next(error);
   }
 });
 
@@ -118,14 +117,12 @@ ordersRouter.delete("/:orderId", async (req, res, next) => {
   }
 });
 
-
 ordersRouter.get("/:status", async (req, res, next) => {
   // read the status from the params
 
-  const { status } = req.params
+  const { status } = req.params;
 
   try {
-
     const orderHistory = [];
     const orders = await ordersByStatus(status);
     orders.forEach((order) => {
@@ -148,7 +145,6 @@ ordersRouter.get("/:status", async (req, res, next) => {
               decription: cartItem.description,
               quantity: cartItem.quantity,
               price: cartItem.price,
-
             };
             orderItem.items.push(newCartItem);
           });
@@ -156,11 +152,9 @@ ordersRouter.get("/:status", async (req, res, next) => {
       })
     );
     res.send(orderHistory);
-
   } catch (error) {
     next(error);
   }
 });
-
 
 module.exports = ordersRouter;
