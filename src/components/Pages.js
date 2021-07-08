@@ -88,22 +88,28 @@ const Pages = (props) => {
           />
         </Route>
         <Route path={MYACCOUNT_ROUTE}>
-          <MyAccount
-            accountUsername={accountUsername}
-            setAccountUsername={setAccountUsername}
-            accountEmail={accountEmail}
-            setAccountEmail={setAccountEmail}
-            accountAddress={accountAddress}
-            setAccountAddress={setAccountAddress}
-            accountCity={accountCity}
-            setAccountCity={setAccountCity}
-            accountState={accountState}
-            setAccountState={setAccountState}
-            accountZip={accountZip}
-            setAccountZip={setAccountZip}
-            currentUserId={currentUserId}
-            setCurrentUserId={setCurrentUserId}
-          />
+          {currentUserGuest ? (
+            <Redirect to={SHOP_ROUTE} />
+          ) : (
+            <MyAccount
+              accountUsername={accountUsername}
+              setAccountUsername={setAccountUsername}
+              accountEmail={accountEmail}
+              setAccountEmail={setAccountEmail}
+              accountAddress={accountAddress}
+              setAccountAddress={setAccountAddress}
+              accountCity={accountCity}
+              setAccountCity={setAccountCity}
+              accountState={accountState}
+              setAccountState={setAccountState}
+              accountZip={accountZip}
+              setAccountZip={setAccountZip}
+              currentUserId={currentUserId}
+              setCurrentUserId={setCurrentUserId}
+              currentUserGuest={currentUserGuest}
+              setCurrentUserGuest={setCurrentUserGuest}
+            />
+          )}
           <UserOrders
             currentUserId={currentUserId}
             setCurrentUserId={setCurrentUserId}
