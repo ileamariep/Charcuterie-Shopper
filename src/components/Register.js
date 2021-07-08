@@ -6,7 +6,7 @@ import axios from "axios";
 // import "bootstrap/dist/css/bootstrap.min.css";
 import "./Register.css";
 
-const Register = () => {
+const Register = ({ setErrorMessage }) => {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [email, setEmail] = useState();
@@ -14,8 +14,6 @@ const Register = () => {
   const [city, setCity] = useState();
   const [state, setState] = useState();
   const [zip, setZip] = useState();
-
-  const [errorMessage, setErrorMessage] = useState();
 
   const registerUser = async () => {
     return await axios
@@ -33,14 +31,11 @@ const Register = () => {
           localStorage.setItem("token", JSON.stringify(token));
           window.location.href = `${SHOP_ROUTE}`;
         } else {
-          let errM = setErrorMessage("Invalid Username or Password");
-          errorMessage(errM);
+          setErrorMessage("Invalid Username or Password");
         }
       })
       .catch(() => {
-        let lastErr = setErrorMessage("Invalid Username or Password");
-
-        errorMessage(lastErr);
+        setErrorMessage("Invalid Username or Password");
       });
   };
 

@@ -1,36 +1,36 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
-import ControlPointIcon from '@material-ui/icons/ControlPoint';
-import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
+import ControlPointIcon from "@material-ui/icons/ControlPoint";
+import RemoveCircleOutlineIcon from "@material-ui/icons/RemoveCircleOutline";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Shop.css";
 import { getSingleIngredient } from "../api";
 import { addCartItem } from "../api/cartItem";
 import { selectCategory } from "../api/ingredients";
 
-
 const Shop = ({
   grabbedIngredients,
   setIngredients,
   reset,
-  currentUserId, hideViewButton, setHideViewButton,
-  showQtyButton, setShowQtyButton,
-  showCartButton, setCartButton
+  currentUserId,
+  hideViewButton,
+  setHideViewButton,
+  showQtyButton,
+  setShowQtyButton,
+  showCartButton,
+  setCartButton,
 }) => {
-
   const [selection, setSelection] = useState(0);
 
-
-  const [category, setCategory] = useState('');
-
+  const [category, setCategory] = useState("");
 
   const handleViewClick = async (id) => {
     try {
       let ingredientResult = await getSingleIngredient(id);
       const ingredientArray = [ingredientResult].flat();
       setIngredients(ingredientArray);
-      setHideViewButton(false)
-      setShowQtyButton(true)
+      setHideViewButton(false);
+      setShowQtyButton(true);
     } catch (error) {
       console.error(error);
     }
@@ -38,16 +38,16 @@ const Shop = ({
   const handleKeepShopping = () => {
     setCartButton(false);
     setSelection(0);
-    reset()
+    reset();
     window.location.reload();
   };
 
   const handleAddToCart = async (qtySelect, ingredientId, currentUserId) => {
     const numOutOfArray = qtySelect.toString();
     const qtyStringToNum = Number(numOutOfArray);
-    setHideViewButton(false)
-    setShowQtyButton(false)
-    setCartButton(false)
+    setHideViewButton(false);
+    setShowQtyButton(false);
+    setCartButton(false);
 
     try {
       await addCartItem(qtyStringToNum, ingredientId, currentUserId);
@@ -57,15 +57,14 @@ const Shop = ({
   };
 
   const handleCatSubmit = async (event) => {
-    event.preventDefault()
+    event.preventDefault();
     try {
-      if (category === 'All' || category === "header") {
-        reset()
+      if (category === "All" || category === "header") {
+        reset();
       } else {
         const categoryResults = await selectCategory(category);
-        setIngredients(categoryResults)
+        setIngredients(categoryResults);
       }
-
     } catch (error) {
       console.error(error);
     }
@@ -73,33 +72,47 @@ const Shop = ({
 
   const handleChange = async (event) => {
     setCategory(event.target.value);
-
   };
 
   return (
     <>
       {hideViewButton ? (
-        <div className='category-container'>
+        <div className="category-container">
           <form onSubmit={handleCatSubmit}>
-
             <select value={category} onChange={handleChange}>
-              <option value="header" defaultValue>Select Category</option>
+              <option value="header" defaultValue>
+                Select Category
+              </option>
               <option value="All">All</option>
               <option value="pets">Pets</option>
               <option value="general">General</option>
               <option value="beauty">Weightloss</option>
             </select>
 
-            <input type="submit" value="Submit" className='category-submit' style={{ textAlign: "center" }} />
+            <input
+              type="submit"
+              value="Submit"
+              className="category-submit"
+              style={{ textAlign: "center" }}
+            />
           </form>
         </div>
-      ) : (null)}
+      ) : null}
 
-      <div id="product-container" >
+      <div id="product-container">
         {grabbedIngredients.map(
-          ({ id, name, description, price, category, stockQty, img, imgAlt }) => (
+          ({
+            id,
+            name,
+            description,
+            price,
+            category,
+            stockQty,
+            img,
+            imgAlt,
+          }) => (
             <div key={id} className="product-card">
-              <div className="image-container" >
+              <div className="image-container">
                 {img ? (
                   <img src={img} alt={imgAlt} height="200" width="100" />
                 ) : (
@@ -119,87 +132,86 @@ const Shop = ({
                 <p className="product-description">{description}</p>
 
                 <div className="product-price">{price}</div>
-                {stockQty > 0 ? (<div className="product-stock">In Stock</div>) : (<div className="product-stock">Out of Stock</div>)}
-
+                {stockQty > 0 ? (
+                  <div className="product-stock">In Stock</div>
+                ) : (
+                  <div className="product-stock">Out of Stock</div>
+                )}
 
                 <div className="product-buttons">
-                  {hideViewButton ? <>
-                    <Button
-                      type="submit"
-                      className="view-button"
-                      onClick={() => handleViewClick(id)}
-                    >
-                      View
-                    </Button>
-                  </>
-                    : showQtyButton ?
-                      <>
-
-                        <div className="product-quantity-container">
-                          <div className="quantity-head">Quantity</div>
-                          <div className='product-quantity'>
-                            {selection}
-                          </div>
-                          <ControlPointIcon
+                  {hideViewButton ? (
+                    <>
+                      <Button
+                        type="submit"
+                        className="view-button"
+                        onClick={() => handleViewClick(id)}
+                      >
+                        View
+                      </Button>
+                    </>
+                  ) : showQtyButton ? (
+                    <>
+                      <div className="product-quantity-container">
+                        <div className="quantity-head">Quantity</div>
+                        <div className="product-quantity">{selection}</div>
+                        <ControlPointIcon
+                          fontSize="medium"
+                          className="product-add-item"
+                          onClick={() => setSelection(selection + 1)}
+                        />
+                        {selection < 1 ? null : (
+                          <RemoveCircleOutlineIcon
                             fontSize="medium"
-                            className='product-add-item'
-
-                            onClick={() => setSelection(selection + 1)}
-
+                            className="product-remove-item"
+                            onClick={() => setSelection(selection - 1)}
                           />
-                          {selection < 1 ? (null) : (
-                            <RemoveCircleOutlineIcon
-                              fontSize="medium"
-                              className='product-remove-item'
-                              onClick={() => setSelection(selection - 1)}
-                            />
+                        )}
+                      </div>
+                      <Button
+                        type="submit"
+                        className="addcart"
+                        onClick={() =>
+                          handleAddToCart(selection, id, currentUserId)
+                        }
+                      >
+                        Add to Cart
+                      </Button>
+                      <Button
+                        type="button"
+                        className="keep-shopping"
+                        onClick={() => handleKeepShopping()}
+                      >
+                        Keep Shopping
+                      </Button>
+                    </>
+                  ) : showCartButton ? (
+                    <>
+                      <div className="product-qty-selected">
+                        {selection} selected
+                      </div>
 
-                          )}
-                        </div>
-                        <Button
-                          type="submit"
-                          className="addcart"
-                          onClick={() =>
-                            handleAddToCart(selection, id, currentUserId)
-                          }
-                        >
-                          Add to Cart
-                        </Button>
-                        <Button
-                          type="button"
-                          className="keep-shopping"
-                          onClick={() => handleKeepShopping()}
-                        >
-                          Keep Shopping
-                        </Button>
-
-                      </>
-                      : showCartButton ?
-                        <>
-                          <div className="product-qty-selected">{selection} selected</div>
-
-
-                          <Button
-                            type="button"
-                            className="keep-shopping"
-                            onClick={() => handleKeepShopping()}
-                          >
-                            Keep Shopping
-                          </Button>
-                        </>
-                        :
-                        <>
-                          <div className="items-added-cart">{selection} ITEM(S) ADDED TO YOUR CART</div>
-                          <Button
-                            type="button"
-                            className="keep-shopping"
-                            onClick={() => handleKeepShopping()}
-                          >
-                            Keep Shopping
-                          </Button>
-
-                        </>
-                  }
+                      <Button
+                        type="button"
+                        className="keep-shopping"
+                        onClick={() => handleKeepShopping()}
+                      >
+                        Keep Shopping
+                      </Button>
+                    </>
+                  ) : (
+                    <>
+                      <div className="items-added-cart">
+                        {selection} ITEM(S) ADDED TO YOUR CART
+                      </div>
+                      <Button
+                        type="button"
+                        className="keep-shopping"
+                        onClick={() => handleKeepShopping()}
+                      >
+                        Keep Shopping
+                      </Button>
+                    </>
+                  )}
                 </div>
               </div>
             </div>

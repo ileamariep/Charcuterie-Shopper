@@ -7,29 +7,30 @@ import {
   deleteCartItem,
   getUsersCurrentCartItems,
   updateCartItemsQuantityMinus,
-  updateCartItemsQuantityPlus
+  updateCartItemsQuantityPlus,
 } from "../api/cartItem";
-import ControlPointIcon from '@material-ui/icons/ControlPoint';
-import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
-
-
+import ControlPointIcon from "@material-ui/icons/ControlPoint";
+import RemoveCircleOutlineIcon from "@material-ui/icons/RemoveCircleOutline";
 import { addOrder } from "../api/orders";
 
-
-
-const Cart = ({ currentUserId }) => {
+const Cart = ({ currentUserId, currentUserGuest }) => {
   const [myCartItems, setMyCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(100);
   const [orderStatus, setOrderStatus] = useState("Processing");
   const [orderId, setOrderId] = useState();
   const [cartItemQuantity, setCartItemQuantity] = useState(0);
 
+  const cartLineTotal = myCartItems.reduce(
+    (total, { price = 0, quantity = 0 }) => (total += quantity * price),
+    0
+  );
+
   const retrieveCartItems = async () => {
     await getUsersCurrentCartItems(currentUserId)
       .then((cartItems) => {
         setMyCartItems(cartItems);
-        setCartItemQuantity(cartItems.quantity)
-        console.log(cartItems)
+        setCartItemQuantity(cartItems.quantity);
+        console.log(cartItems);
       })
       .catch((error) => {
         throw error;
@@ -37,7 +38,7 @@ const Cart = ({ currentUserId }) => {
   };
 
   const retrieveOrderId = async () => {
-    addOrder(totalPrice, orderStatus)
+    addOrder(cartLineTotal, orderStatus)
       .then(({ id }) => {
         setOrderId(id);
       })
@@ -62,112 +63,81 @@ const Cart = ({ currentUserId }) => {
     );
   };
 
-
   const deleteSelectedCartItem = async (id) => {
-    console.log(id, "this is cartItems id")
-    await deleteCartItem(id)
-    retrieveCartItems()
-  }
+    console.log(id, "this is cartItems id");
+    await deleteCartItem(id);
+    retrieveCartItems();
+  };
 
   return (
-
-
     <div className="cart-container">
-      <div className="cart-header">
-        Shopping Cart
-      </div>
+      <div className="cart-header">Shopping Cart</div>
 
       <div className="cart-card-container">
-
         <div className="cart-headers">
-
           <b>Name</b>
           <b>Description</b>
           <b>Price</b>
           <b>Quantity</b>
-          <b>Total</b>
           <b>Delete</b>
         </div>
 
         {myCartItems.map(({ id, name, description, price, quantity }) => (
-
           <div key={id} className="cart-cards">
-
-
             <div className="cart-item-name">
-
               <p>{name}</p>
             </div>
             <div className="cart-description">
-
               <p>{description}</p>
             </div>
             <div className="cart-price">
-
               <p>{price}</p>
             </div>
 
             <div className="cart-quantity-container">
-              <div className='cart-quantity'>
-
+              <div className="cart-quantity">
                 <p>{quantity}</p>
               </div>
               <ControlPointIcon
                 fontSize="small"
-                className='cart-add-item'
+                className="cart-add-item"
                 onClick={() => {
-                  updateCartItemsQuantityPlus(id)
-                  retrieveCartItems()
+                  updateCartItemsQuantityPlus(id);
+                  retrieveCartItems();
                 }}
               />
               <RemoveCircleOutlineIcon
                 fontSize="small"
-                className='cart-remove-item'
+                className="cart-remove-item"
                 onClick={() => {
-                  updateCartItemsQuantityMinus(id)
+                  updateCartItemsQuantityMinus(id);
                   retrieveCartItems();
                 }}
               />
             </div>
-            <div className="item-price-total">
-
-              <p>{price}</p>
-            </div>
 
             <div className="cart-delete-container">
-
               <DeleteIcon
-
                 fontSize="small"
                 onClick={() => {
                   deleteSelectedCartItem(id);
                 }}
               />
             </div>
-
-
           </div>
-
         ))}
-
       </div>
 
       <div className="checkout-section">
+        <div className="order-total">
+          <h2>Order Total: ${cartLineTotal}</h2>
+        </div>
 
-
-        <div className="order-total"><h2>Order total goes here</h2></div>
-
-
-        <Button
-          className="checkout"
-          onClick={async () => await createOrder()}
-        >
+        <Button className="checkout" onClick={async () => await createOrder()}>
           Checkout
         </Button>
       </div>
     </div>
-
-
   );
 };
 

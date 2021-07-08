@@ -3,8 +3,8 @@ import { TableRow, TableCell } from "@material-ui/core";
 import { getUsersOrderHistory } from "../api/orders";
 import "./UserOrders.css";
 
-const UserOrders = ({ currentUserId }) => {
-  const [orderHistory, setOrderHistory] = useState([]);
+const UserOrders = ({ currentUserId, setOrderHistory, orderHistory }) => {
+  // const [orderHistory, setOrderHistory] = useState([]);
 
   useEffect(() => {
     const myToken = JSON.parse(localStorage.getItem("token"));

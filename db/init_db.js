@@ -57,7 +57,7 @@ async function buildTables() {
           id SERIAL PRIMARY KEY,
           name varchar(50) UNIQUE,
           description VARCHAR(255),
-          price MONEY,
+          price INTEGER,
           category text,
           "stockQty" INTEGER DEFAULT 0,
           img TEXT,
@@ -66,7 +66,7 @@ async function buildTables() {
         CREATE TABLE orders(
             id SERIAL PRIMARY KEY,
             date_ordered varchar(14) default to_char(CURRENT_DATE, 'yyyy / mm / dd'),
-            total_price INTEGER DEFAULT 0,
+            total_price INTEGER,
             status text
           );
         CREATE TABLE cart_items(
@@ -383,7 +383,7 @@ async function testDB() {
 
     console.log("Calling getAllorders");
     const theOrders = await getAllOrders();
-    console.log(theOrders,);
+    console.log(theOrders);
 
     console.log("Finished database tests!");
   } catch (error) {

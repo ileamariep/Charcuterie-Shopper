@@ -20,7 +20,7 @@ import Register from "./Register";
 import Shop from "./Shop";
 import Login from "./Login";
 import Home from "./Home";
-import UserOrders from "./UserOrders";
+// import UserOrders from "./UserOrders";
 import ThankYou from "./ThankYou";
 import SingleProductView from "./SingleProductView";
 import AdminUsers from "./AdminUsers";
@@ -62,13 +62,18 @@ const Pages = (props) => {
     setShowQtyButton,
     showCartButton,
     setCartButton,
+    setErrorMessage,
+    errorMessage,
   } = props;
 
   return (
     <div className="pages-container">
       <Switch>
         <Route exact path={HOME_ROUTE}>
-          <Home />
+          <Home
+            setCurrentUserId={setCurrentUserId}
+            setCurrentUserGuest={setCurrentUserGuest}
+          />
         </Route>
         <Route path={SHOP_ROUTE}>
           <Shop
@@ -108,14 +113,16 @@ const Pages = (props) => {
               setCurrentUserId={setCurrentUserId}
               currentUserGuest={currentUserGuest}
               setCurrentUserGuest={setCurrentUserGuest}
+              orderHistory={orderHistory}
+              setOrderHistory={setOrderHistory}
             />
           )}
-          <UserOrders
+          {/* <UserOrders
             currentUserId={currentUserId}
             setCurrentUserId={setCurrentUserId}
             orderHistory={orderHistory}
             setOrderHistory={setOrderHistory}
-          />
+          /> */}
         </Route>
         <Route path={ADMIN_ROUTE}>
           {isAdmin ? (
@@ -138,7 +145,11 @@ const Pages = (props) => {
           <Login currentUser={currentUser} setCurrentUser={setCurrentUser} />
         </Route>
         <Route path={REGISTER_ROUTE}>
-          <Register currentUser={currentUser} setCurrentUser={setCurrentUser} />
+          <Register
+            currentUser={currentUser}
+            setCurrentUser={setCurrentUser}
+            setErrorMessage={setErrorMessage}
+          />
         </Route>
         <Route path={CART_ROUTE}>
           <Cart currentUserId={currentUserId} />
