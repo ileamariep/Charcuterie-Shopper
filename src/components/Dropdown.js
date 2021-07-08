@@ -58,7 +58,7 @@ function Dropdown({ qty, items, selection, setSelection, multiSelect = false, se
                     <p className="dd-header__title--bold">{qty}</p>
                 </div>
                 <div className="dd-header__action">
-                    <Button className='select-qty'>{open ? null : `SELECT QTY`}</Button>
+
                 </div>
             </div>
             {open && (

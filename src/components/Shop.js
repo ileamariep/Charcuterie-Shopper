@@ -1,27 +1,13 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
+import ControlPointIcon from '@material-ui/icons/ControlPoint';
+import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Shop.css";
 import { getSingleIngredient } from "../api";
 import { addCartItem } from "../api/cartItem";
 import { selectCategory } from "../api/ingredients";
-import Dropdown from "./Dropdown";
 
-
-const items = [
-  {
-    id: 4,
-    qty: 1,
-  },
-  {
-    id: 5,
-    qty: 2,
-  },
-  {
-    id: 6,
-    qty: 3,
-  },
-];
 
 const Shop = ({
   grabbedIngredients,
@@ -32,7 +18,7 @@ const Shop = ({
   showCartButton, setCartButton
 }) => {
 
-  const [selection, setSelection] = useState([]);
+  const [selection, setSelection] = useState(0);
 
 
   const [category, setCategory] = useState('');
@@ -51,7 +37,7 @@ const Shop = ({
   };
   const handleKeepShopping = () => {
     setCartButton(false);
-    setSelection([]);
+    setSelection(0);
     reset()
     window.location.reload();
   };
@@ -85,8 +71,9 @@ const Shop = ({
     }
   };
 
-  const handleChange = event => {
+  const handleChange = async (event) => {
     setCategory(event.target.value);
+
   };
 
   return (
@@ -139,7 +126,7 @@ const Shop = ({
                   {hideViewButton ? <>
                     <Button
                       type="submit"
-                      className="view"
+                      className="view-button"
                       onClick={() => handleViewClick(id)}
                     >
                       View
@@ -148,16 +135,36 @@ const Shop = ({
                     : showQtyButton ?
                       <>
 
-                        <Dropdown
-                          title="Select movie"
-                          selection={selection}
-                          setSelection={setSelection}
-                          setShowQtyButton={setShowQtyButton}
-                          setCartButton={setCartButton}
-                          items={items}
-                          multiSelect
-                        />
+                        <div className="product-quantity-container">
+                          <div className="quantity-head">Quantity</div>
+                          <div className='product-quantity'>
+                            {selection}
+                          </div>
+                          <ControlPointIcon
+                            fontSize="medium"
+                            className='product-add-item'
 
+                            onClick={() => setSelection(selection + 1)}
+
+                          />
+                          {selection < 1 ? (null) : (
+                            <RemoveCircleOutlineIcon
+                              fontSize="medium"
+                              className='product-remove-item'
+                              onClick={() => setSelection(selection - 1)}
+                            />
+
+                          )}
+                        </div>
+                        <Button
+                          type="submit"
+                          className="addcart"
+                          onClick={() =>
+                            handleAddToCart(selection, id, currentUserId)
+                          }
+                        >
+                          Add to Cart
+                        </Button>
                         <Button
                           type="button"
                           className="keep-shopping"
@@ -170,15 +177,7 @@ const Shop = ({
                       : showCartButton ?
                         <>
                           <div className="product-qty-selected">{selection} selected</div>
-                          <Button
-                            type="submit"
-                            className="addcart"
-                            onClick={() =>
-                              handleAddToCart(selection, id, currentUserId)
-                            }
-                          >
-                            Add to Cart
-                          </Button>
+
 
                           <Button
                             type="button"

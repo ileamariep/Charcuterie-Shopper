@@ -74,42 +74,42 @@ const Cart = ({ currentUserId }) => {
 
     <div className="cart-container">
       <div className="cart-header">
-        <h1>Shopping Cart</h1>
-      </div>
-      <div className='update-button-container'>
-        <Button
-          type="button"
-          className="update-cart-button"
-          onClick={() => retrieveCartItems()}
-        >
-
-          Update Cart
-        </Button>
+        Shopping Cart
       </div>
 
       <div className="cart-card-container">
 
+        <div className="cart-headers">
+
+          <b>Name</b>
+          <b>Description</b>
+          <b>Price</b>
+          <b>Quantity</b>
+          <b>Total</b>
+          <b>Delete</b>
+        </div>
 
         {myCartItems.map(({ id, name, description, price, quantity }) => (
 
           <div key={id} className="cart-cards">
 
+
             <div className="cart-item-name">
-              <b>Name:</b>
+
               <p>{name}</p>
             </div>
             <div className="cart-description">
-              <b>Description:</b>
+
               <p>{description}</p>
             </div>
             <div className="cart-price">
-              <b>Price:</b>
+
               <p>{price}</p>
             </div>
 
             <div className="cart-quantity-container">
               <div className='cart-quantity'>
-                <b>Quantity:</b>
+
                 <p>{quantity}</p>
               </div>
               <ControlPointIcon
@@ -130,7 +130,7 @@ const Cart = ({ currentUserId }) => {
               />
             </div>
             <div className="item-price-total">
-              <b>Total:</b>
+
               <p>{price}</p>
             </div>
 
@@ -145,6 +145,7 @@ const Cart = ({ currentUserId }) => {
               />
             </div>
 
+
           </div>
 
         ))}
@@ -152,12 +153,11 @@ const Cart = ({ currentUserId }) => {
       </div>
 
       <div className="checkout-section">
-        <h1>
-          <h1>This will be the checkout side</h1>
-          <div className="order total"><h2>Quantity total goes here</h2></div>
-          <div className="order total"><h2>Order total goes here</h2></div>
 
-        </h1>
+
+        <div className="order-total"><h2>Order total goes here</h2></div>
+
+
         <Button
           className="checkout"
           onClick={async () => await createOrder()}
