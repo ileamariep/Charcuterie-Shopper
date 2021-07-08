@@ -39,7 +39,7 @@ const App = () => {
       .then((user) => {
         setIsAdmin(user.isAdmin);
         setCurrentUserId(user.id);
-        currentUserGuest(user.isGuest);
+        setCurrentUserGuest(!user.isAdmin && !user.isUser);
         setAccountUsername(user.username);
         setAccountEmail(user.email);
         setAccountAddress(user.address);

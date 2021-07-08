@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import "./pages.css";
 import {
   SHOP_ROUTE,
@@ -88,22 +88,28 @@ const Pages = (props) => {
           />
         </Route>
         <Route path={MYACCOUNT_ROUTE}>
-          <MyAccount
-            accountUsername={accountUsername}
-            setAccountUsername={setAccountUsername}
-            accountEmail={accountEmail}
-            setAccountEmail={setAccountEmail}
-            accountAddress={accountAddress}
-            setAccountAddress={setAccountAddress}
-            accountCity={accountCity}
-            setAccountCity={setAccountCity}
-            accountState={accountState}
-            setAccountState={setAccountState}
-            accountZip={accountZip}
-            setAccountZip={setAccountZip}
-            currentUserId={currentUserId}
-            setCurrentUserId={setCurrentUserId}
-          />
+          {currentUserGuest ? (
+            <Redirect to={SHOP_ROUTE} />
+          ) : (
+            <MyAccount
+              accountUsername={accountUsername}
+              setAccountUsername={setAccountUsername}
+              accountEmail={accountEmail}
+              setAccountEmail={setAccountEmail}
+              accountAddress={accountAddress}
+              setAccountAddress={setAccountAddress}
+              accountCity={accountCity}
+              setAccountCity={setAccountCity}
+              accountState={accountState}
+              setAccountState={setAccountState}
+              accountZip={accountZip}
+              setAccountZip={setAccountZip}
+              currentUserId={currentUserId}
+              setCurrentUserId={setCurrentUserId}
+              currentUserGuest={currentUserGuest}
+              setCurrentUserGuest={setCurrentUserGuest}
+            />
+          )}
           <UserOrders
             currentUserId={currentUserId}
             setCurrentUserId={setCurrentUserId}
@@ -112,17 +118,21 @@ const Pages = (props) => {
           />
         </Route>
         <Route path={ADMIN_ROUTE}>
-          <Admin
-            isAdmin={isAdmin}
-            setIsAdmin={setIsAdmin}
-            grabbedIngredients={grabbedIngredients}
-            setIngredients={setIngredients}
-            reset={reset}
-            showDashLinks={showDashLinks}
-            setDashLinks={setDashLinks}
-            currentUserId={currentUserId}
-            setCurrentUserId={setCurrentUserId}
-          />
+          {isAdmin ? (
+            <Admin
+              isAdmin={isAdmin}
+              setIsAdmin={setIsAdmin}
+              grabbedIngredients={grabbedIngredients}
+              setIngredients={setIngredients}
+              reset={reset}
+              showDashLinks={showDashLinks}
+              setDashLinks={setDashLinks}
+              currentUserId={currentUserId}
+              setCurrentUserId={setCurrentUserId}
+            />
+          ) : (
+            <Redirect to={SHOP_ROUTE} />
+          )}
         </Route>
         <Route path={LOGIN_ROUTE}>
           <Login currentUser={currentUser} setCurrentUser={setCurrentUser} />
@@ -133,12 +143,13 @@ const Pages = (props) => {
         <Route path={CART_ROUTE}>
           <Cart currentUserId={currentUserId} />
         </Route>
-        <Route path={ADMIN_USERS_ROUTE}>
+        <Route exact path={ADMIN_USERS_ROUTE}>
           <AdminUsers
             currentUserId={currentUserId}
             setCurrentUserId={setCurrentUserId}
           />
         </Route>
+
         <Route path={THANKYOU_ROUTE}>
           <ThankYou />
         </Route>

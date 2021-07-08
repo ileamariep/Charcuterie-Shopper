@@ -39,12 +39,14 @@ const Register = () => {
       })
       .catch(() => {
         let lastErr = setErrorMessage("Invalid Username or Password");
+
         errorMessage(lastErr);
       });
   };
 
   const onFormSubmit = (event) => {
     event.preventDefault();
+
     registerUser();
   };
 
@@ -84,7 +86,7 @@ const Register = () => {
                 <Form.Label>Password</Form.Label>
                 <Form.Control
                   type="password"
-                  placeholder="Password"
+                  placeholder="Must be at least 8 characters"
                   required
                   onInput={(event) => {
                     setPassword(event.target.value);
