@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { TableRow, TableCell, TextField } from "@material-ui/core";
 import { Create as CreateIcon, Save as SaveIcon } from "@material-ui/icons";
 import { myAccountFetch } from "../api/users";
+import UserOrders from "./UserOrders";
 import "./MyAccount.css";
 
 const myToken = JSON.parse(localStorage.getItem("token"));
@@ -21,6 +22,8 @@ const MyAccount = ({
   currentUserId,
   setCurrentUserId,
   resetUser,
+  orderHistory,
+  setOrderHistory,
 }) => {
   const [myAccountData, setMyAccountData] = useState("");
   const [editMode, setEditMode] = useState(false);
@@ -191,7 +194,15 @@ const MyAccount = ({
           </TableCell>
         </TableRow>
       </div>
+
+      <UserOrders
+        currentUserId={currentUserId}
+        setCurrentUserId={setCurrentUserId}
+        orderHistory={orderHistory}
+        setOrderHistory={setOrderHistory}
+      />
     </div>
   );
 };
+
 export default MyAccount;

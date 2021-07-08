@@ -4,19 +4,21 @@ import { Link } from "react-router-dom";
 import { LOGIN_ROUTE, REGISTER_ROUTE } from "../constants";
 import Button from "react-bootstrap/Button";
 import { getGuestUser } from "../api/users";
-import {
-  SHOP_ROUTE,
-} from "../constants";
+import { SHOP_ROUTE } from "../constants";
+import { useHistory } from "react-router-dom";
 
-const Home = () => {
+const Home = ({ setCurrentUserId, setCurrentUserGuest }) => {
   const [guestZip, setGuestZip] = useState("");
+  const history = useHistory();
 
-  const handleGuestSubmit = () => {
+  const handleGuestSubmit = async () => {
     const zipTostring = guestZip.toString();
-    getGuestUser(zipTostring);
-    window.location.href = `${SHOP_ROUTE}`;
+    const guestUser = await getGuestUser(zipTostring);
+    setCurrentUserId(guestUser.id);
+    console.log(guestUser.id);
+    setCurrentUserGuest(true);
+    history.push(`${SHOP_ROUTE}`);
   };
-
 
   return (
     <div className="home-container">

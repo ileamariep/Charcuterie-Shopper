@@ -17,7 +17,7 @@ const App = () => {
   const [accountState, setAccountState] = useState("");
   const [accountZip, setAccountZip] = useState("");
   const [orderHistory, setOrderHistory] = useState([]);
-  // const [errorMessage, setErrorMessage] = useState();
+  const [errorMessage, setErrorMessage] = useState();
   const myToken = JSON.parse(localStorage.getItem("token"));
   const [showDashLinks, setDashLinks] = useState(true);
   const [hideViewButton, setHideViewButton] = useState(true);
@@ -40,6 +40,7 @@ const App = () => {
         setIsAdmin(user.isAdmin);
         setCurrentUserId(user.id);
         setCurrentUserGuest(!user.isAdmin && !user.isUser);
+        // getGuestUser()
         setAccountUsername(user.username);
         setAccountEmail(user.email);
         setAccountAddress(user.address);
@@ -113,6 +114,8 @@ const App = () => {
           showCartButton={showCartButton}
           setCartButton={setCartButton}
           resetUser={retrieveUser}
+          errorMessage={errorMessage}
+          setErrorMessage={setErrorMessage}
         />
       </main>
     </div>
