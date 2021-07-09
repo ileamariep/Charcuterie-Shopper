@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Admin.css";
+import "./AdminOrders.css";
 import AdminOrdersEdit from "./AdminOrdersEdit";
 import { fetchOrderByStatus } from "../api/orders";
 
@@ -32,7 +32,7 @@ const AdminOrders = ({ allGrabbedOrders,
 
 
         <div className="admin-order-container">
-            <h1>All Orders</h1>
+            <div className='order-history-title'>Order History</div>
             <div className='status-selection-container'>
                 <form onSubmit={handleStatusSubmit}>
 
@@ -49,18 +49,20 @@ const AdminOrders = ({ allGrabbedOrders,
                 </form>
             </div>
 
-            {allGrabbedOrders.map(
-                (allGrabbedOrders) => (
-                    <AdminOrdersEdit
-                        key={allGrabbedOrders.id}
-                        allGrabbedOrders={allGrabbedOrders}
-                        setAllOrders={setAllOrders}
-                        settheOrderStatus={settheOrderStatus}
-                        theOrderStatus={theOrderStatus}
+            <div className="admin-order-container">
+                {allGrabbedOrders.map(
+                    (allGrabbedOrders, index) => (
+                        <AdminOrdersEdit
+                            key={index}
+                            allGrabbedOrders={allGrabbedOrders}
+                            setAllOrders={setAllOrders}
+                            settheOrderStatus={settheOrderStatus}
+                            theOrderStatus={theOrderStatus}
 
-                    />
-                )
-            )}
+                        />
+                    )
+                )}
+            </div>
 
         </div>
     );

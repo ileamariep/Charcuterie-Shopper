@@ -15,7 +15,7 @@ import { addOrder } from "../api/orders";
 
 const Cart = ({ currentUserId, currentUserGuest }) => {
   const [myCartItems, setMyCartItems] = useState([]);
-  const [orderStatus, setOrderStatus] = useState("Processing");
+  const [orderStatus, setOrderStatus] = useState("Created");
   const [orderId, setOrderId] = useState();
 
   const cartLineTotal = myCartItems.reduce(
@@ -53,7 +53,6 @@ const Cart = ({ currentUserId, currentUserGuest }) => {
 
   const createOrder = async () => {
     await retrieveOrderId();
-    await addOrder(cartLineTotal, orderStatus)
     Promise.all(
       myCartItems.map((cartItem) => {
         return addOrderIdToCartItems(cartItem.id, orderId);

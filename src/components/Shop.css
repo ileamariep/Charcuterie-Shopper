@@ -11,7 +11,7 @@
 .product-card {
   display: grid;
   grid-template-rows: 1fr auto auto;
-  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   background-color: #8b0400;
   margin: 10px;
   border-radius: 7px;
@@ -29,6 +29,8 @@
 }
 .image-container img {
   margin: 10px;
+  max-width: 100%;
+  max-height: 100%;
 }
 .product-info {
   grid-column: 2 /4;

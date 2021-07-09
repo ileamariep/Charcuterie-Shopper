@@ -1,7 +1,7 @@
 import React from "react";
-import "./Admin.css";
+import "./AdminOrders.css";
 // import { updateOrderStatus } from "../api/orders";
-import { TableRow, TableCell } from "@material-ui/core";
+// import { TableRow, TableCell } from "@material-ui/core";
 
 const AdminOrdersEdit = ({
   allGrabbedOrders,
@@ -16,22 +16,34 @@ const AdminOrdersEdit = ({
   //     setEditOnMode(true)
   // }
 
+  <div className='order-status-container'>
+    <div className='dark-background'>Order Status</div>
+    <div className='order-status detail-text'>{allGrabbedOrders.status}</div>
+  </div>
+
   const getItemContainer = (cartItems) => {
     return (
       <>
-        <ul>
-          {cartItems.map((item) => {
-            return (
-              <li key={item.id}>
-                <TableCell align="left">
-                  <div key={item.name}>Item Name:{item.name}</div>
-                  <div key={item.quantity}>Item Quantity:{item.quantity}</div>
-                  <div key={item.price}>Item Price:${item.price}</div>
-                </TableCell>
-              </li>
-            );
-          })}
-        </ul>
+
+        {cartItems.map((item) => {
+          return (
+            <div className='single-item-container' key={item.id}>
+              <div className='item-name-container with-line'>
+                <div className='single-item-header' key={item.name}>Item Name</div>
+                <div className='single-item-name detail-text'>{item.name}</div>
+              </div>
+              <div className='item-qty-container with-line'>
+                <div className='single-item-header' key={item.quantity}>Item Quantity</div>
+                <div className='single-item-qty detail-text'>{item.quantity}</div>
+              </div>
+              <div className='item-price-container with-line'>
+                <div className='single-item-header' key={item.price}>Item Price</div>
+                <div className='single-item-qty detail-text'>${item.price}</div>
+              </div>
+            </div>
+          );
+        })}
+
       </>
     );
   };
@@ -41,34 +53,36 @@ const AdminOrdersEdit = ({
   //     updateOrderStatus(allGrabbedOrders.id, theOrderStatus)
   // }
   return (
-    <div className="admin-order-container">
-      <div id="order-history-container" align="center">
-        <TableRow key={allGrabbedOrders.id}>
-          <TableCell align="center">
-            Order ID
-            <div>{allGrabbedOrders.id}</div>
-          </TableCell>
-          <TableCell align="center">
-            Order Total
-            <div> ${allGrabbedOrders.totalPrice}</div>
-          </TableCell>
-          <TableCell align="center">
-            Date Ordered
-            <div>{allGrabbedOrders.date}</div>
-          </TableCell>
-          <TableCell align="center">
-            Order Status
-            <div>{allGrabbedOrders.status}</div>
-          </TableCell>
-          <div>
-            <TableCell align="left">
-              Items Ordered:
-              <div>{getItemContainer(allGrabbedOrders.items)}</div>
-            </TableCell>
-          </div>
-        </TableRow>
+
+    <div id="order-history-container" >
+
+      <div id="order-headers-container" key={allGrabbedOrders.id}>
+        <div className='order-id-container'>
+          <div className='dark-background'>Order ID</div>
+          <div className='order-id detail-text'>{allGrabbedOrders.id}</div>
+        </div>
+        <div className='total-price-container'>
+          <div className='dark-background'>Order Total</div>
+          <div className='total-price detail-text'> ${allGrabbedOrders.totalPrice}</div>
+        </div>
+        <div className='date-ordered-container'>
+          <div className='dark-background'>Date Ordered</div>
+          <div className='date-ordered detail-text'>{allGrabbedOrders.date}</div>
+        </div>
+        <div className='order-status-container'>
+          <div className='dark-background'>Order Status</div>
+          <div className='order-status detail-text'>{allGrabbedOrders.status}</div>
+        </div>
       </div>
+
+      <div className='items-ordered-container'>
+        <div className='items-ordered-title'>Items Ordered</div>
+        <div className='items-ordered-list'>{getItemContainer(allGrabbedOrders.items)}</div>
+      </div>
+
+
     </div>
+
   );
 };
 

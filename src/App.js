@@ -1,7 +1,7 @@
 import "./App.css";
 import React, { useEffect, useState } from "react";
 import { Header, Pages } from "./components";
-import { myAccountFetch } from "./api/users";
+import { myAccountFetch, getUsers } from "./api/users";
 import { allIngredients } from "./api/ingredients";
 
 const App = () => {
@@ -53,10 +53,15 @@ const App = () => {
       });
   };
 
+
+
+
+
   useEffect(() => {
     const fetchProducts = async () => {
       await retrieveIngredients();
       await retrieveUser();
+
     };
     fetchProducts();
   }, []);
