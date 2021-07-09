@@ -17,7 +17,7 @@ const Cart = ({ currentUserId, currentUserGuest }) => {
   const [myCartItems, setMyCartItems] = useState([]);
   const [orderStatus, setOrderStatus] = useState("Processing");
   const [orderId, setOrderId] = useState();
-  const [cartItemQuantity, setCartItemQuantity] = useState(0);
+
 
   const cartLineTotal = myCartItems.reduce(
     (total, { price = 0, quantity = 0 }) => (total += quantity * price),
@@ -28,7 +28,6 @@ const Cart = ({ currentUserId, currentUserGuest }) => {
     await getUsersCurrentCartItems(currentUserId)
       .then((cartItems) => {
         setMyCartItems(cartItems);
-        setCartItemQuantity(cartItems.quantity);
         console.log(cartItems);
       })
       .catch((error) => {

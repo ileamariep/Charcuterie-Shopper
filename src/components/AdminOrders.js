@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import "./Admin.css";
 import AdminOrdersEdit from "./AdminOrdersEdit";
-import { selectStatus } from "../api/orders";
+import { fetchOrderByStatus } from "../api/orders";
 
 const AdminOrders = ({ allGrabbedOrders,
-    setAllOrders, resetOrders }) => {
+    setAllOrders, resetOrders, }) => {
     const [theOrderStatus, settheOrderStatus] = useState("")
 
     const handleStatusSubmit = async (event) => {
@@ -13,12 +13,11 @@ const AdminOrders = ({ allGrabbedOrders,
             if (theOrderStatus === 'All' || theOrderStatus === "header") {
                 resetOrders()
             } else {
-                const statusResults = await selectStatus(theOrderStatus);
+                const statusResults = await fetchOrderByStatus(theOrderStatus);
                 console.log(statusResults, "setting orders to status results")
                 setAllOrders(statusResults)
 
             }
-
         } catch (error) {
             console.error(error);
         }
@@ -26,6 +25,7 @@ const AdminOrders = ({ allGrabbedOrders,
 
     const handleChange = event => {
         settheOrderStatus(event.target.value);
+        console.log(event.target.value, "this is the event")
     };
 
     return (
@@ -39,8 +39,8 @@ const AdminOrders = ({ allGrabbedOrders,
                     <select value={theOrderStatus} onChange={handleChange} >
                         <option value="header" defaultValue>Filter By Status</option>
                         <option value="All" defaultValue>All</option>
-                        <option value="created">Created</option>
-                        <option value="processing">Processing</option>
+                        <option value="Created">Created</option>
+                        <option value="Processing">Processing</option>
                         <option value="Cancelled">Cancelled</option>
                         <option value="Completed">Completed</option>
                     </select>

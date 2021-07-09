@@ -71,3 +71,14 @@ export async function selectStatus(statusName) {
     throw error;
   }
 }
+
+export async function fetchOrderByStatus(status) {
+  try {
+    const  { data }  = await axios.get(`/api/orders`, {params: { status }} );
+    console.log(data, 'this is data')
+    console.log(status, 'this is status')
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}

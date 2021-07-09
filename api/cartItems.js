@@ -9,7 +9,6 @@ const {
   updateQuantityMinusOne,
 } = require("../db/cartItems");
 const cartItemsRouter = express.Router();
-const { requireUser } = require("./utils");
 
 cartItemsRouter.get("/:usersId", async (req, res, next) => {
   const { usersId } = req.params;
@@ -88,9 +87,7 @@ cartItemsRouter.patch("/:id/quantityMinus", async (req, res, next) => {
 cartItemsRouter.delete("/:id", async (req, res, next) => {
   const { id } = req.params;
   try {
-    console.log("Hello i am in the cart Irtems deete route");
     const deletedCartItem = await destroyCartItems(id);
-    console.log(deletedCartItem, "this is the deleted cart Item");
     res.send({ deletedCartItem });
   } catch (error) {
     next(error);
