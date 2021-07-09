@@ -1,25 +1,34 @@
-
 import React from "react";
 import "./Header.css";
 import Navigation from "./Navigation";
 // import { storeCurrentUser, clearCurrentUser } from "../auth";
 // import { getSomething } from "../api";
-import linkBackground from "./img/TheDruggistFinal.png"
+import linkBackground from "./img/DruggistNewFinal.png";
 
-const Header = ({ isAdmin, setIsAdmin, grabbedIngredients, setIngredients, showDashLinks,
-  setDashLinks, reset, hideViewButton, setHideViewButton,
-  showQtyButton, setShowQtyButton,
-  showCartButton, setCartButton }) => {
-
-
+const Header = ({
+  isAdmin,
+  setIsAdmin,
+  grabbedIngredients,
+  setIngredients,
+  showDashLinks,
+  setDashLinks,
+  reset,
+  hideViewButton,
+  setHideViewButton,
+  showQtyButton,
+  setShowQtyButton,
+  showCartButton,
+  setCartButton,
+}) => {
   return (
     <div className="header-container">
-      <div className="header-img-container" style={{
-        backgroundImage: `url(${linkBackground})`
-      }} >
-
-      </div>
-      <div className='navigation-container'>
+      <div
+        className="header-img-container"
+        style={{
+          backgroundImage: `url(${linkBackground})`,
+        }}
+      ></div>
+      <div className="navigation-container">
         <Navigation
           isAdmin={isAdmin}
           setIsAdmin={setIsAdmin}
@@ -34,7 +43,6 @@ const Header = ({ isAdmin, setIsAdmin, grabbedIngredients, setIngredients, showD
           setShowQtyButton={setShowQtyButton}
           showCartButton={showCartButton}
           setCartButton={setCartButton}
-
         />
       </div>
     </div>

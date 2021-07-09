@@ -83,7 +83,7 @@ const updateQuantityPlusOne = async (id) => {
     `,
       [id]
     );
-    return rows
+    return rows;
   } catch (error) {
     throw error;
   }
@@ -99,7 +99,7 @@ const updateQuantityMinusOne = async (id) => {
     `,
       [id]
     );
-    return rows
+    return rows;
   } catch (error) {
     throw error;
   }
@@ -126,7 +126,9 @@ async function updateCartItemWithOrderId({ cartId, orderId }) {
 }
 async function destroyCartItems(id) {
   try {
-    const { rows: [cartItem] } = await client.query(
+    const {
+      rows: [cartItem],
+    } = await client.query(
       `
   DELETE 
   FROM cart_items
@@ -135,7 +137,7 @@ async function destroyCartItems(id) {
   `,
       [id]
     );
-    console.log(cartItem, 'this is the deleted cart Item')
+    console.log(cartItem, "this is the deleted cart Item");
     return cartItem;
   } catch (err) {
     throw err;

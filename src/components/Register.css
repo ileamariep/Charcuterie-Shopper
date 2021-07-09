@@ -64,4 +64,6 @@
 }
 .register-button {
   float: right;
+  background-color: rgb(238, 65, 65);
+  color: black;
 }

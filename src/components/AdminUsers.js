@@ -27,9 +27,8 @@ const AdminUsers = () => {
       } catch (error) {
         console.error(error);
       }
-    };
-
-  }
+    }
+  };
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -42,7 +41,7 @@ const AdminUsers = () => {
     try {
       await deleteUser(id, myToken);
       // window.location.href = `${ADMIN_USERS_ROUTE}`;
-      getMyUserData()
+      getMyUserData();
     } catch (error) {
       console.log("Error deleting user", error);
     }
@@ -51,7 +50,7 @@ const AdminUsers = () => {
   const onPromote = async (id) => {
     try {
       await promoteUserToAdmin(id, true, myToken);
-      getMyUserData()
+      getMyUserData();
       // window.location.href = `${ADMIN_USERS_ROUTE}`;
     } catch (error) {
       console.log("Error deleting user", error);
@@ -110,7 +109,7 @@ const AdminUsers = () => {
               <TableCell align="right">
                 <Button
                   variant="contained"
-                  color="primary"
+                  color="blue"
                   visibility={user.isAdmin ? "hidden" : "visible"}
                   onClick={() => onPromote(user.id)}
                 >
