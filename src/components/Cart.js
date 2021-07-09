@@ -24,16 +24,19 @@ const Cart = ({ currentUserId, currentUserGuest }) => {
   );
 
   const retrieveCartItems = async () => {
-    await getUsersCurrentCartItems(currentUserId)
-      .then((cartItems) => {
-        setMyCartItems(cartItems);
-        console.log(cartItems);
-      })
-      .catch((error) => {
-        throw error;
-      });
+    if (!currentUserId) {
+      return;
+    } else {
+      await getUsersCurrentCartItems(currentUserId)
+        .then((cartItems) => {
+          setMyCartItems(cartItems);
+          console.log(cartItems);
+        })
+        .catch((error) => {
+          throw error;
+        });
+    }
   };
-
   const retrieveOrderId = async () => {
     addOrder(cartLineTotal, orderStatus)
       .then(({ id }) => {

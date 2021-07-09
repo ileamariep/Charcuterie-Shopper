@@ -223,4 +223,32 @@ usersRouter.delete("/:userId", async (req, res, next) => {
   }
 });
 
+// usersRouter.post(`/guest/:zip`, async (req, res, next) => {
+//   const { zip } = req.body;
+//   try {
+//     const user = await createGuestUser({
+//       zip,
+//     });
+//     if (!user.isUser) {
+//       const token = jwt.sign(
+//         {
+//           id: user.id,
+//           zip,
+//         },
+//         JWT_SECRET,
+//         {
+//           expiresIn: "1w",
+//         }
+//       );
+//       res.send({
+//         user,
+//         token,
+//       });
+//     }
+//   } catch (error) {
+//     console.error(error);
+//     next(error);
+//   }
+// });
+
 module.exports = usersRouter;
