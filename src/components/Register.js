@@ -3,17 +3,16 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { SHOP_ROUTE } from "../constants";
 import axios from "axios";
-// import "bootstrap/dist/css/bootstrap.min.css";
 import "./Register.css";
 
 const Register = ({ setErrorMessage }) => {
-  const [username, setUsername] = useState();
-  const [password, setPassword] = useState();
-  const [email, setEmail] = useState();
   const [address, setAddress] = useState();
   const [city, setCity] = useState();
+  const [email, setEmail] = useState();
   const [state, setState] = useState();
   const [zip, setZip] = useState();
+  const [password, setPassword] = useState();
+  const [username, setUsername] = useState();
 
   const registerUser = async () => {
     return await axios

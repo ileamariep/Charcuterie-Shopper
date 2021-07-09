@@ -53,14 +53,13 @@ const Navigation = ({
       <>
         <nav>
           <div className="topnav">
-            {/* <Link to={HOME_ROUTE}>Home</Link> */}
             <Link to={SHOP_ROUTE} onClick={shopClick}>
               Shop
             </Link>
             <Link to={MYACCOUNT_ROUTE}>My Account</Link>
             <Link to={CART_ROUTE}>Cart</Link>
             <Link
-              to={SHOP_ROUTE}
+              to={LOGIN_ROUTE}
               id="logout-button"
               onClick={() => {
                 logOut();

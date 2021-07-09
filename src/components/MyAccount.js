@@ -35,7 +35,6 @@ const MyAccount = ({
         try {
           let myUsername = await myAccountFetch(myToken);
           setMyAccountData(myUsername);
-          console.log(myUsername, "account data after flat again");
         } catch (error) {
           console.error(error);
         }

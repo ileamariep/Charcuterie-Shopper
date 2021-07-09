@@ -29,7 +29,6 @@ export async function getSingleUser(userId) {
 
 export async function getAllUsersAdmin() {
   try {
-    // if user.isAdmin === true
     const { data } = await axios.get("/api/users");
     if (data.isAdmin === true) {
       return data;
@@ -99,20 +98,3 @@ export async function myAccountFetch(myToken) {
     throw error;
   }
 }
-
-// const myOrdersFetch = () => {
-// try {
-//   return axios
-//     .get(`${BASE}/users/${username}/routines`, {
-//       headers: {
-//         "Content-Type": "application/json",
-//         Authorization: `Bearer ${myToken}`,
-//       },
-//     })
-//     .then(({ data }) => {
-//       return data;
-//     });
-// } catch (err) {
-//   console.error(err);
-// }
-// };

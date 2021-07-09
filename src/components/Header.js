@@ -1,8 +1,6 @@
 import React from "react";
 import "./Header.css";
 import Navigation from "./Navigation";
-// import { storeCurrentUser, clearCurrentUser } from "../auth";
-// import { getSomething } from "../api";
 import linkBackground from "./img/DruggistNewFinal.png";
 
 const Header = ({

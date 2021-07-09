@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { TableRow, TableCell } from "@material-ui/core";
+import React, { useEffect } from "react";
 import { getUsersOrderHistory } from "../api/orders";
 import "./UsersOrders.css";
 
 const UserOrders = ({ currentUserId, setOrderHistory, orderHistory }) => {
-  // const [orderHistory, setOrderHistory] = useState([]);
-
   useEffect(() => {
     const myToken = JSON.parse(localStorage.getItem("token"));
     if (myToken && currentUserId) {
@@ -48,33 +45,24 @@ const UserOrders = ({ currentUserId, setOrderHistory, orderHistory }) => {
 
   return (
     <>
-      {/* <h1>Order History</h1> */}
-      {/* <TableRow> */}
       {orderHistory.map((orderItem) => {
         return (
           <div id="order-history-container-users">
             <div key={orderItem.id}>
               <div id="order-users-container" key={orderItem.id}>
-                {/* <TableCell align="center"> */}
                 <div className="order-id-container">
                   <div className="dark-background">Order ID</div>
                   <div>{orderItem.id}</div>
                 </div>
-                {/* </TableCell> */}
-                {/* <TableCell align="center"> */}
                 <div className="total-price-container">
                   <div className="dark-background">Order Total</div>
                   <div> ${orderItem.totalPrice}</div>
                 </div>
-                {/* </TableCell> */}
-                {/* <TableCell align="center"> */}
                 <div className="date-ordered-container">
                   <div className="dark-background"> Date Ordered</div>
                   <div>{orderItem.date}</div>
                 </div>
-                {/* </TableCell> */}
                 <div>
-                  {/* <TableCell align="left"> */}
                   <div className="items-ordered-container-user">
                     <div className="items-ordered-title-user">
                       Items Ordered
@@ -83,15 +71,12 @@ const UserOrders = ({ currentUserId, setOrderHistory, orderHistory }) => {
                       {getItemContainer(orderItem.items)}
                     </div>
                   </div>
-                  {/* </TableCell> */}
                 </div>
               </div>
             </div>
           </div>
         );
       })}
-      {/* </TableRow> */}
-      {/* </div> */}
     </>
   );
 };
