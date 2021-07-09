@@ -9,7 +9,6 @@ import {
   ADMIN_ROUTE,
   HOME_ROUTE,
 } from "../constants";
-import "./Navigation.css";
 // import { clearCurrentUser } from "../auth";
 
 const Navigation = ({

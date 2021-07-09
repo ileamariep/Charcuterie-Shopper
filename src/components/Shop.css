@@ -1,7 +1,6 @@
 /* {
   display: grid;
 } */
-
 /* https://codepen.io/ff0004-red/pen/WxJEJZ */
 #product-container {
   display: grid;
@@ -9,7 +8,6 @@
   padding: 10px;
   background-color: #fdf1ec;
 }
-
 .product-card {
   display: grid;
   grid-template-rows: 1fr auto auto;
@@ -19,7 +17,6 @@
   border-radius: 7px;
   box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.15);
 }
-
 .image-container {
   grid-row: 1 / 4;
   grid-column: 1 / 2;
@@ -30,11 +27,9 @@
   border-top-left-radius: 7px;
   background-color: white;
 }
-
 .image-container img {
   margin: 10px;
 }
-
 .product-info {
   grid-column: 2 /4;
   grid-row: 1 /4;
@@ -45,18 +40,15 @@
   padding-bottom: 20px;
   padding-right: 20px;
 }
-
 .product-title {
   grid-row: 1 / 2;
   grid-column: 1 / 5;
   color: #fdf1ec;
 }
-
 .product-name {
   text-transform: uppercase;
   text-align: left;
 }
-
 .product-category {
   font-size: 13px;
   font-weight: 500;
@@ -67,7 +59,6 @@
   background-color: #8b0400;
   border: none;
 }
-
 .product-description {
   grid-row: 2 / 3;
   grid-column: 1/ 5;
@@ -76,7 +67,6 @@
   color: #fdf1ec;
   font-family: Lato;
 }
-
 .product-price {
   grid-row: 3 / 4;
   grid-column: 1 / 2;
@@ -87,7 +77,6 @@
   align-items: flex-end;
   justify-content: center;
 }
-
 .product-buttons {
   grid-row: 3 / 5;
   grid-column: 3 / 5;
@@ -96,7 +85,6 @@
   align-items: center;
   justify-items: center;
 }
-
 .product-quantity-container {
   display: inline-grid;
   grid-row: 1/2;
@@ -106,22 +94,18 @@
   color: white;
   padding-bottom: 10px;
 }
-
 .items-added-cart {
   color: white;
   font-size: x-large;
 }
-
 .select-qty-message {
   color: white;
   font-size: xx-large;
 }
-
 .product-qty-selected {
   color: white;
   font-size: xx-large;
 }
-
 .product-stock {
   grid-row: 4 / 5;
   grid-column: 1 / 2;
@@ -130,17 +114,14 @@
   font-size: x-small;
 }
 /* category styling */
-
 select {
   color: white;
   background-color: #8b0400;
   border: none;
 }
-
 option {
   color: white;
 }
-
 .category-container {
   background-color: #8b0400;
   padding-top: 20px;
@@ -150,7 +131,6 @@ option {
   display: flex;
   padding-left: 20px;
 }
-
 .category-submit {
   background-color: #8b0400;
   color: white;
@@ -162,22 +142,18 @@ option {
   grid-row: 2/3;
   float: right;
 }
-
 .product-quantity {
   grid-column: 2/3;
   grid-row: 2/3;
 }
-
 .product-remove-item {
   grid-column: 3/4;
   grid-row: 2/3;
 }
-
 .quantity-head {
   grid-row: 1/2;
   grid-column: 1/4;
 }
-
 .view-button {
   grid-row: 2 / 3;
 }

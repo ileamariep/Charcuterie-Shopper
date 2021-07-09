@@ -54,6 +54,7 @@ const Cart = ({ currentUserId, currentUserGuest }) => {
 
   const createOrder = async () => {
     await retrieveOrderId();
+    await addOrder(cartLineTotal, orderStatus)
     Promise.all(
       myCartItems.map((cartItem) => {
         return addOrderIdToCartItems(cartItem.id, orderId);

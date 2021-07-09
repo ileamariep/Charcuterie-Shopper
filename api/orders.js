@@ -8,7 +8,7 @@ const {
   updateOrderStatus,
   getOrderByStatus
 } = require("../db");
-const { requireUser } = require("./utils");
+
 const ordersRouter = express.Router();
 
 ordersRouter.get("/", async (req, res, next) => {

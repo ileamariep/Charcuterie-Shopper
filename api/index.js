@@ -9,7 +9,7 @@ const usersRouter = require("./users");
 const ingredientsRouter = require("./ingredients");
 const ordersRouter = require("./orders");
 const cartItemsRouter = require("./cartItems")
-const reviewsRouter = require("./reviews");
+
 
 apiRouter.use(async (req, res, next) => {
   const prefix = "Bearer ";
@@ -42,7 +42,7 @@ apiRouter.use("/users", usersRouter);
 apiRouter.use("/ingredients", ingredientsRouter);
 apiRouter.use("/orders", ordersRouter);
 apiRouter.use("/cartItems", cartItemsRouter)
-apiRouter.use("/reviews", reviewsRouter);
+
 
 apiRouter.use((error, req, res, next) => {
   res.send(error);
