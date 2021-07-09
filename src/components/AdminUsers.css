@@ -1,0 +1,11 @@
+#users-container {
+  border: 1px solid;
+  margin: 20px;
+  margin-right: 150px;
+  margin-left: 150px;
+  border-radius: 7px;
+  /* display: grid;
+  grid-template: auto; */
+  background-color: rgb(215, 213, 213);
+  font-size: 19px;
+}

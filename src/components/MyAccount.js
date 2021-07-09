@@ -78,10 +78,10 @@ const MyAccount = ({
     <div id="user-container" align="center">
       <h1>My Account</h1>
 
-      <div key={myAccountData.id}>
+      <div key={myAccountData.id} className="users-data">
         <TableRow key={myAccountData.id}>
           <TableCell component="th" scope="row"></TableCell>
-          <TableCell align="center">
+          <TableCell align="center" className="light-background">
             Username
             <div>
               {editMode ? (
@@ -96,7 +96,7 @@ const MyAccount = ({
               )}
             </div>
           </TableCell>
-          <TableCell align="center">
+          <TableCell align="center" className="light-background">
             Email
             <div>
               {editMode ? (
@@ -112,7 +112,7 @@ const MyAccount = ({
             </div>
           </TableCell>
 
-          <TableCell align="center">
+          <TableCell align="center" className="light-background">
             Address
             <div>
               {editMode ? (
@@ -127,7 +127,7 @@ const MyAccount = ({
               )}
             </div>
           </TableCell>
-          <TableCell align="center">
+          <TableCell align="center" className="light-background">
             City
             <div>
               {editMode ? (
@@ -142,7 +142,7 @@ const MyAccount = ({
               )}
             </div>
           </TableCell>
-          <TableCell align="center">
+          <TableCell align="center" className="light-background">
             State
             <div>
               {editMode ? (
@@ -157,7 +157,7 @@ const MyAccount = ({
               )}
             </div>
           </TableCell>
-          <TableCell align="center">
+          <TableCell align="center" className="light-background">
             ZIP Code
             <div>
               {editMode ? (
@@ -172,7 +172,7 @@ const MyAccount = ({
               )}
             </div>
           </TableCell>
-          <TableCell align="center">
+          <TableCell align="center" className="light-background">
             Edit
             <div>
               {editMode ? (

@@ -5,6 +5,7 @@ import { getUsers, deleteUser, promoteUserToAdmin } from "../api/users";
 import { ADMIN_USERS_ROUTE, SHOP_ROUTE } from "../constants";
 import { Redirect } from "react-router-dom";
 import "./Admin.css";
+import "./AdminUsers.css";
 
 const AdminUsers = () => {
   const [usersAccountData, setUsersAccountData] = useState([]);
