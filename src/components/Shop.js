@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import ControlPointIcon from "@material-ui/icons/ControlPoint";
 import RemoveCircleOutlineIcon from "@material-ui/icons/RemoveCircleOutline";
-import "bootstrap/dist/css/bootstrap.min.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
 import "./Shop.css";
 import { getSingleIngredient } from "../api";
 import { addCartItem } from "../api/cartItem";
@@ -131,6 +131,10 @@ const Shop = ({
                   {hideViewButton ? (
                     <>
                       <Button
+                        style={{
+                          color: "black",
+                          backgroundColor: "rgb(243, 113, 113)",
+                        }}
                         type="submit"
                         className="view-button"
                         onClick={() => handleViewClick(id)}
@@ -157,6 +161,10 @@ const Shop = ({
                         )}
                       </div>
                       <Button
+                        style={{
+                          color: "black",
+                          backgroundColor: "rgb(243, 113, 113)",
+                        }}
                         type="submit"
                         className="addcart"
                         onClick={() =>
@@ -166,6 +174,10 @@ const Shop = ({
                         Add to Cart
                       </Button>
                       <Button
+                        style={{
+                          color: "black",
+                          backgroundColor: "rgb(243, 113, 113)",
+                        }}
                         type="button"
                         className="keep-shopping"
                         onClick={() => handleKeepShopping()}
@@ -179,8 +191,13 @@ const Shop = ({
                         {selection} selected
                       </div>
                       <Button
+                        style={{
+                          color: "black",
+                          backgroundColor: "rgb(243, 113, 113)",
+                        }}
                         type="button"
                         className="keep-shopping"
+                        color="black"
                         onClick={() => handleKeepShopping()}
                       >
                         Keep Shopping
@@ -192,6 +209,10 @@ const Shop = ({
                         {selection} ITEM(S) ADDED TO YOUR CART
                       </div>
                       <Button
+                        style={{
+                          color: "black",
+                          backgroundColor: "rgb(243, 113, 113)",
+                        }}
                         type="button"
                         className="keep-shopping"
                         onClick={() => handleKeepShopping()}
