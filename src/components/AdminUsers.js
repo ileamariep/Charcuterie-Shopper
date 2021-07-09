@@ -108,8 +108,10 @@ const AdminUsers = () => {
               </TableCell>
               <TableCell align="right">
                 <Button
-                  variant="contained"
-                  color="blue"
+                  style={{
+                    color: "black",
+                    backgroundColor: "rgb(243, 113, 113)",
+                  }}
                   visibility={user.isAdmin ? "hidden" : "visible"}
                   onClick={() => onPromote(user.id)}
                 >

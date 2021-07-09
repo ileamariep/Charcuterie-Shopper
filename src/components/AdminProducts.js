@@ -7,24 +7,34 @@ import "bootstrap/dist/css/bootstrap.min.css";
 // import "bootstrap/dist/css/bootstrap.min.css";
 import AdminEdit from "./AdminEdit";
 import AdminAddProduct from "./AdminAddProduct";
-const AdminProducts = ({ grabbedIngredients,
+const AdminProducts = ({
+  grabbedIngredients,
   setIngredients,
-  ingredientName, ingredientDescription, ingredientPrice, ingredientCategory, ingredientStockQty, ingredientImg, ingredientImgAlt, setIngredientName,
+  ingredientName,
+  ingredientDescription,
+  ingredientPrice,
+  ingredientCategory,
+  ingredientStockQty,
+  ingredientImg,
+  ingredientImgAlt,
+  setIngredientName,
   setIngredientDescription,
   setIngredientPrice,
   setIngredientCategory,
   setIngredientStockQty,
   setIngredientImg,
-  setIngredientImgAlt, reset }) => {
-  const [showAddForm, setShowAddForm] = useState(false)
+  setIngredientImgAlt,
+  reset,
+}) => {
+  const [showAddForm, setShowAddForm] = useState(false);
   const handleAddButtonClick = () => {
-    setShowAddForm(true)
-  }
+    setShowAddForm(true);
+  };
 
-  console.log(grabbedIngredients)
+  console.log(grabbedIngredients);
   return (
     <>
-      {showAddForm ?
+      {showAddForm ? (
         <AdminAddProduct
           setShowAddForm={setShowAddForm}
           key={grabbedIngredients.id}
@@ -45,24 +55,33 @@ const AdminProducts = ({ grabbedIngredients,
           ingredientImgAlt={ingredientImgAlt}
           setIngredientImgAlt={setIngredientImgAlt}
           reset={reset}
-        /> :
+        />
+      ) : (
         <>
-          <div className='add-but-container'>
-            <Button onClick={handleAddButtonClick} className="button-add">Add Product</Button>
+          <div className="add-but-container">
+            <Button
+              style={{
+                color: "black",
+                backgroundColor: "rgb(243, 113, 113)",
+              }}
+              onClick={handleAddButtonClick}
+              className="button-add"
+            >
+              Add Product
+            </Button>
           </div>
           <div id="product-container">
-            {grabbedIngredients.map(
-              (grabbedIngredients) => (
-                <AdminEdit
-                  key={grabbedIngredients.id}
-                  grabbedIngredients={grabbedIngredients}
-                  setIngredients={setIngredients}
-                  reset={reset}
-                />
-              )
-            )}
+            {grabbedIngredients.map((grabbedIngredients) => (
+              <AdminEdit
+                key={grabbedIngredients.id}
+                grabbedIngredients={grabbedIngredients}
+                setIngredients={setIngredients}
+                reset={reset}
+              />
+            ))}
           </div>
-        </>}
+        </>
+      )}
     </>
   );
 };
