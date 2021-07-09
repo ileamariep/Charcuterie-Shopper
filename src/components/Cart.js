@@ -15,7 +15,6 @@ import { addOrder } from "../api/orders";
 
 const Cart = ({ currentUserId, currentUserGuest }) => {
   const [myCartItems, setMyCartItems] = useState([]);
-  const [totalPrice, setTotalPrice] = useState(100);
   const [orderStatus, setOrderStatus] = useState("Processing");
   const [orderId, setOrderId] = useState();
   const [cartItemQuantity, setCartItemQuantity] = useState(0);
@@ -79,6 +78,7 @@ const Cart = ({ currentUserId, currentUserGuest }) => {
           <b>Description</b>
           <b>Price</b>
           <b>Quantity</b>
+          <b>Total</b>
           <b>Delete</b>
         </div>
 
@@ -91,7 +91,7 @@ const Cart = ({ currentUserId, currentUserGuest }) => {
               <p>{description}</p>
             </div>
             <div className="cart-price">
-              <p>{price}</p>
+              <p>${price}</p>
             </div>
 
             <div className="cart-quantity-container">
@@ -114,6 +114,11 @@ const Cart = ({ currentUserId, currentUserGuest }) => {
                   retrieveCartItems();
                 }}
               />
+            </div>
+
+            <div className="item-price-total">
+
+              <p>${price * quantity}</p>
             </div>
 
             <div className="cart-delete-container">

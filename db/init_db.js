@@ -156,6 +156,56 @@ async function populateInitialIngredients() {
         img: "/images/brainsalt.png",
         imgAlt: "brain elixir",
       },
+      {
+        name: "Stomach Bitters",
+        description:
+          "Ease your stomach!",
+        price: 10,
+        category: "health",
+        stockQty: 50,
+        img: "/images/stomachBitters.png",
+        imgAlt: "Stomach Bitters",
+      },
+      {
+        name: "Herb Medicine",
+        description:
+          "Rids the body of brain troubles, sea sickness, headaches and more!",
+        price: 10,
+        category: "health",
+        stockQty: 50,
+        img: "/images/herbMedicine.png",
+        imgAlt: "Herb Medicine",
+      },
+      {
+        name: "Cough Syrup",
+        description:
+          "Rids the body of brain troubles, sea sickness, headaches and more!",
+        price: 10,
+        category: "health",
+        stockQty: 50,
+        img: "/images/coughSyrup.png",
+        imgAlt: "Cough Syrup",
+      },
+      {
+        name: "Blood Purifier",
+        description:
+          "Rids the body of brain troubles, sea sickness, headaches and more!",
+        price: 10,
+        category: "health",
+        stockQty: 50,
+        img: "/images/bloodPurifier.png",
+        imgAlt: "Blood Purifier",
+      },
+      {
+        name: "Oil of Life",
+        description:
+          "Rids the body of brain troubles, sea sickness, headaches and more!",
+        price: 10,
+        category: "health",
+        stockQty: 50,
+        img: "/images/oilOfLife.png",
+        imgAlt: "Oil of Life",
+      },
     ];
 
     const theIngredients = await Promise.all(

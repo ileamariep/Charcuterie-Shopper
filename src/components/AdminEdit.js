@@ -136,30 +136,14 @@ const AdminEdit = ({ grabbedIngredients: { id, name, description, price, categor
                                 />
                             )
                                 : (
-                                    price
+                                    <div>${price}</div>
                                 )
                             }
 
 
                         </div>
                         <div className="admin-product-stockQty">
-
-                            {editMode ? (
-                                <>
-                                    <TextField
-                                        value={ingredientStockQty}
-                                        onChange={(event) => {
-                                            setIngredientStockQty(event.target.value);
-                                        }}
-                                    />
-                                </>
-                            )
-                                : (
-                                    <div>Stock qty:  {stockQty}</div>
-                                )
-                            }
-
-
+                            <div>Stock qty: {stockQty}</div>
                         </div>
                     </div>
                     <div className="admin-product-buttons">
@@ -200,7 +184,7 @@ const AdminEdit = ({ grabbedIngredients: { id, name, description, price, categor
                     </div>
                 </>
 
-                {/* //product card div below */}
+
             </div>
 
 
