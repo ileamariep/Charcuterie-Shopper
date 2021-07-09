@@ -136,7 +136,7 @@ async function getOrderByStatus(status) {
 //         JOIN orders
 //         ON orders.id=cart_items."orderId"
 //         WHERE cart_items."userId"=$1;
-const updateOrderStatus = async (id, status) => {
+const updateOrderStatus = async (orderId, status) => {
   try {
     const { rows: orders } = await client.query(
       `
@@ -145,8 +145,9 @@ const updateOrderStatus = async (id, status) => {
       WHERE id=$2
       RETURNING *;
       `,
-      [id, status]
+      [orderId, status]
     );
+    console.log(orders, "THIS IS HITTING THE METHODS")
     return orders;
   } catch (error) {
     throw error;
@@ -176,23 +177,7 @@ const destroyOrder = async (id) => {
     throw error;
   }
 };
-// async function demo() {
-//   try {
-//     const { test } = await client.query(
-//       `
-//       SELECT ingredients.name, ingredients.description, ingredients.price, ingredients.img, cart_items.quantity, orders.id, orders.total_price, orders.date_ordered
-//       FROM ingredients
-//       JOIN cart_items
-//       ON ingredients.id=cart_items."ingredientsId"
-//       JOIN orders
-//       ON cart_items."orderId"=orders.id
-//       `
-//     );
-//     return test;
-//   } catch (err) {
-//     throw err;
-//   }
-// }
+
 
 
 

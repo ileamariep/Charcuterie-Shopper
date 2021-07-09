@@ -96,11 +96,12 @@ ordersRouter.post("/", async (req, res, next) => {
   }
 });
 
-ordersRouter.patch("/", async (req, res, next) => {
-  const { id } = req.params;
-  const { status } = req.body;
+ordersRouter.patch("/:orderId/:status", async (req, res, next) => {
+  const { orderId, status } = req.params;
+
   try {
-    const orderStatusUpdate = await updateOrderStatus(id, status);
+    const orderStatusUpdate = await updateOrderStatus(orderId, status);
+    console.log(orderStatusUpdate, 'THIS IS HITTING THE ROUTES')
     res.send(orderStatusUpdate);
   } catch (error) {
     next(error);

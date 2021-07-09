@@ -44,9 +44,10 @@ export async function getSingleOrder(orderId) {
 
 export async function updateOrderStatus(id, status) {
   try {
-    const { data } = await axios.patch(`api/orders/${id}/status`, {
+    const  {data}  = await axios.patch(`api/orders/${id}/${status}`, {
       status
     })
+    console.log(data, 'this is data from the api')
     return data
   } catch (error) {
     throw error
@@ -56,16 +57,6 @@ export async function updateOrderStatus(id, status) {
 export async function allOrders() {
   try {
     const { data } = await axios.get("/api/orders");
-    return data;
-  } catch (error) {
-    throw error;
-  }
-}
-
-export async function selectStatus(statusName) {
-  try {
-    const { data } = await axios.get(`/api/orders/${statusName}`);
-    console.log(data, "this is the data in the api for status")
     return data;
   } catch (error) {
     throw error;
