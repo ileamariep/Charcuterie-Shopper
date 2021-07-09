@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { TableRow, TableCell } from "@material-ui/core";
 import { getUsersOrderHistory } from "../api/orders";
-import "./UserOrders.css";
+
 
 const UserOrders = ({ currentUserId, setOrderHistory, orderHistory }) => {
   // const [orderHistory, setOrderHistory] = useState([]);

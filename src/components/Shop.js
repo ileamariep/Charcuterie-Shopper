@@ -7,7 +7,6 @@ import "./Shop.css";
 import { getSingleIngredient } from "../api";
 import { addCartItem } from "../api/cartItem";
 import { selectCategory, updateCount } from "../api/ingredients";
-
 const Shop = ({
   grabbedIngredients,
   setIngredients,
@@ -21,9 +20,7 @@ const Shop = ({
   setCartButton,
 }) => {
   const [selection, setSelection] = useState(1);
-
   const [category, setCategory] = useState("");
-
   const handleViewClick = async (id) => {
     try {
       let ingredientResult = await getSingleIngredient(id);
@@ -41,14 +38,12 @@ const Shop = ({
     reset();
     window.location.reload();
   };
-
   const handleAddToCart = async (qtySelect, ingredientId, currentUserId) => {
     const numOutOfArray = qtySelect.toString();
     const qtyStringToNum = Number(numOutOfArray);
     setHideViewButton(false);
     setShowQtyButton(false);
     setCartButton(false);
-
     try {
       await addCartItem(qtyStringToNum, ingredientId, currentUserId);
       await updateCount(ingredientId, qtySelect);
@@ -56,7 +51,6 @@ const Shop = ({
       throw error;
     }
   };
-
   const handleCatSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -70,11 +64,9 @@ const Shop = ({
       console.error(error);
     }
   };
-
   const handleChange = async (event) => {
     setCategory(event.target.value);
   };
-
   return (
     <>
       {hideViewButton ? (
@@ -89,7 +81,6 @@ const Shop = ({
               <option value="general">General</option>
               <option value="beauty">Weightloss</option>
             </select>
-
             <input
               type="submit"
               value="Submit"
@@ -99,7 +90,6 @@ const Shop = ({
           </form>
         </div>
       ) : null}
-
       <div id="product-container">
         {grabbedIngredients.map(
           ({
@@ -131,14 +121,12 @@ const Shop = ({
                   <h2 className="product-category">{category}</h2>
                 </div>
                 <p className="product-description">{description}</p>
-
                 <div className="product-price">${price}</div>
                 {stockQty > 0 ? (
                   <div className="product-stock">In Stock</div>
                 ) : (
                   <div className="product-stock">Out of Stock</div>
                 )}
-
                 <div className="product-buttons">
                   {hideViewButton ? (
                     <>
@@ -202,7 +190,6 @@ const Shop = ({
                       <div className="product-qty-selected">
                         {selection} selected
                       </div>
-
                       <Button
                         style={{
                           color: "black",

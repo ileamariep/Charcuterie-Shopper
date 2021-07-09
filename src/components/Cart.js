@@ -15,7 +15,7 @@ import { addOrder } from "../api/orders";
 
 const Cart = ({ currentUserId, currentUserGuest }) => {
   const [myCartItems, setMyCartItems] = useState([]);
-  const [orderStatus, setOrderStatus] = useState("Processing");
+  const [orderStatus, setOrderStatus] = useState("Created");
   const [orderId, setOrderId] = useState();
 
   const cartLineTotal = myCartItems.reduce(

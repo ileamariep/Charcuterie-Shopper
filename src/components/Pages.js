@@ -10,7 +10,6 @@ import {
   ADMIN_ROUTE,
   HOME_ROUTE,
   THANKYOU_ROUTE,
-  SINGLE_PRODUCT_ROUTE,
   ADMIN_USERS_ROUTE,
 } from "../constants";
 import Admin from "./Admin";
@@ -22,7 +21,6 @@ import Login from "./Login";
 import Home from "./Home";
 // import UserOrders from "./UserOrders";
 import ThankYou from "./ThankYou";
-import SingleProductView from "./SingleProductView";
 import AdminUsers from "./AdminUsers";
 
 // import { getSomething } from "../api";
@@ -164,9 +162,7 @@ const Pages = (props) => {
         <Route path={THANKYOU_ROUTE}>
           <ThankYou />
         </Route>
-        <Route path={SINGLE_PRODUCT_ROUTE}>
-          <SingleProductView />
-        </Route>
+
       </Switch>
     </div>
   );
