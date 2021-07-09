@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import ControlPointIcon from "@material-ui/icons/ControlPoint";
 import RemoveCircleOutlineIcon from "@material-ui/icons/RemoveCircleOutline";
+import { Link } from "react-router-dom";
+import { LOGIN_ROUTE, REGISTER_ROUTE } from "../constants";
 // import "bootstrap/dist/css/bootstrap.min.css";
 import "./Shop.css";
 import { getSingleIngredient } from "../api";
@@ -115,114 +117,130 @@ const Shop = ({
                   />
                 )}
               </div>
-              <div className="product-info">
-                <div className="product-title">
-                  <h1 className="product-name">{name}</h1>
-                  <h2 className="product-category">{category}</h2>
-                </div>
-                <p className="product-description">{description}</p>
-                <div className="product-price">${price}</div>
-                {stockQty > 0 ? (
-                  <div className="product-stock">In Stock</div>
-                ) : (
-                  <div className="product-stock">Out of Stock</div>
-                )}
-                <div className="product-buttons">
-                  {hideViewButton ? (
-                    <>
-                      <Button
-                        style={{
-                          color: "black",
-                          backgroundColor: "rgb(243, 113, 113)",
-                        }}
-                        type="submit"
-                        className="view-button"
-                        onClick={() => handleViewClick(id)}
-                      >
-                        View
-                      </Button>
-                    </>
-                  ) : showQtyButton ? (
-                    <>
-                      <div className="product-quantity-container">
-                        <div className="quantity-head">Quantity</div>
-                        <div className="product-quantity">{selection}</div>
-                        <ControlPointIcon
-                          fontSize="medium"
-                          className="product-add-item"
-                          onClick={() => setSelection(selection + 1)}
-                        />
-                        {selection < 2 ? null : (
-                          <RemoveCircleOutlineIcon
-                            fontSize="medium"
-                            className="product-remove-item"
-                            onClick={() => setSelection(selection - 1)}
-                          />
-                        )}
-                      </div>
-                      <Button
-                        style={{
-                          color: "black",
-                          backgroundColor: "rgb(243, 113, 113)",
-                        }}
-                        type="submit"
-                        className="addcart"
-                        onClick={() =>
-                          handleAddToCart(selection, id, currentUserId)
-                        }
-                      >
-                        Add to Cart
-                      </Button>
-                      <Button
-                        style={{
-                          color: "black",
-                          backgroundColor: "rgb(243, 113, 113)",
-                        }}
-                        type="button"
-                        className="keep-shopping"
-                        onClick={() => handleKeepShopping()}
-                      >
-                        Keep Shopping
-                      </Button>
-                    </>
-                  ) : showCartButton ? (
-                    <>
-                      <div className="product-qty-selected">
-                        {selection} selected
-                      </div>
-                      <Button
-                        style={{
-                          color: "black",
-                          backgroundColor: "rgb(243, 113, 113)",
-                        }}
-                        type="button"
-                        className="keep-shopping"
-                        color="black"
-                        onClick={() => handleKeepShopping()}
-                      >
-                        Keep Shopping
-                      </Button>
-                    </>
+              {currentUserId ? (
+
+                <div className="product-info">
+                  <div className="product-title">
+                    <h1 className="product-name">{name}</h1>
+                    <h2 className="product-category">{category}</h2>
+                  </div>
+                  <p className="product-description">{description}</p>
+                  <div className="product-price">${price}</div>
+                  {stockQty > 0 ? (
+                    <div className="product-stock">In Stock</div>
                   ) : (
-                    <>
-                      <div className="items-added-cart">
-                        {selection} ITEM(S) ADDED TO YOUR CART
-                      </div>
-                      <Button
-                        style={{
-                          color: "black",
-                          backgroundColor: "rgb(243, 113, 113)",
-                        }}
-                        type="button"
-                        className="keep-shopping"
-                        onClick={() => handleKeepShopping()}
-                      >
-                        Keep Shopping
-                      </Button>
-                    </>
+                    <div className="product-stock">Out of Stock</div>
                   )}
+                  <div className="product-buttons">
+                    {hideViewButton ? (
+                      <>
+                        <Button
+                          style={{
+                            color: "black",
+                            backgroundColor: "rgb(243, 113, 113)",
+                          }}
+                          type="submit"
+                          className="view-button"
+                          onClick={() => handleViewClick(id)}
+                        >
+                          View
+                        </Button>
+                      </>
+                    ) : showQtyButton ? (
+                      <>
+                        <div className="product-quantity-container">
+                          <div className="quantity-head">Quantity</div>
+                          <div className="product-quantity">{selection}</div>
+                          <ControlPointIcon
+                            fontSize="medium"
+                            className="product-add-item"
+                            onClick={() => setSelection(selection + 1)}
+                          />
+                          {selection < 2 ? null : (
+                            <RemoveCircleOutlineIcon
+                              fontSize="medium"
+                              className="product-remove-item"
+                              onClick={() => setSelection(selection - 1)}
+                            />
+                          )}
+                        </div>
+                        <Button
+                          style={{
+                            color: "black",
+                            backgroundColor: "rgb(243, 113, 113)",
+                          }}
+                          type="submit"
+                          className="addcart"
+                          onClick={() =>
+                            handleAddToCart(selection, id, currentUserId)
+                          }
+                        >
+                          Add to Cart
+                        </Button>
+                        <Button
+                          style={{
+                            color: "black",
+                            backgroundColor: "rgb(243, 113, 113)",
+                          }}
+                          type="button"
+                          className="keep-shopping"
+                          onClick={() => handleKeepShopping()}
+                        >
+                          Keep Shopping
+                        </Button>
+                      </>
+                    ) : showCartButton ? (
+                      <>
+                        <div className="product-qty-selected">
+                          {selection} selected
+                        </div>
+                        <Button
+                          style={{
+                            color: "black",
+                            backgroundColor: "rgb(243, 113, 113)",
+                          }}
+                          type="button"
+                          className="keep-shopping"
+                          color="black"
+                          onClick={() => handleKeepShopping()}
+                        >
+                          Keep Shopping
+                        </Button>
+                      </>
+                    ) : (
+                      <>
+                        <div className="items-added-cart">
+                          {selection} ITEM(S) ADDED TO YOUR CART
+                        </div>
+                        <Button
+                          style={{
+                            color: "black",
+                            backgroundColor: "rgb(243, 113, 113)",
+                          }}
+                          type="button"
+                          className="keep-shopping"
+                          onClick={() => handleKeepShopping()}
+                        >
+                          Keep Shopping
+                        </Button>
+                      </>
+                    )}
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <div className="home-info-right-shop">
+                  <div className="log-or-reg-shop">
+                    <h2>
+                      <Link to={LOGIN_ROUTE}>Login</Link> or{" "}
+                      <Link to={REGISTER_ROUTE}>Register</Link> for an account to start shoping.
+                    </h2>
+                  </div>
+
+                </div>
+
+              )
+              }
+              {/* end of product info div above */}
             </div>
           )
         )}

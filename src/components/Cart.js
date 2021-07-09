@@ -38,9 +38,12 @@ const Cart = ({ currentUserId, currentUserGuest }) => {
     }
   };
   const retrieveOrderId = async () => {
+    console.log("click")
     addOrder(cartLineTotal, orderStatus)
       .then(({ id }) => {
+        console.log("click 2")
         setOrderId(id);
+
       })
       .catch((error) => {
         throw error;
@@ -55,7 +58,9 @@ const Cart = ({ currentUserId, currentUserGuest }) => {
   }, []);
 
   const createOrder = async () => {
+
     await retrieveOrderId();
+    // console.log("click")
     Promise.all(
       myCartItems.map((cartItem) => {
         return addOrderIdToCartItems(cartItem.id, orderId);
