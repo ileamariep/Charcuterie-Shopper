@@ -18,7 +18,6 @@ const Cart = ({ currentUserId, currentUserGuest }) => {
   const [orderStatus, setOrderStatus] = useState("Processing");
   const [orderId, setOrderId] = useState();
 
-
   const cartLineTotal = myCartItems.reduce(
     (total, { price = 0, quantity = 0 }) => (total += quantity * price),
     0
@@ -116,7 +115,6 @@ const Cart = ({ currentUserId, currentUserGuest }) => {
             </div>
 
             <div className="item-price-total">
-
               <p>${price * quantity}</p>
             </div>
 
@@ -137,7 +135,14 @@ const Cart = ({ currentUserId, currentUserGuest }) => {
           <h2>Order Total: ${cartLineTotal}</h2>
         </div>
 
-        <Button className="checkout" onClick={async () => await createOrder()}>
+        <Button
+          style={{
+            color: "black",
+            backgroundColor: "rgb(243, 113, 113)",
+          }}
+          className="checkout"
+          onClick={() => createOrder()}
+        >
           Checkout
         </Button>
       </div>

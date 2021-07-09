@@ -26,7 +26,7 @@ const AdminOrdersEdit = ({
                 <TableCell align="left">
                   <div key={item.name}>Item Name:{item.name}</div>
                   <div key={item.quantity}>Item Quantity:{item.quantity}</div>
-                  <div key={item.price}>Item Price:{item.price}</div>
+                  <div key={item.price}>Item Price:${item.price}</div>
                 </TableCell>
               </li>
             );
@@ -50,7 +50,7 @@ const AdminOrdersEdit = ({
           </TableCell>
           <TableCell align="center">
             Order Total
-            <div> ${allGrabbedOrders.total_price}</div>
+            <div> ${allGrabbedOrders.totalPrice}</div>
           </TableCell>
           <TableCell align="center">
             Date Ordered
