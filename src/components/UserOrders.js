@@ -18,7 +18,7 @@ const UserOrders = ({ currentUserId, setOrderHistory, orderHistory }) => {
       <>
         {cartItems.map((item) => {
           return (
-            <div className="single-item-container" key={item.id}>
+            <div className="single-item-container-user" key={item.id}>
               <div className="item-name-container with-line">
                 <div className="single-item-header" key={item.name}>
                   Item Name
@@ -52,7 +52,7 @@ const UserOrders = ({ currentUserId, setOrderHistory, orderHistory }) => {
       {/* <TableRow> */}
       {orderHistory.map((orderItem) => {
         return (
-          <div id="order-history-container">
+          <div id="order-history-container-users">
             <div key={orderItem.id}>
               <div id="order-users-container" key={orderItem.id}>
                 {/* <TableCell align="center"> */}
