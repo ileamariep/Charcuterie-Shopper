@@ -9,7 +9,6 @@ export async function getUsers() {
     throw error;
   }
 }
-
 export async function getGuestUser(zip) {
   try {
     const { data } = await axios.post(`/api/users/guest/${zip}`);
