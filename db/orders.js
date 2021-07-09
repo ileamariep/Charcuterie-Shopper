@@ -11,7 +11,6 @@ async function createOrder({ total_price, status }) {
       `,
       [total_price, status]
     );
-    console.log(order, "!!!!!!!!!!!!!!!!!!!!!!!");
     return order;
   } catch (error) {
     throw error;
@@ -20,8 +19,9 @@ async function createOrder({ total_price, status }) {
 
 async function getAllOrders() {
   try {
+    console.log('I am inside of get all orders')
     const { rows: orders } = await client.query(`
-    SELECT DISTINCT
+    SELECT 
     cart_items."usersId",
     orders.id,
     orders.total_price,
@@ -74,23 +74,7 @@ async function getOrderById(orderId) {
     throw error;
   }
 }
-// async function getCartByUser(usersId) {
-//   try {
-//     const { rows: cartItems } = await client.query(
-//       `
-//       SELECT *
-//         FROM ingredients
-//         JOIN cart_items
-//         ON ingredients.id=cart_items."ingredientId"
-//         WHERE "usersId"=$1
-//         `,
-//       [usersId]
-//     );
-//     return cartItems
-//   } catch (error) {
-//     throw error;
-//   }
-// }
+
 async function getOrderByUser(usersId) {
   try {
     const { rows: order } = await client.query(
@@ -113,25 +97,26 @@ async function getOrderByUser(usersId) {
   }
 }
 
-async function orderByStatus(status) {
+async function getOrderByStatus(status) {
   try {
-
-    const { rows: orders } = await client.query(
+    const { rows: order } = await client.query(
       `
       SELECT DISTINCT
-      orders.id,
-      orders.total_price,
-      orders.date_ordered,
-      orders.status
-     FROM orders
-     JOIN cart_items
-     ON cart_items."orderId"=orders.id
-     WHERE orders.status=$1;
+          cart_items."usersId",
+          orders.id,
+          orders.total_price,
+          orders.date_ordered,
+          orders.status
+         FROM cart_items
+         JOIN orders
+         ON cart_items."orderId"=orders.id
+         WHERE status LIKE $1
     `,
-      [status]
+      [`%${status}%`]
     );
-    console.log(orders)
-    return orders
+    console.log(order, 'this is the order with status ')
+    console.log(order)
+    return order
   } catch (error) {
     throw error;
   }
@@ -220,5 +205,5 @@ module.exports = {
   getOrderByUser,
   getOrderById,
   getAllOrdersByOrderId,
-  orderByStatus
+  getOrderByStatus,
 };

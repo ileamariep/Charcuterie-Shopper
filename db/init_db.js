@@ -67,7 +67,7 @@ async function buildTables() {
             id SERIAL PRIMARY KEY,
             date_ordered varchar(14) default to_char(CURRENT_DATE, 'yyyy / mm / dd'),
             total_price INTEGER,
-            status text
+            status varchar(50)
           );
         CREATE TABLE cart_items(
           id SERIAL PRIMARY KEY,

@@ -1,7 +1,6 @@
 const { client } = require("./client");
 async function createCartItem({ quantity, ingredientId, usersId }) {
   try {
-    console.log(quantity, ingredientId, usersId, "%%%%%%%%%%%%%%%%%%%");
     const {
       rows: [cart_item],
     } = await client.query(
@@ -118,7 +117,6 @@ async function updateCartItemWithOrderId({ cartId, orderId }) {
           `,
       [orderId, cartId]
     );
-    console.log(cartItems);
     return cartItems;
   } catch (error) {
     throw error;
@@ -137,7 +135,6 @@ async function destroyCartItems(id) {
   `,
       [id]
     );
-    console.log(cartItem, "this is the deleted cart Item");
     return cartItem;
   } catch (err) {
     throw err;

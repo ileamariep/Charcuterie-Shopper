@@ -6,7 +6,7 @@ const {
   getOrderByUser,
   getCartItemsByOrderId,
   updateOrderStatus,
-  ordersByStatus,
+  getOrderByStatus
 } = require("../db");
 const { requireUser } = require("./utils");
 const ordersRouter = express.Router();
@@ -14,7 +14,7 @@ const ordersRouter = express.Router();
 ordersRouter.get("/", async (req, res, next) => {
   try {
     const orderHistory = [];
-    const orders = await getAllOrders();
+    const orders = req.query.status ? await getOrderByStatus(req.query.status) : await getAllOrders();
     orders.forEach((order) => {
       const item = {
         id: order.id,
@@ -117,44 +117,6 @@ ordersRouter.delete("/:orderId", async (req, res, next) => {
   }
 });
 
-ordersRouter.get("/:status", async (req, res, next) => {
-  // read the status from the params
 
-  const { status } = req.params;
-
-  try {
-    const orderHistory = [];
-    const orders = await ordersByStatus(status);
-    orders.forEach((order) => {
-      const item = {
-        id: order.id,
-        totalPrice: order.total_price,
-        date: order.date_ordered,
-        status: status,
-        items: [],
-      };
-      orderHistory.push(item);
-    });
-    await Promise.all(
-      orderHistory.map(async (orderItem) => {
-        return getCartItemsByOrderId(orderItem.id).then((cartItems) => {
-          cartItems.forEach((cartItem) => {
-            const newCartItem = {
-              id: cartItem.id,
-              name: cartItem.name,
-              decription: cartItem.description,
-              quantity: cartItem.quantity,
-              price: cartItem.price,
-            };
-            orderItem.items.push(newCartItem);
-          });
-        });
-      })
-    );
-    res.send(orderHistory);
-  } catch (error) {
-    next(error);
-  }
-});
 
 module.exports = ordersRouter;
