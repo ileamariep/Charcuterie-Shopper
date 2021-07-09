@@ -58,6 +58,6 @@ main {
 .btn {
   max-width: 160px;
   max-height: 38px;
-  min-width: 159px;
+  min-width: 100px;
   min-height: 39px;
 }

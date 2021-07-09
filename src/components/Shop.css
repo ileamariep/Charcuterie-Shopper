@@ -159,3 +159,10 @@ option {
 .view-button {
   grid-row: 2 / 3;
 }
+
+.home-info-right-shop {
+  background-color: white;
+}
+.log-or-reg-shop {
+  padding: 50px;
+}
