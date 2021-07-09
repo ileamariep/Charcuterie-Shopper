@@ -1,7 +1,7 @@
 import "./App.css";
 import React, { useEffect, useState } from "react";
 import { Header, Pages } from "./components";
-import { myAccountFetch, getUsers } from "./api/users";
+import { myAccountFetch } from "./api/users";
 import { allIngredients } from "./api/ingredients";
 
 const App = () => {
@@ -9,7 +9,6 @@ const App = () => {
   const [isAdmin, setIsAdmin] = useState(null);
   const [currentUserId, setCurrentUserId] = useState();
   const [currentUserGuest, setCurrentUserGuest] = useState();
-  // const [myAccountData, setMyAccountData] = useState([]);
   const [accountUsername, setAccountUsername] = useState("");
   const [accountEmail, setAccountEmail] = useState("");
   const [accountAddress, setAccountAddress] = useState("");
@@ -40,7 +39,6 @@ const App = () => {
         setIsAdmin(user.isAdmin);
         setCurrentUserId(user.id);
         setCurrentUserGuest(!user.isAdmin && !user.isUser);
-        // getGuestUser()
         setAccountUsername(user.username);
         setAccountEmail(user.email);
         setAccountAddress(user.address);
@@ -53,15 +51,10 @@ const App = () => {
       });
   };
 
-
-
-
-
   useEffect(() => {
     const fetchProducts = async () => {
       await retrieveIngredients();
       await retrieveUser();
-
     };
     fetchProducts();
   }, []);

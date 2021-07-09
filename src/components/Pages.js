@@ -2,28 +2,25 @@ import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import "./pages.css";
 import {
-  SHOP_ROUTE,
-  LOGIN_ROUTE,
-  REGISTER_ROUTE,
-  MYACCOUNT_ROUTE,
-  CART_ROUTE,
   ADMIN_ROUTE,
-  HOME_ROUTE,
-  THANKYOU_ROUTE,
   ADMIN_USERS_ROUTE,
+  CART_ROUTE,
+  HOME_ROUTE,
+  LOGIN_ROUTE,
+  MYACCOUNT_ROUTE,
+  REGISTER_ROUTE,
+  SHOP_ROUTE,
+  THANKYOU_ROUTE,
 } from "../constants";
 import Admin from "./Admin";
+import AdminUsers from "./AdminUsers";
 import Cart from "./Cart";
+import Home from "./Home";
+import Login from "./Login";
 import MyAccount from "./MyAccount";
 import Register from "./Register";
 import Shop from "./Shop";
-import Login from "./Login";
-import Home from "./Home";
-// import UserOrders from "./UserOrders";
 import ThankYou from "./ThankYou";
-import AdminUsers from "./AdminUsers";
-
-// import { getSomething } from "../api";
 
 const Pages = (props) => {
   const {
@@ -61,7 +58,6 @@ const Pages = (props) => {
     showCartButton,
     setCartButton,
     setErrorMessage,
-    errorMessage,
   } = props;
 
   return (
@@ -115,12 +111,6 @@ const Pages = (props) => {
               setOrderHistory={setOrderHistory}
             />
           )}
-          {/* <UserOrders
-            currentUserId={currentUserId}
-            setCurrentUserId={setCurrentUserId}
-            orderHistory={orderHistory}
-            setOrderHistory={setOrderHistory}
-          /> */}
         </Route>
         <Route path={ADMIN_ROUTE}>
           {isAdmin ? (
@@ -162,7 +152,6 @@ const Pages = (props) => {
         <Route path={THANKYOU_ROUTE}>
           <ThankYou />
         </Route>
-
       </Switch>
     </div>
   );

@@ -3,7 +3,6 @@ const usersRouter = express.Router();
 const {
   createUser,
   getAllUsers,
-  // getUserByEmail,
   getUserById,
   getUserByUsername,
   updateUser,
@@ -75,8 +74,6 @@ usersRouter.post("/login", async (req, res, next) => {
   }
   try {
     const user = await getUserByUsername(username);
-    console.log(user, "this is the user data");
-
     const isPasswordMatch = await bcrypt.compare(password, user.password);
 
     if (isPasswordMatch) {
@@ -189,16 +186,6 @@ usersRouter.get("/:userId/users", async (req, res, next) => {
     next(error);
   }
 });
-
-// usersRouter.get("/", requireAdmin, async (req, res) => {
-//   const users = await getAllUsers();
-//   if (req.role !== "isAdmin") {
-//     return res.status(403).send("Unauthorized");
-//   }
-//   res.send({
-//     users,
-//   });
-// });
 
 usersRouter.post(`/guest/:zip`, async (req, res, next) => {
   const { zip } = req.params;

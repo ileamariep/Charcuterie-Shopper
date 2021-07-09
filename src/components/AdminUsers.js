@@ -2,15 +2,11 @@ import React, { useEffect, useState } from "react";
 import { TableRow, TableCell, TextField, Button } from "@material-ui/core";
 import { Delete as DeleteIcon } from "@material-ui/icons";
 import { getUsers, deleteUser, promoteUserToAdmin } from "../api/users";
-import { ADMIN_USERS_ROUTE, SHOP_ROUTE } from "../constants";
-import { Redirect } from "react-router-dom";
 import "./Admin.css";
 import "./AdminUsers.css";
 
 const AdminUsers = () => {
   const [usersAccountData, setUsersAccountData] = useState([]);
-  // const [myAccountData, setMyAccountData] = useState("");
-  // const [currentUser, setCurrentUser] = useState();
 
   const [editMode, setEditMode] = useState(false);
   const [accountUsername, setAccountUsername] = useState("");
@@ -23,7 +19,6 @@ const AdminUsers = () => {
       try {
         let myUsers = await getUsers(myToken);
         const userArray = [myUsers].flat();
-        // const account = await myOrdersFetch(myUsername, myToken);
         setUsersAccountData(userArray);
       } catch (error) {
         console.error(error);
@@ -41,7 +36,6 @@ const AdminUsers = () => {
   const onDelete = async (id) => {
     try {
       await deleteUser(id, myToken);
-      // window.location.href = `${ADMIN_USERS_ROUTE}`;
       getMyUserData();
     } catch (error) {
       console.log("Error deleting user", error);
@@ -52,7 +46,6 @@ const AdminUsers = () => {
     try {
       await promoteUserToAdmin(id, true, myToken);
       getMyUserData();
-      // window.location.href = `${ADMIN_USERS_ROUTE}`;
     } catch (error) {
       console.log("Error deleting user", error);
     }

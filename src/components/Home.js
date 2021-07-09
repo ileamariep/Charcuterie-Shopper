@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import "./Home.css";
 import { Link } from "react-router-dom";
 import { LOGIN_ROUTE, REGISTER_ROUTE } from "../constants";
 import Button from "react-bootstrap/Button";
 import { getGuestUser } from "../api/users";
 import { SHOP_ROUTE } from "../constants";
 import { useHistory } from "react-router-dom";
+import "./Home.css";
 
 const Home = ({ setCurrentUserId, setCurrentUserGuest }) => {
   const [guestZip, setGuestZip] = useState("");
@@ -15,7 +15,6 @@ const Home = ({ setCurrentUserId, setCurrentUserGuest }) => {
     const zipTostring = guestZip.toString();
     const guestUser = await getGuestUser(zipTostring);
     setCurrentUserId(guestUser.id);
-    console.log(guestUser.id);
     setCurrentUserGuest(true);
     history.push(`${SHOP_ROUTE}`);
   };
