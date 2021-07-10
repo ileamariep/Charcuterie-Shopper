@@ -30,9 +30,7 @@ export async function addCartItem(quantity, ingredientId, usersId) {
 
 export async function deleteCartItem(id) {
   try {
-    console.log(id);
     const { data } = await axios.delete(`/api/cartItems/${id}`);
-    console.log(data, "THIS IS DATA");
     return data;
   } catch (error) {
     throw error;
@@ -47,19 +45,6 @@ export async function getUsersCurrentCartItems(usersId) {
     throw error;
   }
 }
-
-// export async function getUsersCurrentCartItems(usersId) {
-//   try {
-//     const { data } = await axios.get(`/api/cartItems/${usersId}`);
-//     console.log(
-//       data,
-//       "THIS IS WHAT THE BACKEND IS RETURNING FRO CART ITEMS BY USERS"
-//     );
-//     return data;
-//   } catch (error) {
-//     throw error;
-//   }
-// }
 
 export async function addOrderIdToCartItems(id, orderId) {
   try {

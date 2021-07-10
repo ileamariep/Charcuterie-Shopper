@@ -31,7 +31,6 @@ const AdminProducts = ({
     setShowAddForm(true);
   };
 
-  console.log(grabbedIngredients);
   return (
     <>
       {showAddForm ? (

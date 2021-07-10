@@ -6,7 +6,7 @@ const {
   getOrderByUser,
   getCartItemsByOrderId,
   updateStatusOfOrder,
-  getOrderByStatus
+  getOrderByStatus,
 } = require("../db");
 
 const ordersRouter = express.Router();
@@ -14,7 +14,9 @@ const ordersRouter = express.Router();
 ordersRouter.get("/", async (req, res, next) => {
   try {
     const orderHistory = [];
-    const orders = req.query.status ? await getOrderByStatus(req.query.status) : await getAllOrders();
+    const orders = req.query.status
+      ? await getOrderByStatus(req.query.status)
+      : await getAllOrders();
     orders.forEach((order) => {
       const item = {
         id: order.id,
@@ -97,13 +99,10 @@ ordersRouter.post("/", async (req, res, next) => {
 });
 
 ordersRouter.patch("/:orderId/status", async (req, res, next) => {
-  console.log('%%%%%%%%%%%%%%%%%%%%%%%%' )
   const { orderId } = req.params;
-  const { status } = req.body
+  const { status } = req.body;
   try {
-    console.log("BEFORE THE STATUS")
     const orderStatusUpdate = await updateStatusOfOrder(orderId, status);
-    console.log(orderStatusUpdate, 'THIS IS HITTING THE ROUTES')
     res.send(orderStatusUpdate);
   } catch (error) {
     next(error);
@@ -119,7 +118,5 @@ ordersRouter.delete("/:orderId", async (req, res, next) => {
     next(error);
   }
 });
-
-
 
 module.exports = ordersRouter;

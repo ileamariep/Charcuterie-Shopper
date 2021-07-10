@@ -1,81 +1,81 @@
 import axios from "axios";
-import {
-    ADMIN_PRODUCTS_ROUTE
-} from "../constants";
+import { ADMIN_PRODUCTS_ROUTE } from "../constants";
 export async function allIngredients() {
-    try {
-        const { data } = await axios.get("/api/ingredients");
-        return data;
-    } catch (error) {
-        throw error;
-    }
+  try {
+    const { data } = await axios.get("/api/ingredients");
+    return data;
+  } catch (error) {
+    throw error;
+  }
 }
 
-
 export async function updateCount(id, qty) {
-    try {
-        const { data } = await axios.patch(`/api/ingredients/${id}/${qty}`);
-        console.log(data);
-        return data;
-    } catch (error) {
-        throw error;
-    }
+  try {
+    const { data } = await axios.patch(`/api/ingredients/${id}/${qty}`);
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
 }
 
 export async function getSingleIngredient(ingredientId) {
-    try {
-        const response = await fetch(`/api/ingredients/${ingredientId}/product`)
+  try {
+    const response = await fetch(`/api/ingredients/${ingredientId}/product`);
 
-        const data = await response.json();
-        console.log(data, 'the ingredient object in API')
+    const data = await response.json();
 
-
-        return data
-
-    } catch (error) {
-        throw error;
-    }
+    return data;
+  } catch (error) {
+    throw error;
+  }
 }
 
 export async function deleteIngredient(id) {
-    try {
-        const data = await axios.delete(`/api/ingredients/${id}`, {
-            header: { "Content-Type": "application/json" },
-        });
-        return data;
-    } catch (error) {
-        throw error;
-    }
+  try {
+    const data = await axios.delete(`/api/ingredients/${id}`, {
+      header: { "Content-Type": "application/json" },
+    });
+    return data;
+  } catch (error) {
+    throw error;
+  }
 }
 
-export async function addAnIngredient(name, description, price, category, stockQty, img, imgAlt) {
-    try {
-        const { data } = await axios.post("/api/ingredients", {
-            name,
-            description,
-            price,
-            category,
-            stockQty,
-            img,
-            imgAlt
-        });
+export async function addAnIngredient(
+  name,
+  description,
+  price,
+  category,
+  stockQty,
+  img,
+  imgAlt
+) {
+  try {
+    const { data } = await axios.post("/api/ingredients", {
+      name,
+      description,
+      price,
+      category,
+      stockQty,
+      img,
+      imgAlt,
+    });
 
-        window.location.href = `${ADMIN_PRODUCTS_ROUTE}`;
-        return data;
-    } catch (error) {
-        throw error;
-    }
+    window.location.href = `${ADMIN_PRODUCTS_ROUTE}`;
+    return data;
+  } catch (error) {
+    throw error;
+  }
 }
 
 export async function selectCategory(categoryName) {
-    try {
+  try {
+    const response = await fetch(`/api/ingredients/${categoryName}`);
+    const data = await response.json();
 
-        const response = await fetch(`/api/ingredients/${categoryName}`);
-        const data = await response.json();
-        console.log(data, "the user in API");
-        return data;
-
-    } catch (error) {
-        throw error;
-    }
+    return data;
+  } catch (error) {
+    throw error;
+  }
 }

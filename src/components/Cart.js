@@ -34,7 +34,6 @@ const Cart = ({ currentUserId, currentUserGuest }) => {
       await getUsersCurrentCartItems(currentUserId)
         .then((cartItems) => {
           setMyCartItems(cartItems);
-          console.log(cartItems);
         })
         .catch((error) => {
           throw error;
@@ -68,7 +67,6 @@ const Cart = ({ currentUserId, currentUserGuest }) => {
   };
 
   const deleteSelectedCartItem = async (id) => {
-    console.log(id, "this is cartItems id");
     await deleteCartItem(id);
     await retrieveCartItems();
   };

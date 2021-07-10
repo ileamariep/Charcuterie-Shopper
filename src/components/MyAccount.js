@@ -21,56 +21,64 @@ const MyAccount = ({
   setAccountZip,
   currentUserId,
   setCurrentUserId,
-  resetUser,
   orderHistory,
   setOrderHistory,
 }) => {
   const [myAccountData, setMyAccountData] = useState("");
   const [editMode, setEditMode] = useState(false);
 
-  useEffect(() => {
+  const getMyData = async () => {
     const myToken = JSON.parse(localStorage.getItem("token"));
     if (myToken) {
-      const fetchData = async () => {
-        try {
-          let myUsername = await myAccountFetch(myToken);
-          setMyAccountData(myUsername);
-        } catch (error) {
-          console.error(error);
-        }
-      };
-      fetchData();
+      try {
+        let myUsername = await myAccountFetch(myToken);
+        setMyAccountData(myUsername);
+      } catch (error) {
+        console.error(error);
+      }
     }
+  };
+
+  useEffect(() => {
+    const fetchMe = async () => {
+      await getMyData();
+    };
+    fetchMe();
   }, []);
 
-  const onEdit = () => {
-    setEditMode(true);
+  const onEdit = async () => {
+    try {
+      await myAccountFetch();
+      setEditMode(true);
+    } catch (error) {
+      console.log(error, "can't edit my account");
+    }
   };
 
   const onSave = async (id) => {
     setEditMode(false);
-    try {
-      await fetch(`/api/users/user/${id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${myToken}`,
-        },
-        body: JSON.stringify({
-          username: accountUsername,
-          email: accountEmail,
-          address: accountAddress,
-          city: accountCity,
-          state: accountState,
-          zip: accountZip,
-        }),
-      });
 
-      window.location.reload();
-      resetUser();
-    } catch (err) {
-      console.log("Error updating user", err);
-    }
+    await fetch(`/api/users/user/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${myToken}`,
+      },
+      body: JSON.stringify({
+        username: accountUsername,
+        email: accountEmail,
+        address: accountAddress,
+        city: accountCity,
+        state: accountState,
+        zip: accountZip,
+      }),
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result);
+        getMyData();
+      })
+      .catch(console.error);
   };
 
   return (
