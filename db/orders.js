@@ -136,13 +136,14 @@ async function getOrderByStatus(status) {
 //         JOIN orders
 //         ON orders.id=cart_items."orderId"
 //         WHERE cart_items."userId"=$1;
-const updateOrderStatus = async (orderId, status) => {
+const updateStatusOfOrder = async (orderId, status) => {
+  console.log('WE ARE INSIDE OF UPDATE STATUS METHOD')
   try {
-    const { rows: orders } = await client.query(
+    const { rows: [orders] } = await client.query(
       `
       UPDATE orders
-      SET status=$1
-      WHERE id=$2
+      SET status=$2
+      WHERE id=$1
       RETURNING *;
       `,
       [orderId, status]
@@ -185,7 +186,7 @@ module.exports = {
   client,
   createOrder,
   getAllOrders,
-  updateOrderStatus,
+  updateStatusOfOrder,
   destroyOrder,
   getOrderByUser,
   getOrderById,

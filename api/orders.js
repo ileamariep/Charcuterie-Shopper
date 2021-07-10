@@ -5,7 +5,7 @@ const {
   getAllOrders,
   getOrderByUser,
   getCartItemsByOrderId,
-  updateOrderStatus,
+  updateStatusOfOrder,
   getOrderByStatus
 } = require("../db");
 
@@ -96,11 +96,13 @@ ordersRouter.post("/", async (req, res, next) => {
   }
 });
 
-ordersRouter.patch("/:orderId/:status", async (req, res, next) => {
-  const { orderId, status } = req.params;
-
+ordersRouter.patch("/:orderId/status", async (req, res, next) => {
+  console.log('%%%%%%%%%%%%%%%%%%%%%%%%' )
+  const { orderId } = req.params;
+  const { status } = req.body
   try {
-    const orderStatusUpdate = await updateOrderStatus(orderId, status);
+    console.log("BEFORE THE STATUS")
+    const orderStatusUpdate = await updateStatusOfOrder(orderId, status);
     console.log(orderStatusUpdate, 'THIS IS HITTING THE ROUTES')
     res.send(orderStatusUpdate);
   } catch (error) {

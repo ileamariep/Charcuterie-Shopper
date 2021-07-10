@@ -35,9 +35,10 @@ export async function getSingleOrder(orderId) {
 
 export async function updateOrderStatus(id, status) {
   try {
-    const { data } = await axios.patch(`api/orders/${id}/status`, {
-      status,
+    const { data } = await axios.patch(`/api/orders/${id}/status`, {
+      status: status,
     });
+    console.log(data, 'this is data')
     return data;
   } catch (error) {
     throw error;

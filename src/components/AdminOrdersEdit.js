@@ -92,7 +92,11 @@ const AdminOrdersEdit = ({
         </div>
         
       </div>
-      <form onSubmit={(e) => {e.preventDefault(); updateOrderStatus(allGrabbedOrders.id, status); console.log(status, "Selected status"); console.log(allGrabbedOrders.id, "Current Order")}}>
+      <form onSubmit={(e) =>{
+        e.preventDefault(); 
+        updateOrderStatus(allGrabbedOrders.id, status); 
+        console.log(status, "Selected status"); 
+        console.log(allGrabbedOrders.id, "Current Order")}}>
           <select value={status} onChange={handleChange}>
             <option value="header" defaultValue>
               Update Status
