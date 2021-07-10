@@ -9,6 +9,7 @@ import {
   updateCartItemsQuantityMinus,
   updateCartItemsQuantityPlus,
 } from "../api/cartItem";
+import { THANKYOU_ROUTE } from "../constants";
 import ControlPointIcon from "@material-ui/icons/ControlPoint";
 import RemoveCircleOutlineIcon from "@material-ui/icons/RemoveCircleOutline";
 import { addOrder } from "../api/orders";
@@ -16,7 +17,10 @@ import { addOrder } from "../api/orders";
 const Cart = ({ currentUserId, currentUserGuest }) => {
   const [myCartItems, setMyCartItems] = useState([]);
   const [orderStatus, setOrderStatus] = useState("Created");
-  const [orderId, setOrderId] = useState();
+  let orderId;
+  const setOrderId = (id) => {
+    orderId = id;
+  };
 
   const cartLineTotal = myCartItems.reduce(
     (total, { price = 0, quantity = 0 }) => (total += quantity * price),
@@ -38,16 +42,12 @@ const Cart = ({ currentUserId, currentUserGuest }) => {
     }
   };
   const retrieveOrderId = async () => {
-    console.log("click")
-    addOrder(cartLineTotal, orderStatus)
-      .then(({ id }) => {
-        console.log("click 2")
-        setOrderId(id);
-
-      })
-      .catch((error) => {
-        throw error;
-      });
+    try {
+      const order = await addOrder(cartLineTotal, orderStatus);
+      setOrderId(order.id);
+    } catch (error) {
+      throw error;
+    }
   };
 
   useEffect(() => {
@@ -58,20 +58,19 @@ const Cart = ({ currentUserId, currentUserGuest }) => {
   }, []);
 
   const createOrder = async () => {
-
     await retrieveOrderId();
-    // console.log("click")
-    Promise.all(
+    await Promise.all(
       myCartItems.map((cartItem) => {
         return addOrderIdToCartItems(cartItem.id, orderId);
       })
     );
+    window.location.href = `${THANKYOU_ROUTE}`;
   };
 
   const deleteSelectedCartItem = async (id) => {
     console.log(id, "this is cartItems id");
     await deleteCartItem(id);
-    retrieveCartItems();
+    await retrieveCartItems();
   };
 
   return (

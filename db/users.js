@@ -82,7 +82,6 @@ async function getUserByEmail(email) {
       `,
       [email]
     );
-    console.log(user, "this is user email");
 
     return user;
   } catch (error) {

@@ -17,8 +17,6 @@ const AdminOrdersEdit = ({
   //     setEditOnMode(true)
   // }
 
- 
-
   const handleChange = async (event) => {
     setStatus(event.target.value);
     console.log(event.target.value, "this is the event");

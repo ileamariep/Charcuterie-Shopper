@@ -1,8 +1,5 @@
 import React from "react";
 import "./ThankYou.css";
-// import Navigation from "./Navigation";
-// import { storeCurrentUser, clearCurrentUser } from "../auth";
-// import { getSomething } from "../api";
 
 const ThankYou = () => {
   return (
