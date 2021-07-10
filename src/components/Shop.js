@@ -79,9 +79,10 @@ const Shop = ({
                 Select Category
               </option>
               <option value="All">All</option>
-              <option value="pets">Pets</option>
-              <option value="general">General</option>
-              <option value="beauty">Weightloss</option>
+              <option value="Cold">Cold/Flu</option>
+              <option value="General">General Health</option>
+              <option value="Pets">Pets</option>
+              <option value="Romance">Romance</option>
             </select>
             <input
               type="submit"
