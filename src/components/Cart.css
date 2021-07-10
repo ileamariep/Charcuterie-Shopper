@@ -6,7 +6,10 @@
 .cart-card-container {
   display: grid;
   grid-row: 2 / 3;
-  margin: 10px;
+  margin-right: 50px;
+  margin-left: 50px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .cart-cards {
@@ -29,8 +32,9 @@
   padding-top: 5px;
   width: 100%;
   padding-bottom: 20px;
-  background-color: black;
+  background-color: rgb(53, 50, 50);
   color: white;
+  border-radius: 7px;
 }
 
 .cart-header {
