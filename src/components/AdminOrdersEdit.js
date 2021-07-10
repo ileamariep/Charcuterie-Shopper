@@ -8,6 +8,7 @@ const AdminOrdersEdit = ({
   setAllOrders,
   theOrderStatus,
   settheOrderStatus,
+  resetOrders,
 }) => {
   const [status, setStatus] = useState("");
   // const [editOnMode, setEditOnMode] = useState(false)
@@ -21,6 +22,23 @@ const AdminOrdersEdit = ({
     setStatus(event.target.value);
     console.log(event.target.value, "this is the event");
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      if (status === 'header') {
+        return
+      } else {
+        await updateOrderStatus(allGrabbedOrders.id, status)
+        resetOrders()
+
+      }
+    } catch (error) {
+      console.error(error);
+    }
+
+  }
 
   <div className="order-status-container">
     <div className="dark-background">Order Status</div>
@@ -90,13 +108,11 @@ const AdminOrdersEdit = ({
             {allGrabbedOrders.status}
           </div>
         </div>
-        
+
       </div>
-      <form onSubmit={(e) =>{
-        e.preventDefault(); 
-        updateOrderStatus(allGrabbedOrders.id, status); 
-        console.log(status, "Selected status"); 
-        console.log(allGrabbedOrders.id, "Current Order")}}>
+
+      <div className='status-update-container'>
+        <form onSubmit={handleSubmit}>
           <select value={status} onChange={handleChange}>
             <option value="header" defaultValue>
               Update Status
@@ -109,10 +125,13 @@ const AdminOrdersEdit = ({
           <input
             type="submit"
             value="Update"
-            className="category-submit"
+            className="status-submit"
             style={{ textAlign: "center" }}
           />
         </form>
+      </div>
+
+
       <div className="items-ordered-container">
         <div className="items-ordered-title">Items Ordered</div>
         <div className="items-ordered-list">

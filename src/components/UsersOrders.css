@@ -9,11 +9,15 @@
   background-color: rgb(215, 213, 213);
   font-size: 19px;
 }
-#order-users-container {
+
+.order-users-container {
   grid-row: 1/2;
-  grid-column: 1/ 4;
+  grid-column: 1 / 4;
+}
+
+.order-user-headers {
   display: grid;
-  grid-template: 1fr / auto auto auto auto;
+  grid-template: 1fr / auto auto auto;
 }
 
 .dark-background {

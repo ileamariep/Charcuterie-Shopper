@@ -55,3 +55,22 @@
 .with-line {
   border-bottom: 1px solid rgb(186, 185, 185);
 }
+
+.status-update-container {
+  color: white;
+}
+
+.status-update-container select {
+  color: rgb(97, 97, 97);
+  background-color: rgb(215, 213, 213);
+  border: none;
+}
+.status-update-container option {
+  color: white;
+}
+.status-submit {
+  color: rgb(97, 97, 97);
+  background-color: rgb(215, 213, 213);
+  text-align: center;
+  padding-right: 15px;
+}

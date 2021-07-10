@@ -47,9 +47,10 @@ const UserOrders = ({ currentUserId, setOrderHistory, orderHistory }) => {
     <>
       {orderHistory.map((orderItem) => {
         return (
-          <div id="order-history-container-users">
-            <div key={orderItem.id}>
-              <div id="order-users-container" key={orderItem.id}>
+          <div key={orderItem.id} id="order-history-container-users">
+
+            <div id="order-users-container" key={orderItem.id}>
+              <div className='order-user-headers' >
                 <div className="order-id-container">
                   <div className="dark-background">Order ID</div>
                   <div>{orderItem.id}</div>
@@ -62,18 +63,19 @@ const UserOrders = ({ currentUserId, setOrderHistory, orderHistory }) => {
                   <div className="dark-background"> Date Ordered</div>
                   <div>{orderItem.date}</div>
                 </div>
-                <div>
-                  <div className="items-ordered-container-user">
-                    <div className="items-ordered-title-user">
-                      Items Ordered
-                    </div>
-                    <div className="items-ordered-list-user">
-                      {getItemContainer(orderItem.items)}
-                    </div>
-                  </div>
+              </div>
+
+              <div className="items-ordered-container-user">
+                <div className="items-ordered-title-user">
+                  Items Ordered
+                </div>
+                <div className="items-ordered-list-user">
+                  {getItemContainer(orderItem.items)}
                 </div>
               </div>
             </div>
+
+
           </div>
         );
       })}
