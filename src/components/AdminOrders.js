@@ -25,7 +25,7 @@ const AdminOrders = ({ allGrabbedOrders,
 
     const handleChange = event => {
         settheOrderStatus(event.target.value);
-        
+
     };
 
     return (
@@ -58,6 +58,7 @@ const AdminOrders = ({ allGrabbedOrders,
                             setAllOrders={setAllOrders}
                             settheOrderStatus={settheOrderStatus}
                             theOrderStatus={theOrderStatus}
+                            resetOrders={resetOrders}
 
                         />
                     )
