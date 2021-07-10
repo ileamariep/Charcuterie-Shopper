@@ -36,7 +36,7 @@ const AdminEdit = ({
   };
 
   const handleDelete = async (id) => {
-    console.log(id, "this should be the id");
+
     await deleteIngredient(id);
     await reset();
   };

@@ -38,7 +38,7 @@ export async function updateOrderStatus(id, status) {
     const { data } = await axios.patch(`/api/orders/${id}/status`, {
       status: status,
     });
-    console.log(data, 'this is data')
+
     return data;
   } catch (error) {
     throw error;
@@ -57,8 +57,7 @@ export async function allOrders() {
 export async function fetchOrderByStatus(status) {
   try {
     const { data } = await axios.get(`/api/orders`, { params: { status } });
-    console.log(data, "this is data");
-    console.log(status, "this is status");
+
     return data;
   } catch (error) {
     throw error;

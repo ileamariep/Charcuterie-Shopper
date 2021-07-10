@@ -19,7 +19,6 @@ async function createOrder({ total_price, status }) {
 
 async function getAllOrders() {
   try {
-    console.log('I am inside of get all orders')
     const { rows: orders } = await client.query(`
     SELECT 
     cart_items."usersId",
@@ -114,32 +113,18 @@ async function getOrderByStatus(status) {
     `,
       [`%${status}%`]
     );
-    console.log(order, 'this is the order with status ')
-    console.log(order)
-    return order
+
+    return order;
   } catch (error) {
     throw error;
   }
 }
-// SELECT
-//         ingredients.name,
-//         ingredients.description,
-//         ingredients.price,
-//         ingredients.img,
-//         cart_items.id,
-//         cart_items.quantity,
-//         orders.total_price,
-//         orders.date_ordered
-//         FROM ingredients
-//         JOIN cart_items
-//         ON ingredients.id=cart_items."ingredientId"
-//         JOIN orders
-//         ON orders.id=cart_items."orderId"
-//         WHERE cart_items."userId"=$1;
+
 const updateStatusOfOrder = async (orderId, status) => {
-  console.log('WE ARE INSIDE OF UPDATE STATUS METHOD')
   try {
-    const { rows: [orders] } = await client.query(
+    const {
+      rows: [orders],
+    } = await client.query(
       `
       UPDATE orders
       SET status=$2
@@ -148,7 +133,7 @@ const updateStatusOfOrder = async (orderId, status) => {
       `,
       [orderId, status]
     );
-    console.log(orders, "THIS IS HITTING THE METHODS")
+
     return orders;
   } catch (error) {
     throw error;
@@ -178,9 +163,6 @@ const destroyOrder = async (id) => {
     throw error;
   }
 };
-
-
-
 
 module.exports = {
   client,
