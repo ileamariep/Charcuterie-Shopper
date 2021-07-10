@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { TableRow, TableCell, TextField } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 import { Create as CreateIcon, Save as SaveIcon } from "@material-ui/icons";
 import { myAccountFetch } from "../api/users";
 import UserOrders from "./UserOrders";
@@ -83,131 +83,140 @@ const MyAccount = ({
 
   return (
     <div id="user-container" align="center">
-      <h1>My Account</h1>
+      <div className='my-user-header-top'><h1>My Account</h1></div>
 
-      <div key={myAccountData.id} className="users-data">
-        <TableRow key={myAccountData.id}>
-          <TableCell component="th" scope="row"></TableCell>
-          <TableCell align="center" className="light-background">
-            Username
-            <div>
-              {editMode ? (
-                <TextField
-                  value={accountUsername}
-                  onChange={(event) => {
-                    setAccountUsername(event.target.value);
-                  }}
-                />
-              ) : (
-                myAccountData.username
-              )}
-            </div>
-          </TableCell>
-          <TableCell align="center" className="light-background">
-            Email
-            <div>
-              {editMode ? (
-                <TextField
-                  value={accountEmail}
-                  onChange={(event) => {
-                    setAccountEmail(event.target.value);
-                  }}
-                />
-              ) : (
-                myAccountData.email
-              )}
-            </div>
-          </TableCell>
+      <div key={myAccountData.id} className="users-data-continer">
 
-          <TableCell align="center" className="light-background">
-            Address
-            <div>
-              {editMode ? (
-                <TextField
-                  value={accountAddress}
-                  onChange={(event) => {
-                    setAccountAddress(event.target.value);
-                  }}
-                />
-              ) : (
-                myAccountData.address
-              )}
-            </div>
-          </TableCell>
-          <TableCell align="center" className="light-background">
-            City
-            <div>
-              {editMode ? (
-                <TextField
-                  value={accountCity}
-                  onChange={(event) => {
-                    setAccountCity(event.target.value);
-                  }}
-                />
-              ) : (
-                myAccountData.city
-              )}
-            </div>
-          </TableCell>
-          <TableCell align="center" className="light-background">
-            State
-            <div>
-              {editMode ? (
-                <TextField
-                  value={accountState}
-                  onChange={(event) => {
-                    setAccountState(event.target.value);
-                  }}
-                />
-              ) : (
-                myAccountData.state
-              )}
-            </div>
-          </TableCell>
-          <TableCell align="center" className="light-background">
-            ZIP Code
-            <div>
-              {editMode ? (
-                <TextField
-                  value={accountZip}
-                  onChange={(event) => {
-                    setAccountZip(event.target.value);
-                  }}
-                />
-              ) : (
-                myAccountData.zip
-              )}
-            </div>
-          </TableCell>
-          <TableCell align="center" className="light-background">
-            Edit
-            <div>
-              {editMode ? (
-                <SaveIcon
-                  style={{ cursor: "pointer" }}
-                  fontSize="small"
-                  onClick={() => {
-                    onSave(currentUserId);
-                  }}
-                />
-              ) : (
-                <CreateIcon
-                  style={{ cursor: "pointer" }}
-                  fontSize="small"
-                  onClick={onEdit}
-                />
-              )}
-            </div>
-          </TableCell>
-        </TableRow>
+
+        <div align="center" className="light-background my-container">
+          <div className='my-user-title'>Username</div>
+          <div className='text-field-container'>
+            {editMode ? (
+              <TextField
+                inputProps={{ min: 0, style: { textAlign: 'center' } }}
+                value={accountUsername}
+                onChange={(event) => {
+                  setAccountUsername(event.target.value);
+                }}
+              />
+            ) : (
+              myAccountData.username
+            )}
+          </div>
+        </div>
+        <div align="center" className="light-background my-container">
+          <div className='my-user-title'>Email</div>
+          <div className='text-field-container'>
+            {editMode ? (
+              <TextField
+                inputProps={{ min: 0, style: { textAlign: 'center' } }}
+                value={accountEmail}
+                onChange={(event) => {
+                  setAccountEmail(event.target.value);
+                }}
+              />
+            ) : (
+              myAccountData.email
+            )}
+          </div>
+        </div>
+
+        <div align="center" className="light-background my-container">
+          <div className='my-user-title'>Address</div>
+          <div className='text-field-container'>
+            {editMode ? (
+              <TextField
+                inputProps={{ min: 0, style: { textAlign: 'center' } }}
+                value={accountAddress}
+                onChange={(event) => {
+                  setAccountAddress(event.target.value);
+                }}
+              />
+            ) : (
+              myAccountData.address
+            )}
+          </div>
+        </div>
+        <div align="center" className="light-background my-container">
+          <div className='my-user-title'>City</div>
+          <div className='text-field-container'>
+            {editMode ? (
+              <TextField
+                inputProps={{ min: 0, style: { textAlign: 'center' } }}
+                value={accountCity}
+                onChange={(event) => {
+                  setAccountCity(event.target.value);
+                }}
+              />
+            ) : (
+              myAccountData.city
+            )}
+          </div>
+
+        </div>
+        <div align="center" className="light-background my-container">
+          <div className='my-user-title'>State</div>
+          <div className='text-field-container'>
+            {editMode ? (
+              <TextField
+                value={accountState}
+                inputProps={{ min: 0, style: { textAlign: 'center' } }}
+                onChange={(event) => {
+                  setAccountState(event.target.value);
+                }}
+              />
+            ) : (
+              myAccountData.state
+            )}
+          </div>
+        </div>
+        <div align="center" className="light-background my-container">
+          <div className='my-user-title'>Zip Code</div>
+          <div className='text-field-container'>
+            {editMode ? (
+              <TextField
+                value={accountZip}
+                inputProps={{ min: 0, style: { textAlign: 'center' } }}
+                onChange={(event) => {
+                  setAccountZip(event.target.value);
+                }}
+              />
+            ) : (
+              myAccountData.zip
+            )}
+          </div>
+        </div>
+        <div align="center" className="light-background my-container">
+          <div className='my-user-title'>Edit</div>
+          <div className='text-field-container'>
+            {editMode ? (
+              <SaveIcon
+                style={{ cursor: "pointer" }}
+                fontSize="small"
+                onClick={() => {
+                  onSave(currentUserId);
+                }}
+              />
+            ) : (
+              <CreateIcon
+                style={{ cursor: "pointer" }}
+                fontSize="small"
+                onClick={onEdit}
+              />
+            )}
+
+          </div>
+        </div>
       </div>
-
-      <UserOrders
-        currentUserId={currentUserId}
-        setCurrentUserId={setCurrentUserId}
-        orderHistory={orderHistory}
-        setOrderHistory={setOrderHistory}
-      />
+      <div className='user-order-history-container'>
+        <div className='my-user-header-bottom'><h1>My Order History</h1></div>
+        <UserOrders
+          currentUserId={currentUserId}
+          setCurrentUserId={setCurrentUserId}
+          orderHistory={orderHistory}
+          setOrderHistory={setOrderHistory}
+        />
+      </div>
     </div>
   );
 };
