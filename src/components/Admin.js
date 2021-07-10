@@ -1,7 +1,6 @@
 //https://www.pluralsight.com/guides/how-to-create-nested-tab-routes-with-react-router
 
 import React, { useState, useEffect } from "react";
-// import axios from "axios";
 import "./Admin.css";
 
 import { allOrders } from "../api/orders";
