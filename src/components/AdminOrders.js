@@ -25,7 +25,7 @@ const AdminOrders = ({ allGrabbedOrders,
 
     const handleChange = event => {
         settheOrderStatus(event.target.value);
-        console.log(event.target.value, "this is the event")
+        
     };
 
     return (
@@ -63,7 +63,6 @@ const AdminOrders = ({ allGrabbedOrders,
                     )
                 )}
             </div>
-
         </div>
     );
 };
