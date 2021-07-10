@@ -3,12 +3,8 @@ import "./Admin.css";
 import "./Shop.css";
 import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
-
 import { deleteIngredient } from "../api/ingredients";
 import { TextField } from "@material-ui/core";
-// import { deleteCartItem, getUsersCurrentCartItems } from "../api/cartItem"
-
-// import { getSomething } from "../api";
 
 const AdminEdit = ({
   grabbedIngredients: {
@@ -36,7 +32,6 @@ const AdminEdit = ({
   };
 
   const handleDelete = async (id) => {
-
     await deleteIngredient(id);
     await reset();
   };

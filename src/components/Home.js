@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { LOGIN_ROUTE, REGISTER_ROUTE } from "../constants";
-import Button from "react-bootstrap/Button";
 import { getGuestUser } from "../api/users";
 import { SHOP_ROUTE } from "../constants";
 import { useHistory } from "react-router-dom";
@@ -34,10 +33,10 @@ const Home = ({ setCurrentUserId, setCurrentUserGuest }) => {
           <div className="log-or-reg">
             <h2>
               <Link to={LOGIN_ROUTE}>Login</Link> or{" "}
-              <Link to={REGISTER_ROUTE}>Register</Link> for an account to start shoping.
+              <Link to={REGISTER_ROUTE}>Register</Link> for an account to start
+              shoping.
             </h2>
           </div>
-
         </div>
       </div>
     </div>

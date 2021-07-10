@@ -15,20 +15,17 @@
   display: flex;
   max-height: 500px;
   max-width: 336px;
-  /* box-shadow: 5px 5px 2px #ccc; */
 }
 .login-container {
   padding-top: 45px;
   padding-left: 20px;
 }
 #formBasicUsername {
-  /* display: inline-block; */
   width: 76%;
   text-align: left;
   float: right;
 }
 #formBasicPassword {
-  /* display: inline-block; */
   width: 76%;
   text-align: left;
   float: right;

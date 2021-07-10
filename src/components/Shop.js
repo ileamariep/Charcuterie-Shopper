@@ -119,7 +119,6 @@ const Shop = ({
                 )}
               </div>
               {currentUserId ? (
-
                 <div className="product-info">
                   <div className="product-title">
                     <h1 className="product-name">{name}</h1>
@@ -233,15 +232,12 @@ const Shop = ({
                   <div className="log-or-reg-shop">
                     <h2>
                       <Link to={LOGIN_ROUTE}>Login</Link> or{" "}
-                      <Link to={REGISTER_ROUTE}>Register</Link> for an account to start shoping.
+                      <Link to={REGISTER_ROUTE}>Register</Link> for an account
+                      to start shoping.
                     </h2>
                   </div>
-
                 </div>
-
-              )
-              }
-              {/* end of product info div above */}
+              )}
             </div>
           )
         )}

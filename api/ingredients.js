@@ -69,20 +69,6 @@ ingredientsRouter.patch("/ingredient/:id", async (req, res, next) => {
   }
 });
 
-// ingredientsRouter.patch("/ingredient/:ingredientId", async (req, res, next) => {
-
-//     try {
-//         const { ingredientId } = req.params.ingredientId;
-//         const { ...fields } = req.body;
-//         console.log(ingredientId, "this should be my updated id")
-//         const updatedIngredient = await updateIngredient(ingredientId, ...fields);
-
-//         res.send(updatedIngredient);
-//     } catch (error) {
-//         next(error);
-//     }
-// });
-
 ingredientsRouter.post("/", async (req, res, next) => {
   const { name, description, price, category, stockQty, img, imgAlt } =
     req.body;
