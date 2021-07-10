@@ -12,6 +12,13 @@
   justify-self: center;
 }
 
+.add-form-buttons {
+  margin-right: 5px;
+}
+.ingredient-add {
+  margin-right: 7px;
+}
+
 .form-image {
   margin-right: 20px;
 }
